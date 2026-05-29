@@ -1,0 +1,3501 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Build Your LLM Team Wiki, Andrew Erickson</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reset.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css" />
+
+  <style>
+    /* ============================================================
+       InventoryHero Brand Theme for Reveal.js
+       Andrew Erickson, Build Your LLM Team Wiki, May 31, 2026
+       ============================================================ */
+
+    :root {
+      --ih-orange: #f97316;
+      --ih-orange-dark: #ea580c;
+      --ih-orange-light: #fb923c;
+      --ih-orange-50: #fff7ed;
+      --ih-orange-100: #ffedd5;
+      --ih-orange-900: #7c2d12;
+
+      --ih-purple-500: #a855f7;
+      --ih-purple-600: #9333ea;
+      --ih-blue-500: #3b82f6;
+      --ih-blue-600: #2563eb;
+
+      --ih-neutral-900: #171717;
+      --ih-neutral-800: #262626;
+      --ih-neutral-700: #404040;
+      --ih-neutral-600: #525252;
+      --ih-neutral-500: #737373;
+      --ih-neutral-400: #a3a3a3;
+      --ih-neutral-300: #d4d4d4;
+      --ih-neutral-200: #e5e5e5;
+      --ih-neutral-100: #f5f5f5;
+      --ih-neutral-50: #fafafa;
+
+      --ih-green-500: #22c55e;
+      --ih-green-400: #4ade80;
+      --ih-green-700: #15803d;
+      --ih-green-50: #f0fdf4;
+      --ih-green-200: #bbf7d0;
+
+      --ih-red-600: #dc2626;
+      --ih-red-400: #f87171;
+
+      --font-body: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-head: 'Outfit', 'Inter', system-ui, sans-serif;
+      --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+
+      --ease-brand: cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    /* Base reveal overrides */
+    .reveal {
+      font-family: var(--font-body);
+      font-size: 28px;
+      font-weight: 400;
+      color: var(--ih-neutral-700);
+      letter-spacing: -0.005em;
+    }
+
+    .reveal .slides {
+      text-align: left;
+    }
+
+    .reveal .slides section,
+    .reveal .slides section > section {
+      padding: 0;
+      line-height: 1.45;
+      font-weight: inherit;
+      height: 100%;
+    }
+
+    /* Page background, soft warm white */
+    html, body {
+      background: var(--ih-neutral-50);
+    }
+    .reveal-viewport {
+      background: linear-gradient(180deg, #fffaf3 0%, #fafafa 60%, #fafafa 100%) !important;
+    }
+
+    /* Headings */
+    .reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal h5, .reveal h6 {
+      font-family: var(--font-head);
+      color: var(--ih-neutral-900);
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      margin: 0 0 0.5em;
+      text-transform: none;
+    }
+    .reveal h1 { font-size: 4.5rem; }
+    .reveal h2 { font-size: 3.25rem; }
+    .reveal h3 { font-size: 2.25rem; }
+    .reveal h4 { font-size: 1.65rem; }
+
+    .reveal p { margin: 0 0 0.6em; }
+    .reveal a { color: var(--ih-orange-dark); text-decoration: none; }
+    .reveal a:hover { color: var(--ih-orange); }
+    .reveal strong { color: var(--ih-neutral-900); font-weight: 700; }
+    .reveal em { font-style: italic; color: var(--ih-neutral-700); }
+
+    /* Selection */
+    ::selection { background: var(--ih-orange-100); color: var(--ih-orange-900); }
+
+    /* Lists */
+    .reveal ul, .reveal ol { margin: 0.4em 0 0.4em 1.1em; }
+    .reveal li {
+      margin: 0.35em 0;
+      line-height: 1.4;
+    }
+    .reveal ul li::marker { color: var(--ih-orange); }
+    .reveal ol li::marker { color: var(--ih-orange); font-weight: 700; }
+    .reveal ul ul li::marker, .reveal ol ul li::marker { color: var(--ih-neutral-400); }
+
+    /* Code & pre */
+    .reveal code {
+      font-family: var(--font-mono);
+      background: var(--ih-neutral-100);
+      color: var(--ih-neutral-800);
+      padding: 0.12em 0.36em;
+      border-radius: 6px;
+      font-size: 0.92em;
+    }
+    .reveal pre {
+      font-family: var(--font-mono);
+      font-size: 0.78em;
+      line-height: 1.55;
+      background: white;
+      color: var(--ih-neutral-800);
+      padding: 1.8rem 2rem;
+      border-radius: 1.5rem;
+      border: 1px solid var(--ih-neutral-200);
+      box-shadow: 0 10px 30px -10px rgba(0,0,0,0.08);
+      width: auto;
+      max-width: 100%;
+      box-sizing: border-box;
+      overflow: hidden;
+    }
+    .reveal pre code { background: none; padding: 0; font-size: inherit; color: inherit; }
+
+    /* ----------------------------------------------------------
+       Slide layout primitives
+       ---------------------------------------------------------- */
+
+    .slide-pad {
+      position: absolute;
+      inset: 0;
+      padding: 5% 7%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .slide-pad.top { justify-content: flex-start; padding-top: 7%; }
+
+    /* Eyebrow badge (success / orange pill) */
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55em;
+      font-family: var(--font-body);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ih-green-700);
+      background: var(--ih-green-50);
+      border: 1px solid var(--ih-green-200);
+      padding: 0.5em 1em;
+      border-radius: 999px;
+      box-shadow: 0 1px 0 rgba(0,0,0,0.02);
+      margin-bottom: 1.5rem;
+    }
+    .eyebrow.orange {
+      color: var(--ih-orange-900);
+      background: var(--ih-orange-50);
+      border-color: var(--ih-orange-100);
+    }
+    .eyebrow.dark {
+      color: white;
+      background: var(--ih-neutral-800);
+      border-color: var(--ih-neutral-700);
+    }
+    .eyebrow .dot {
+      width: 8px; height: 8px; border-radius: 999px;
+      background: var(--ih-green-500);
+      box-shadow: 0 0 0 4px rgba(34,197,94,0.18);
+    }
+    .eyebrow.orange .dot { background: var(--ih-orange); box-shadow: 0 0 0 4px rgba(249,115,22,0.18); }
+    .eyebrow.dark .dot { background: var(--ih-orange); box-shadow: 0 0 0 4px rgba(249,115,22,0.25); }
+
+    /* Headline emphasis word, orange gradient */
+    .accent {
+      background: linear-gradient(90deg, var(--ih-orange-dark) 0%, var(--ih-orange-light) 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      font-style: italic;
+      font-weight: 800;
+    }
+
+    /* Subtitle / hero paragraph */
+    .lede {
+      font-size: 1.45rem;
+      color: var(--ih-neutral-500);
+      line-height: 1.5;
+      max-width: 32ch;
+      margin-top: 0.6rem;
+    }
+    .lede.wide { max-width: 48ch; }
+
+    /* Logo lockup */
+    .logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.7rem;
+      font-family: var(--font-head);
+      font-weight: 800;
+      font-size: 1.15rem;
+      color: var(--ih-neutral-900);
+    }
+    .logo .mark {
+      width: 2.1rem; height: 2.1rem;
+      background: linear-gradient(135deg, var(--ih-orange) 0%, var(--ih-orange-dark) 100%);
+      border-radius: 0.55rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      box-shadow: 0 4px 14px -4px rgba(249,115,22,0.5);
+    }
+    .logo .mark svg { width: 1.1rem; height: 1.1rem; }
+    .logo .ih-h { color: var(--ih-orange-dark); }
+
+    /* Footer */
+    .slide-footer {
+      position: absolute;
+      bottom: 1.6rem;
+      left: 7%;
+      right: 7%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: var(--font-body);
+      font-size: 0.7rem;
+      color: var(--ih-neutral-400);
+      letter-spacing: 0.04em;
+    }
+    .slide-footer .right { color: var(--ih-neutral-500); }
+    .slide-footer.on-dark { color: rgba(255,255,255,0.35); }
+    .slide-footer.on-dark .right { color: rgba(255,255,255,0.5); }
+
+    /* ----------------------------------------------------------
+       TITLE slide
+       ---------------------------------------------------------- */
+    .title-slide {
+      position: absolute;
+      inset: 0;
+      padding: 5% 7%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .title-slide .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .title-slide .title-h1 {
+      font-family: var(--font-head);
+      font-weight: 900;
+      font-size: 5.2rem;
+      line-height: 1.02;
+      letter-spacing: -0.03em;
+      color: var(--ih-neutral-900);
+      margin: 0;
+      padding-right: 0.8em;
+      box-sizing: border-box;
+    }
+    .title-slide .title-h1 .accent {
+      padding-right: 0.15em;
+      margin-right: -0.1em;
+    }
+    .title-slide .tagline {
+      font-size: 1.65rem;
+      color: var(--ih-neutral-500);
+      line-height: 1.35;
+      max-width: 28ch;
+      margin-top: 1.4rem;
+    }
+    .title-slide .meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      font-family: var(--font-body);
+      color: var(--ih-neutral-600);
+    }
+    .title-slide .meta .by {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--ih-neutral-900);
+    }
+    .title-slide .meta .date {
+      font-size: 0.85rem;
+      color: var(--ih-neutral-500);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    /* Ambient orange glow */
+    .title-slide::before {
+      content: "";
+      position: absolute;
+      width: 45rem;
+      height: 45rem;
+      right: -10rem;
+      top: -12rem;
+      background: radial-gradient(circle, rgba(249,115,22,0.18) 0%, rgba(249,115,22,0) 60%);
+      pointer-events: none;
+      z-index: 0;
+    }
+    .title-slide::after {
+      content: "";
+      position: absolute;
+      width: 30rem;
+      height: 30rem;
+      left: -8rem;
+      bottom: -8rem;
+      background: radial-gradient(circle, rgba(168,85,247,0.10) 0%, rgba(168,85,247,0) 60%);
+      pointer-events: none;
+      z-index: 0;
+    }
+    .title-slide > * { position: relative; z-index: 1; }
+
+    /* ----------------------------------------------------------
+       Section divider
+       ---------------------------------------------------------- */
+    .section-divider {
+      position: absolute;
+      inset: 0;
+      padding: 5% 7%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .section-divider .module-num {
+      font-family: var(--font-head);
+      font-weight: 800;
+      font-size: 1rem;
+      letter-spacing: 0.3em;
+      color: var(--ih-orange-dark);
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+    .section-divider h2 {
+      font-size: 4.2rem;
+      line-height: 1.05;
+      margin-bottom: 1rem;
+      max-width: 24ch;
+      padding-right: 0.6em;
+      overflow-wrap: break-word;
+    }
+    .section-divider h2 .accent {
+      padding-right: 0.18em;
+      margin-right: -0.12em;
+    }
+    .section-divider .sub {
+      font-size: 1.6rem;
+      color: var(--ih-neutral-500);
+      max-width: 30ch;
+    }
+    .section-divider .accent-rule {
+      width: 4rem;
+      height: 6px;
+      background: linear-gradient(90deg, var(--ih-orange-dark), var(--ih-orange-light));
+      border-radius: 999px;
+      margin-top: 1.6rem;
+    }
+
+    /* ----------------------------------------------------------
+       One-liner slide
+       ---------------------------------------------------------- */
+    .one-liner {
+      position: absolute;
+      inset: 0;
+      padding: 6% 9%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+    }
+    .one-liner .ol-text {
+      font-family: var(--font-head);
+      font-size: 4.5rem;
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      color: var(--ih-neutral-900);
+    }
+    .one-liner.small .ol-text { font-size: 3.4rem; }
+    .one-liner .ol-mark {
+      width: 5rem;
+      height: 6px;
+      background: linear-gradient(90deg, var(--ih-orange-dark), var(--ih-orange-light));
+      border-radius: 999px;
+      margin-bottom: 1.8rem;
+    }
+
+    /* ----------------------------------------------------------
+       Quote slide
+       ---------------------------------------------------------- */
+    .quote-slide {
+      position: absolute;
+      inset: 0;
+      padding: 5% 7%;
+      display: grid;
+      grid-template-columns: 22rem 1fr;
+      align-items: center;
+      gap: 4.5rem;
+    }
+    .quote-slide .q-photo {
+      width: 22rem;
+      height: 22rem;
+      border-radius: 50%;
+      overflow: hidden;
+      background: var(--ih-neutral-200);
+      box-shadow: 0 28px 60px -16px rgba(0,0,0,0.25), 0 0 0 1px rgba(0,0,0,0.04);
+      position: relative;
+    }
+    .quote-slide .q-photo::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      box-shadow: inset 0 0 0 8px rgba(255,255,255,0.85), inset 0 0 0 10px var(--ih-orange-100);
+      pointer-events: none;
+    }
+    .quote-slide .q-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .quote-slide .q-body {
+      max-width: 32ch;
+    }
+    .quote-slide .qmark {
+      font-family: var(--font-head);
+      font-size: 6rem;
+      line-height: 0.6;
+      color: var(--ih-orange);
+      margin-bottom: 1rem;
+    }
+    .quote-slide blockquote {
+      font-family: var(--font-head);
+      font-size: 2.8rem;
+      font-weight: 700;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      color: var(--ih-neutral-900);
+      margin: 0;
+      padding: 0;
+      border: none;
+      box-shadow: none;
+    }
+    .quote-slide .attribution {
+      margin-top: 1.8rem;
+      font-size: 1rem;
+      color: var(--ih-neutral-600);
+      font-weight: 500;
+      line-height: 1.4;
+    }
+    .quote-slide .attribution .name {
+      color: var(--ih-neutral-900);
+      font-weight: 700;
+      font-size: 1.15rem;
+      display: block;
+      margin-bottom: 0.15rem;
+    }
+    .quote-slide .attribution .role {
+      color: var(--ih-neutral-500);
+      font-size: 0.95rem;
+    }
+    .quote-slide .qfooter-note {
+      margin-top: 0.8rem;
+      font-size: 0.85rem;
+      color: var(--ih-neutral-500);
+      font-style: italic;
+      max-width: 40ch;
+    }
+
+    /* ----------------------------------------------------------
+       Standard content slide
+       ---------------------------------------------------------- */
+    .content {
+      position: absolute;
+      inset: 0;
+      padding: 5% 7%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .content .h-pre {
+      font-family: var(--font-body);
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--ih-orange-dark);
+      font-weight: 700;
+      margin-bottom: 0.9rem;
+    }
+    .content h3 {
+      font-size: 2.6rem;
+      line-height: 1.05;
+      margin-bottom: 0.4rem;
+    }
+    .content .sub {
+      font-size: 1.2rem;
+      color: var(--ih-neutral-500);
+      margin-bottom: 1.4rem;
+      max-width: 50ch;
+    }
+    .content .body { font-size: 1.1rem; max-width: 56ch; }
+    .content .body li { margin: 0.55em 0; }
+
+    /* Two-column layout */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3.5rem;
+      align-items: start;
+    }
+    .two-col.balanced { align-items: stretch; }
+    .col-head {
+      font-family: var(--font-head);
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: var(--ih-neutral-900);
+      margin-bottom: 0.6rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .col-head .marker {
+      display: inline-flex;
+      width: 1.6rem; height: 1.6rem;
+      border-radius: 0.5rem;
+      align-items: center; justify-content: center;
+      font-size: 0.85rem;
+      font-weight: 800;
+      color: white;
+    }
+    .col-head .marker.too-little { background: var(--ih-blue-600); }
+    .col-head .marker.too-much { background: var(--ih-purple-600); }
+    .col-head .marker.road-1 { background: var(--ih-neutral-900); }
+    .col-head .marker.road-2 { background: var(--ih-orange); }
+
+    /* Cards */
+    .card {
+      background: white;
+      border: 1px solid var(--ih-neutral-200);
+      border-radius: 1.5rem;
+      padding: 1.6rem 1.8rem;
+      box-shadow: 0 6px 24px -10px rgba(0,0,0,0.06);
+    }
+    .card.tint-orange { background: var(--ih-orange-50); border-color: var(--ih-orange-100); }
+    .card.tint-neutral { background: var(--ih-neutral-50); border-color: var(--ih-neutral-200); }
+    .card.tint-green { background: var(--ih-green-50); border-color: var(--ih-green-200); }
+    .card.tint-blue { background: #eff6ff; border-color: #dbeafe; }
+    .card.tint-purple { background: #faf5ff; border-color: #f3e8ff; }
+    .card .card-label {
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ih-neutral-500);
+      font-weight: 700;
+      margin-bottom: 0.4rem;
+    }
+    .card .card-title {
+      font-family: var(--font-head);
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: var(--ih-neutral-900);
+      margin-bottom: 0.4rem;
+    }
+    .card .card-body { font-size: 1rem; color: var(--ih-neutral-600); }
+    .card .card-result {
+      margin-top: 0.8rem;
+      font-size: 0.9rem;
+      color: var(--ih-neutral-700);
+      border-top: 1px dashed var(--ih-neutral-200);
+      padding-top: 0.6rem;
+    }
+    .card .card-result strong { color: var(--ih-neutral-900); }
+
+    /* Tables */
+    .reveal table {
+      margin: 0;
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      background: white;
+      border-radius: 1.2rem;
+      overflow: hidden;
+      box-shadow: 0 6px 24px -12px rgba(0,0,0,0.08);
+      border: 1px solid var(--ih-neutral-200);
+      font-size: 0.95rem;
+    }
+    .reveal thead th {
+      background: var(--ih-neutral-50);
+      color: var(--ih-neutral-700);
+      text-align: left;
+      padding: 0.85rem 1.1rem;
+      font-family: var(--font-body);
+      font-weight: 700;
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      border-bottom: 1px solid var(--ih-neutral-200);
+    }
+    .reveal tbody td {
+      padding: 0.9rem 1.1rem;
+      border-bottom: 1px solid var(--ih-neutral-100);
+      color: var(--ih-neutral-700);
+    }
+    .reveal tbody tr:last-child td { border-bottom: none; }
+    .reveal tbody tr.hot td { background: linear-gradient(90deg, rgba(249,115,22,0.06), rgba(249,115,22,0)); }
+    .reveal tbody td.col-name { font-weight: 700; color: var(--ih-neutral-900); }
+    .reveal tbody td .check {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      color: var(--ih-green-700);
+      font-weight: 700;
+    }
+
+    /* Bullets w/ icons */
+    .icon-list { list-style: none; margin: 0; padding: 0; }
+    .icon-list li {
+      display: flex;
+      gap: 0.85rem;
+      align-items: flex-start;
+      margin: 0.5em 0;
+      font-size: 1.05rem;
+    }
+    .icon-list .ic {
+      flex: 0 0 1.4rem;
+      width: 1.4rem; height: 1.4rem;
+      border-radius: 0.4rem;
+      background: var(--ih-orange-100);
+      color: var(--ih-orange-dark);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      font-weight: 800;
+      margin-top: 0.15rem;
+    }
+    .icon-list .ic.no { background: #fee2e2; color: var(--ih-red-600); }
+    .icon-list .ic.yes { background: var(--ih-green-50); color: var(--ih-green-700); border: 1px solid var(--ih-green-200); }
+
+    /* Bold callout strip */
+    .callout {
+      background: white;
+      border-left: 6px solid var(--ih-orange);
+      border-radius: 0 1rem 1rem 0;
+      padding: 1.3rem 1.6rem 1.3rem 1.6rem;
+      font-family: var(--font-head);
+      font-size: 1.5rem;
+      font-weight: 700;
+      line-height: 1.25;
+      color: var(--ih-neutral-900);
+      max-width: 38ch;
+      box-shadow: 0 6px 24px -12px rgba(0,0,0,0.1);
+    }
+    .callout.dim {
+      font-weight: 600;
+      color: var(--ih-neutral-700);
+      font-size: 1.25rem;
+    }
+    .callout em {
+      color: var(--ih-orange-dark);
+      font-style: italic;
+    }
+
+    /* ----------------------------------------------------------
+       Dark CTA slide
+       ---------------------------------------------------------- */
+    .dark-slide {
+      position: absolute;
+      inset: 0;
+      background: var(--ih-neutral-900);
+      padding: 5% 7%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      color: white;
+    }
+    .dark-slide h1, .dark-slide h2, .dark-slide h3 { color: white; }
+    .dark-slide .lede { color: var(--ih-neutral-400); }
+    .dark-slide a { color: var(--ih-orange-light); }
+    .dark-slide .accent { color: transparent; }
+    .dark-slide ::selection { background: var(--ih-orange-900); color: var(--ih-orange-100); }
+    .dark-slide .card {
+      background: rgba(255,255,255,0.04);
+      border-color: rgba(255,255,255,0.08);
+      color: var(--ih-neutral-300);
+    }
+    .dark-slide .card .card-title { color: white; }
+    .dark-slide .card .card-body { color: var(--ih-neutral-400); }
+    .dark-slide .h-pre { color: var(--ih-orange-light); }
+    .dark-slide ul li::marker { color: var(--ih-orange); }
+    .dark-slide .one-liner .ol-text { color: white; }
+    .dark-slide pre {
+      background: var(--ih-neutral-800);
+      color: var(--ih-neutral-200);
+      border-color: var(--ih-neutral-700);
+    }
+    .dark-slide code { background: var(--ih-neutral-800); color: var(--ih-neutral-200); }
+    .dark-slide .glow::before {
+      content: "";
+      position: absolute;
+      width: 40rem; height: 40rem;
+      right: -10rem; bottom: -10rem;
+      background: radial-gradient(circle, rgba(249,115,22,0.2) 0%, rgba(249,115,22,0) 60%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* CTA button */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: var(--ih-orange-dark);
+      color: white;
+      font-family: var(--font-body);
+      font-weight: 700;
+      font-size: 1.05rem;
+      padding: 0.85rem 1.6rem;
+      border-radius: 1rem;
+      box-shadow: 0 12px 24px -8px rgba(249,115,22,0.5);
+      letter-spacing: -0.005em;
+    }
+    .btn.white {
+      background: white;
+      color: var(--ih-neutral-900);
+      box-shadow: 0 12px 30px -8px rgba(0,0,0,0.35);
+    }
+
+    /* QR code block */
+    .qr-block {
+      background: white;
+      border-radius: 1.5rem;
+      padding: 1.2rem;
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      box-shadow: 0 16px 36px -12px rgba(0,0,0,0.18);
+      border: 1px solid var(--ih-neutral-200);
+    }
+    .qr-block img { display: block; border-radius: 0.4rem; }
+    .qr-block .qr-label {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      color: var(--ih-neutral-700);
+      letter-spacing: -0.01em;
+    }
+    .qr-block .qr-hint {
+      font-size: 0.7rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--ih-neutral-500);
+      font-weight: 600;
+    }
+
+    /* Live demo badge */
+    .demo-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-family: var(--font-head);
+      font-weight: 800;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      font-size: 0.95rem;
+      color: white;
+      background: var(--ih-neutral-900);
+      padding: 0.55em 1em;
+      border-radius: 999px;
+      margin-bottom: 1.4rem;
+    }
+    .demo-badge .red-dot {
+      width: 0.6rem; height: 0.6rem; border-radius: 999px;
+      background: var(--ih-red-400);
+      box-shadow: 0 0 0 4px rgba(248,113,113,0.25);
+      animation: pulse 1.6s infinite ease-out;
+    }
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(248,113,113,0.45); }
+      70% { box-shadow: 0 0 0 14px rgba(248,113,113,0); }
+      100% { box-shadow: 0 0 0 0 rgba(248,113,113,0); }
+    }
+
+    /* Directory tree */
+    .filetree {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      line-height: 1.6;
+      background: white;
+      border: 1px solid var(--ih-neutral-200);
+      border-radius: 1.2rem;
+      padding: 1.6rem 1.8rem;
+      box-shadow: 0 12px 32px -12px rgba(0,0,0,0.08);
+      color: var(--ih-neutral-800);
+    }
+    .filetree .dir { color: var(--ih-orange-dark); font-weight: 700; }
+    .filetree .file { color: var(--ih-neutral-800); }
+    .filetree .comment { color: var(--ih-neutral-400); font-style: italic; }
+    .filetree .tree { color: var(--ih-neutral-300); }
+
+    /* Architecture diagram */
+    .arch {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.8rem;
+      font-family: var(--font-body);
+      width: 100%;
+    }
+    .arch-row { display: flex; gap: 0.9rem; align-items: stretch; justify-content: center; flex-wrap: wrap; }
+    .arch-node {
+      background: white;
+      border: 1.5px solid var(--ih-neutral-200);
+      border-radius: 1rem;
+      padding: 0.75rem 1.1rem;
+      font-weight: 600;
+      color: var(--ih-neutral-800);
+      box-shadow: 0 4px 14px -6px rgba(0,0,0,0.05);
+      text-align: center;
+      font-size: 0.95rem;
+      min-width: 6rem;
+    }
+    .arch-node.client { background: white; }
+    .arch-node.mcp {
+      background: linear-gradient(135deg, var(--ih-orange) 0%, var(--ih-orange-dark) 100%);
+      color: white;
+      border-color: transparent;
+      box-shadow: 0 10px 24px -6px rgba(249,115,22,0.45);
+      font-family: var(--font-head);
+      font-weight: 800;
+    }
+    .arch-node.manager {
+      background: var(--ih-neutral-900);
+      color: white;
+      border-color: transparent;
+      box-shadow: 0 10px 24px -6px rgba(0,0,0,0.35);
+    }
+    .arch-node.vault {
+      background: var(--ih-green-50);
+      color: var(--ih-green-700);
+      border-color: var(--ih-green-200);
+      font-weight: 700;
+    }
+    .arch-node .micro {
+      display: block;
+      font-size: 0.7rem;
+      color: var(--ih-neutral-500);
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      margin-top: 0.15rem;
+    }
+    .arch-node.mcp .micro, .arch-node.manager .micro { color: rgba(255,255,255,0.7); }
+    .arch-arrow {
+      font-family: var(--font-mono);
+      color: var(--ih-orange);
+      font-size: 1.2rem;
+      align-self: center;
+      font-weight: 700;
+    }
+    .arch-line {
+      width: 2px;
+      background: var(--ih-orange);
+      height: 1.4rem;
+      align-self: center;
+      opacity: 0.55;
+    }
+
+    /* Stats / big numbers */
+    .bignum {
+      display: flex;
+      gap: 2.5rem;
+      align-items: baseline;
+      flex-wrap: wrap;
+    }
+    .bignum .num {
+      font-family: var(--font-head);
+      font-weight: 900;
+      font-size: 9rem;
+      line-height: 0.9;
+      color: var(--ih-neutral-900);
+      letter-spacing: -0.04em;
+    }
+    .bignum .num.orange { color: var(--ih-orange-dark); }
+    .bignum .label {
+      font-family: var(--font-head);
+      font-weight: 700;
+      font-size: 1.6rem;
+      color: var(--ih-neutral-600);
+      max-width: 16ch;
+    }
+
+    .vision-stack {
+      display: grid;
+      grid-template-columns: max-content max-content;
+      gap: 0.3rem 1.5rem;
+      align-items: baseline;
+    }
+    .vision-stack .vn {
+      font-family: var(--font-head);
+      font-weight: 900;
+      font-size: 5.5rem;
+      line-height: 1;
+      color: var(--ih-neutral-900);
+      letter-spacing: -0.03em;
+    }
+    .vision-stack .vn.alt { color: var(--ih-orange-dark); }
+    .vision-stack .vl {
+      font-family: var(--font-head);
+      font-weight: 700;
+      font-size: 1.5rem;
+      color: var(--ih-neutral-600);
+    }
+
+    /* Phone vignette */
+    .phone-mock {
+      width: 18rem;
+      background: var(--ih-neutral-900);
+      border-radius: 2.2rem;
+      padding: 1.4rem 1.2rem;
+      box-shadow: 0 28px 60px -12px rgba(0,0,0,0.45);
+      color: white;
+      font-family: var(--font-body);
+      position: relative;
+    }
+    .phone-mock::before {
+      content: "";
+      position: absolute;
+      width: 5rem; height: 0.7rem;
+      top: 0.55rem; left: 50%;
+      transform: translateX(-50%);
+      background: var(--ih-neutral-800);
+      border-radius: 999px;
+    }
+    .phone-mock .voice-line {
+      font-size: 0.85rem;
+      color: var(--ih-neutral-300);
+      margin-top: 1.6rem;
+      padding: 0.6rem 0.8rem;
+      background: var(--ih-neutral-800);
+      border-radius: 1rem;
+      line-height: 1.4;
+    }
+    .phone-mock .voice-line .you {
+      display: block;
+      font-size: 0.65rem;
+      color: var(--ih-orange-light);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 0.3rem;
+    }
+    .phone-mock .reply {
+      margin-top: 0.7rem;
+      font-size: 0.8rem;
+      background: linear-gradient(135deg, var(--ih-orange) 0%, var(--ih-orange-dark) 100%);
+      padding: 0.7rem 0.85rem;
+      border-radius: 1rem;
+      line-height: 1.4;
+    }
+    .phone-mock .reply .who {
+      display: block;
+      font-size: 0.6rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.85);
+      margin-bottom: 0.3rem;
+    }
+
+    /* Photo placeholders for Aliza/Arlo */
+    .photo-row { display: flex; gap: 2.5rem; align-items: flex-end; justify-content: center; margin-top: 1rem; }
+    .photo-card {
+      width: 18rem;
+      aspect-ratio: 3 / 4;
+      border-radius: 2rem;
+      background: linear-gradient(160deg, var(--ih-orange-50) 0%, var(--ih-orange-100) 60%, var(--ih-orange-light) 100%);
+      box-shadow: 0 18px 40px -12px rgba(249,115,22,0.4);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 1.4rem 1.6rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .photo-card.b {
+      background: linear-gradient(160deg, #faf5ff 0%, #f3e8ff 60%, var(--ih-purple-500) 100%);
+      box-shadow: 0 18px 40px -12px rgba(168,85,247,0.4);
+    }
+    .photo-card .pname {
+      font-family: var(--font-head);
+      font-weight: 900;
+      font-size: 2.2rem;
+      color: white;
+      letter-spacing: -0.02em;
+      line-height: 1;
+    }
+    .photo-card .pdate {
+      font-family: var(--font-body);
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.85);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-top: 0.3rem;
+      font-weight: 600;
+    }
+    .photo-card::after {
+      content: "";
+      position: absolute;
+      top: 1.2rem; right: 1.2rem;
+      font-size: 1.4rem;
+      color: rgba(255,255,255,0.7);
+    }
+
+    /* About-me bullets, bigger, brand-feel */
+    .about-bullets {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      column-count: 2;
+      column-gap: 3.5rem;
+      max-width: 65rem;
+    }
+    .about-bullets li {
+      font-size: 1.05rem;
+      color: var(--ih-neutral-700);
+      padding: 0.4rem 0 0.4rem 1.5rem;
+      position: relative;
+      break-inside: avoid;
+      line-height: 1.3;
+    }
+    .about-bullets li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.85rem;
+      width: 0.6rem; height: 0.6rem;
+      border-radius: 0.2rem;
+      background: var(--ih-orange);
+    }
+    .about-bullets li.teaser {
+      font-family: var(--font-head);
+      font-weight: 800;
+      font-size: 1.4rem;
+      color: var(--ih-neutral-900);
+    }
+    .about-bullets li.teaser::before { background: var(--ih-neutral-900); }
+
+    /* Numbered preview */
+    .numlist {
+      list-style: none;
+      margin: 1.2rem 0 0;
+      padding: 0;
+      counter-reset: nl;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem 2.5rem;
+      max-width: 60rem;
+    }
+    .numlist li {
+      counter-increment: nl;
+      padding: 1rem 1.3rem 1rem 4rem;
+      background: white;
+      border: 1px solid var(--ih-neutral-200);
+      border-radius: 1.1rem;
+      position: relative;
+      font-size: 1.05rem;
+      color: var(--ih-neutral-700);
+      line-height: 1.3;
+      box-shadow: 0 4px 14px -8px rgba(0,0,0,0.05);
+    }
+    .numlist li::before {
+      content: counter(nl, decimal-leading-zero);
+      position: absolute;
+      left: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      font-family: var(--font-head);
+      font-weight: 800;
+      font-size: 1.7rem;
+      color: var(--ih-orange-dark);
+      letter-spacing: -0.02em;
+    }
+    .numlist li strong { color: var(--ih-neutral-900); }
+    .numlist li .sub-opt {
+      display: block;
+      margin-top: 0.3rem;
+      font-size: 0.85rem;
+      color: var(--ih-neutral-500);
+    }
+
+    /* Pull-quote (used in $40M seller story) */
+    .seller-quote {
+      background: white;
+      border-radius: 1.5rem;
+      padding: 1.8rem 2.2rem;
+      border: 1px solid var(--ih-neutral-200);
+      box-shadow: 0 14px 36px -12px rgba(0,0,0,0.08);
+      position: relative;
+      max-width: 38rem;
+    }
+    .seller-quote::before {
+      content: "“";
+      position: absolute;
+      top: 0.4rem; right: 1rem;
+      font-family: var(--font-head);
+      font-size: 5rem;
+      color: var(--ih-neutral-200);
+      line-height: 1;
+    }
+    .seller-quote .sq-line {
+      font-family: var(--font-head);
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--ih-neutral-900);
+      line-height: 1.25;
+      margin: 0.3rem 0;
+    }
+    .seller-quote .sq-attrib {
+      margin-top: 0.8rem;
+      color: var(--ih-neutral-500);
+      font-size: 0.95rem;
+      font-style: italic;
+    }
+    .seller-quote .sq-followup {
+      margin-top: 1.2rem;
+      padding-top: 1rem;
+      border-top: 1px dashed var(--ih-neutral-200);
+      font-size: 0.95rem;
+      color: var(--ih-neutral-700);
+    }
+    .seller-quote .sq-followup .he {
+      display: block;
+      color: var(--ih-neutral-900);
+      font-weight: 700;
+      margin-top: 0.3rem;
+    }
+
+    /* Stats strip */
+    .pillrow {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      margin-top: 1rem;
+    }
+    .pillrow .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: white;
+      border: 1px solid var(--ih-neutral-200);
+      border-radius: 999px;
+      padding: 0.5rem 0.95rem;
+      font-size: 0.9rem;
+      color: var(--ih-neutral-700);
+      font-weight: 500;
+    }
+    .pillrow .pill .dot { width: 0.5rem; height: 0.5rem; border-radius: 999px; background: var(--ih-orange); }
+
+    /* Progressive elaboration: code-styled metadata block */
+    .meta-block {
+      background: white;
+      border: 1px solid var(--ih-neutral-200);
+      border-left: 4px solid var(--ih-orange);
+      border-radius: 0.8rem;
+      padding: 1.1rem 1.4rem;
+      font-family: var(--font-mono);
+      font-size: 0.92rem;
+      color: var(--ih-neutral-800);
+      box-shadow: 0 6px 18px -10px rgba(0,0,0,0.08);
+      max-width: 40rem;
+    }
+    .meta-block .meta-line { line-height: 1.6; }
+    .meta-block .key { color: var(--ih-orange-dark); font-weight: 600; }
+    .meta-block .val { color: var(--ih-neutral-700); }
+    .meta-block .pct {
+      display: inline-block;
+      background: var(--ih-orange-100);
+      color: var(--ih-orange-dark);
+      font-weight: 700;
+      padding: 0.05em 0.5em;
+      border-radius: 0.4rem;
+    }
+
+    /* Q&A slide */
+    .qa-mark {
+      font-family: var(--font-head);
+      font-weight: 900;
+      font-size: 22rem;
+      line-height: 0.85;
+      color: var(--ih-neutral-900);
+      letter-spacing: -0.06em;
+    }
+    .qa-mark .amp { color: var(--ih-orange-dark); }
+
+    /* Reveal progress bar */
+    .reveal .progress {
+      background: var(--ih-neutral-200);
+      height: 4px;
+    }
+    .reveal .progress span {
+      background: var(--ih-orange);
+    }
+
+    /* Reveal controls, make orange */
+    .reveal .controls {
+      color: var(--ih-orange);
+    }
+
+    /* Slide number, discreet */
+    .reveal .slide-number {
+      background: rgba(255,255,255,0.85);
+      color: var(--ih-neutral-500);
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      padding: 0.35rem 0.75rem;
+      border-radius: 999px;
+      backdrop-filter: blur(8px);
+      bottom: 0.8rem;
+      right: 0.8rem;
+      border: 1px solid var(--ih-neutral-200);
+    }
+    .dark-slide ~ .slide-number,
+    section.dark .slide-number { color: rgba(255,255,255,0.7); background: rgba(0,0,0,0.4); border-color: rgba(255,255,255,0.1); }
+
+    /* Disable rotation for vertical (we use horizontal only) */
+    .reveal .slides > section.present { transform: none; }
+
+    /* Print fallback */
+    @media print {
+      .reveal-viewport { background: white !important; }
+    }
+
+    /* Fast, snappy fragment animations */
+    .reveal .fragment {
+      transition: opacity 140ms ease-out, transform 140ms ease-out;
+    }
+    .reveal .fragment.fade-in-fast {
+      opacity: 0;
+      transform: translateY(6px);
+    }
+    .reveal .fragment.fade-in-fast.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ===== Context mechanics components ===== */
+
+    /* Token budget bar */
+    .token-bar {
+      display: grid;
+      grid-template-columns: 1fr 60px;
+      gap: 1rem;
+      align-items: center;
+      margin: 0.5rem 0;
+      font-size: 1rem;
+    }
+    .token-bar .label {
+      display: flex;
+      justify-content: space-between;
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      color: var(--ih-neutral-700);
+      grid-column: 1 / -1;
+    }
+    .token-bar .label .model { font-weight: 700; color: var(--ih-neutral-900); }
+    .token-bar .label .nums { color: var(--ih-neutral-500); }
+    .token-bar .track {
+      position: relative;
+      height: 18px;
+      background: var(--ih-neutral-100);
+      border: 1px solid var(--ih-neutral-200);
+      border-radius: 999px;
+      overflow: hidden;
+      grid-column: 1 / 2;
+    }
+    .token-bar .fill-sharp {
+      position: absolute; top: 0; left: 0; bottom: 0;
+      background: linear-gradient(90deg, var(--ih-green-500), var(--ih-green-400));
+    }
+    .token-bar .fill-fuzzy {
+      position: absolute; top: 0; bottom: 0;
+      background: repeating-linear-gradient(45deg,
+        var(--ih-orange-light) 0 6px,
+        rgba(251,146,60,0.4) 6px 12px);
+    }
+    .token-bar .pct {
+      grid-column: 2 / 3;
+      font-family: var(--font-mono);
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--ih-orange-dark);
+      text-align: right;
+    }
+    .token-bar.legend {
+      display: flex; gap: 1.4rem;
+      font-size: 0.85rem; color: var(--ih-neutral-600);
+      margin-top: 0.6rem;
+    }
+    .token-bar.legend .swatch {
+      display: inline-block; width: 14px; height: 14px;
+      border-radius: 3px; vertical-align: middle;
+      margin-right: 0.4rem;
+    }
+    .swatch.sharp { background: var(--ih-green-500); }
+    .swatch.fuzzy { background: repeating-linear-gradient(45deg,
+        var(--ih-orange-light) 0 4px,
+        rgba(251,146,60,0.4) 4px 8px); }
+
+    /* U-curve visualization */
+    .u-curve {
+      width: 100%;
+      max-width: 600px;
+      margin: 1rem auto;
+      background: white;
+      border: 1px solid var(--ih-neutral-200);
+      border-radius: 12px;
+      padding: 1.2rem 1rem 0.6rem;
+      box-shadow: 0 6px 14px -10px rgba(0,0,0,0.18);
+    }
+    .u-curve svg { display: block; width: 100%; height: 220px; }
+    .u-curve .axis-label {
+      display: flex; justify-content: space-between;
+      font-family: var(--font-mono); font-size: 0.78rem;
+      color: var(--ih-neutral-500);
+      margin-top: 0.4rem; padding: 0 0.4rem;
+    }
+
+    /* Tier deep-dive card layout */
+    .tier-page {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 2rem;
+      margin-top: 1rem;
+    }
+    .tier-page .col-left .tier-badge {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ih-neutral-600);
+      background: var(--ih-neutral-100);
+      padding: 0.35rem 0.8rem;
+      border-radius: 999px;
+      margin-bottom: 0.8rem;
+    }
+    .tier-page .col-left .tier-badge .num {
+      font-weight: 800;
+      color: var(--ih-orange-dark);
+    }
+    .tier-page h3.tier-title {
+      font-family: var(--font-head);
+      font-size: 2.4rem;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      color: var(--ih-neutral-900);
+      margin: 0 0 0.6rem;
+    }
+    .tier-page .tier-what {
+      font-size: 1.05rem;
+      color: var(--ih-neutral-700);
+      line-height: 1.4;
+      margin-bottom: 1rem;
+    }
+    .tier-page .examples {
+      background: var(--ih-neutral-100);
+      border-left: 4px solid var(--ih-orange);
+      padding: 0.7rem 1rem;
+      border-radius: 6px;
+      font-size: 0.95rem;
+    }
+    .tier-page .examples .ex-label {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ih-neutral-500);
+      display: block;
+      margin-bottom: 0.3rem;
+    }
+    .tier-page .examples ul {
+      list-style: none; padding: 0; margin: 0;
+      display: flex; flex-wrap: wrap; gap: 0.4rem;
+    }
+    .tier-page .examples li {
+      background: white;
+      border: 1px solid var(--ih-neutral-200);
+      border-radius: 6px;
+      padding: 0.25rem 0.55rem;
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      color: var(--ih-neutral-800);
+    }
+    .tier-page .col-right { display: flex; flex-direction: column; gap: 0.7rem; }
+    .pros-cons {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.7rem;
+    }
+    .pros-cons .pc-box {
+      background: white;
+      border: 1px solid var(--ih-neutral-200);
+      border-radius: 10px;
+      padding: 0.85rem 0.9rem;
+    }
+    .pros-cons .pc-box.pros { border-left: 4px solid var(--ih-green-500); }
+    .pros-cons .pc-box.cons { border-left: 4px solid var(--ih-red-600); }
+    .pros-cons .pc-head {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ih-neutral-500);
+      margin-bottom: 0.4rem;
+    }
+    .pros-cons ul {
+      list-style: none; padding: 0; margin: 0;
+      display: flex; flex-direction: column; gap: 0.3rem;
+      font-size: 0.92rem; color: var(--ih-neutral-800);
+      line-height: 1.35;
+    }
+    .pros-cons li::before {
+      content: "·";
+      color: var(--ih-orange);
+      font-weight: 800;
+      margin-right: 0.4rem;
+    }
+    .tier-verdict {
+      background: var(--ih-neutral-900);
+      color: white;
+      border-radius: 10px;
+      padding: 0.8rem 1rem;
+      font-size: 0.98rem;
+      line-height: 1.4;
+    }
+    .tier-verdict .verdict-label {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--ih-orange-light);
+      display: block;
+      margin-bottom: 0.3rem;
+    }
+    .tier-verdict.tier4 {
+      background: linear-gradient(135deg, var(--ih-orange-dark), var(--ih-orange));
+    }
+
+    /* Context budget breakdown */
+    .budget-stack {
+      display: flex;
+      width: 100%;
+      height: 56px;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid var(--ih-neutral-200);
+      margin: 1rem 0 0.5rem;
+    }
+    .budget-stack .seg {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      font-weight: 700;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.25);
+    }
+    .budget-stack .seg.sys    { background: var(--ih-neutral-700); }
+    .budget-stack .seg.tools  { background: var(--ih-purple-600); }
+    .budget-stack .seg.hist   { background: var(--ih-blue-600); }
+    .budget-stack .seg.rag    { background: var(--ih-orange-dark); }
+    .budget-stack .seg.q      { background: var(--ih-green-700); }
+    .budget-legend {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 0.5rem;
+      font-size: 0.82rem;
+      color: var(--ih-neutral-700);
+    }
+    .budget-legend .li {
+      display: flex; align-items: center; gap: 0.4rem;
+    }
+    .budget-legend .sw {
+      width: 12px; height: 12px; border-radius: 3px; display: inline-block;
+    }
+    .budget-legend .sw.sys    { background: var(--ih-neutral-700); }
+    .budget-legend .sw.tools  { background: var(--ih-purple-600); }
+    .budget-legend .sw.hist   { background: var(--ih-blue-600); }
+    .budget-legend .sw.rag    { background: var(--ih-orange-dark); }
+    .budget-legend .sw.q      { background: var(--ih-green-700); }
+  </style>
+</head>
+
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+      <!-- ============================================================
+           SECTION 0, OPEN (Slides 1 to 10)
+           ============================================================ -->
+
+      <!-- SLIDE 1: Title -->
+      <section data-transition="fade">
+        <div class="title-slide">
+          <div class="topbar">
+            <span class="logo">
+              <span class="mark">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              </span>
+              <span>Inventory<span class="ih-h">Hero</span></span>
+            </span>
+            <span class="eyebrow orange"><span class="dot"></span>Kevin King · BDSS 2026</span>
+          </div>
+
+          <div>
+            <h1 class="title-h1">Build Your<br/><span class="accent">LLM Team Wiki</span></h1>
+            <p class="tagline">The shared brain your humans <strong>and</strong> your AIs are missing.</p>
+          </div>
+
+          <div class="meta">
+            <div>
+              <div class="by">Andrew Erickson</div>
+              <div style="font-size:0.85rem; color: var(--ih-neutral-500);">Founder, InventoryHero.ai</div>
+            </div>
+            <div class="date">May 31, 2026 · Austin, TX</div>
+          </div>
+        </div>
+        <aside class="notes">
+          0:15. Welcome. I'm Andrew Erickson. For the next hour we're going to build something together, a shared brain for your business that your humans AND your AIs can both use. By the end you'll know exactly how to set this up, and most of you will have a working version running before we're done. HOLD THE SLIDE. LOOK AROUND THE ROOM.
+        </aside>
+      </section>
+
+      <!-- SLIDE 2: About Me (Part 1) -->
+      <section>
+        <div class="slide-pad top">
+          <span class="eyebrow orange"><span class="dot"></span>About Me · Part 1</span>
+          <h2>Andrew Erickson</h2>
+          <p class="lede wide" style="margin-bottom:1.4rem;">Quick credentials, so you know I'm not a guru.</p>
+
+          <ul class="about-bullets">
+            <li class="fragment fade-in-fast">Started on Etsy/Amazon in <strong>2015</strong></li>
+            <li class="fragment fade-in-fast">Founder of three <strong>7-figure brands</strong> on Amazon</li>
+            <li class="fragment fade-in-fast">Studied <strong>Applied Math &amp; Electrical Engineering</strong></li>
+            <li class="fragment fade-in-fast">Engineer turned Entrepreneur</li>
+            <li class="fragment fade-in-fast">Host of <strong>Titan Weekly AI Mastermind</strong></li>
+            <li class="fragment fade-in-fast">Kevin King's <strong>BDSS 2026 Grand Prize Winner</strong></li>
+            <li class="fragment fade-in-fast">Designed &amp; launched <strong>100+</strong> physical products</li>
+            <li class="fragment fade-in-fast"><strong>7-figure exit</strong> in 2021</li>
+            <li class="fragment fade-in-fast teaser">and…</li>
+          </ul>
+        </div>
+        <div class="slide-footer"><span>Build Your LLM Team Wiki</span><span class="right">Andrew Erickson · 2026</span></div>
+        <aside class="notes">
+          0:45. Hit fast, don't read every bullet. Three 7-figure brands. Started on Etsy 2015. Engineer turned entrepreneur. Host of Titan Weekly AI Mastermind. Launched 100+ products. 7-figure exit in 2021. Won BDSS 2026. AND… BEAT THE "AND…", pause, then click.
+        </aside>
+      </section>
+
+      <!-- SLIDE 3: About Me (Part 2) -->
+      <section>
+        <div class="slide-pad top">
+          <span class="eyebrow orange"><span class="dot"></span>About Me · Part 2</span>
+          <h2>What I'm <span class="accent">building now</span></h2>
+          <div class="two-col" style="margin-top:1.2rem;">
+            <div>
+              <div class="card tint-orange">
+                <div class="card-label">Active Build</div>
+                <div class="card-title">InventoryHero.ai</div>
+                <div class="card-body">Agentic inventory management for Amazon sellers.</div>
+                <ul style="margin: 0.7rem 0 0 1rem; font-size: 1rem; color: var(--ih-neutral-700);">
+                  <li>Talks to your <strong>SP-API</strong> in plain English</li>
+                  <li>Detects <strong>stockouts, overstock, reorder risk</strong> before you do</li>
+                  <li>The <strong>memory layer</strong> behind it is what we're building today</li>
+                </ul>
+              </div>
+            </div>
+            <div>
+              <ul class="icon-list" style="margin-top:0.4rem;">
+                <li class="fragment fade-in-fast"><span class="ic">▶</span><span>Host of the <strong>OpenClaw Hackathon</strong> series</span></li>
+                <li class="fragment fade-in-fast"><span class="ic">▶</span><span>Host of the <strong>AI for Ecom WhatsApp</strong> chat group</span></li>
+                <li class="fragment fade-in-fast"><span class="ic">▶</span><span>2nd successful exit <strong>just closed</strong>, more on that in a sec…</span></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="slide-footer"><span>Build Your LLM Team Wiki</span><span class="right">Andrew Erickson · 2026</span></div>
+        <aside class="notes">
+          0:45. What I'm building now is InventoryHero.ai, agentic inventory management for Amazon. SP-API in plain English. Detects stockouts and reorder risk before you do. And the memory layer behind it is exactly what we're going to build together today. Also run the OpenClaw Hackathon and the AI for Ecom WhatsApp group. AND…
+        </aside>
+      </section>
+
+      <!-- SLIDE 4: Launches I'm proudest of (Aliza/Arlo) -->
+      <section>
+        <div class="slide-pad" style="justify-content:center; align-items:center; text-align:center;">
+          <span class="eyebrow orange" style="align-self:center;"><span class="dot"></span>The launches I'm proudest of</span>
+          <h2 style="text-align:center;">Aliza &amp; Arlo</h2>
+          <p class="lede" style="text-align:center; margin: 0 auto 1rem;">Different launch, they're my kids.</p>
+          <div class="photo-row">
+            <div class="photo-card">
+              <div class="pname">Aliza</div>
+              <div class="pdate">April 2020</div>
+            </div>
+            <div class="photo-card b">
+              <div class="pname">Arlo</div>
+              <div class="pdate">September 2022</div>
+            </div>
+          </div>
+        </div>
+        <aside class="notes">
+          0:20. These are the launches I'm proudest of, Aliza in 2020, Arlo in 2022. Different launch, they're my kids. BEAT FOR LAUGH.
+        </aside>
+      </section>
+
+      <!-- SLIDE 5: Opening Hook (jobless bum) -->
+      <section>
+        <div class="slide-pad" style="justify-content:center;">
+          <span class="eyebrow orange"><span class="dot"></span>Also…</span>
+          <div class="callout" style="font-size: 2.4rem; max-width: 30ch; line-height: 1.15;">
+            "I just had my <em>second successful exit</em>.<br/>
+            Which means…<br/>
+            I'm officially a <em>jobless bum</em>.<br/>
+            So I'm filling my time by <strong>giving away the playbook</strong>."
+          </div>
+        </div>
+        <aside class="notes">
+          0:45. RECOMMENDED HOOK: jobless bum. I'm finally allowed to share this publicly, I just had my second successful exit. Which means I'm officially a jobless bum. So I'm filling my time by giving away the playbook. BEAT FOR LAUGH. MOVE QUICKLY.
+        </aside>
+      </section>
+
+      <!-- SLIDE 6: Let's Talk Business -->
+      <section data-transition="fade">
+        <div class="slide-pad" style="justify-content:center;">
+          <h1 style="font-size: 7rem; line-height: 1;">Let's talk <span class="accent">business.</span></h1>
+        </div>
+        <aside class="notes">
+          0:10. Alright, let's talk business.
+        </aside>
+      </section>
+
+      <!-- SLIDE 7: Goal -->
+      <section>
+        <div class="slide-pad" style="justify-content:center;">
+          <span class="eyebrow orange"><span class="dot"></span>My goal in the next 60 minutes</span>
+          <h1 style="font-size: 7.5rem; line-height: 1;">Blow your <span class="accent">mind.</span> </h1>
+        </div>
+        <aside class="notes">
+          0:15. My goal for the next 60 minutes: blow your mind.
+        </aside>
+      </section>
+
+      <!-- SLIDE 8: Why this matters / stakes -->
+      <section data-background-color="#171717" class="dark">
+        <div class="dark-slide glow">
+          <span class="eyebrow dark"><span class="dot"></span>Pay attention to this one</span>
+          <h2 style="font-size: 3.7rem; line-height: 1.05; max-width: 24ch;">
+            How well you understand the next 60 minutes will determine whether your business is running <span class="accent" style="font-style:normal;">10 AIs in 12 months</span>…<br/>
+            <span style="color: var(--ih-neutral-400); font-style: italic; font-weight: 600;">or being run over by them.</span>
+          </h2>
+          <p style="margin-top: 1.6rem; font-size: 1.4rem; color: var(--ih-neutral-400); max-width: 38ch;">
+            The Amazon sellers who own their <strong style="color:white;">context</strong> will own their category.
+          </p>
+        </div>
+        <aside class="notes">
+          0:45. SLOW DOWN. THIS IS THE STAKES SLIDE. Pay attention to this one, how well you understand the next 60 minutes will literally decide whether your business is running 10 AIs in 12 months… or being run over by them. The Amazon sellers who own their context will own their category. Memory isn't a tech problem. It's a competitive moat.
+        </aside>
+      </section>
+
+      <!-- SLIDE 9: Numbered preview -->
+      <section>
+        <div class="slide-pad top">
+          <span class="eyebrow orange"><span class="dot"></span>What you're going to learn</span>
+          <h2>The next 60 minutes, in four pieces.</h2>
+          <ol class="numlist">
+            <li class="fragment fade-in-fast"><strong>How AI memory actually works.</strong><br/>In human terms, no math, no jargon.</li>
+            <li class="fragment fade-in-fast"><strong>Why every "memory hack" you've tried is broken at the team level.</strong><br/>Local vaults are the PDFs of AI memory.</li>
+            <li class="fragment fade-in-fast"><strong>The AI Employee Handbook framework.</strong><br/>The named system you'll leave with today.</li>
+            <li class="fragment fade-in-fast"><strong>Two ways to deploy it today.</strong>
+              <span class="sub-opt">○ Power-user route, Karpathy + GitHub (free, advanced)</span>
+              <span class="sub-opt">○ Easy button, hosted MCP (5 min, non-technical)</span>
+            </li>
+          </ol>
+        </div>
+        <div class="slide-footer"><span>Build Your LLM Team Wiki</span><span class="right">Andrew Erickson · 2026</span></div>
+        <aside class="notes">
+          0:30. Here's what we're covering. One, how AI memory actually works, plain human terms. Two, why every memory hack you've tried has broken at the team level. Three, the AI Employee Handbook framework. Four, two ways to deploy: a free advanced way using GitHub, and a 5-minute easy button using a hosted MCP.
+        </aside>
+      </section>
+
+      <!-- SLIDE 10: Quote, Karpathy #1 -->
+      <section data-background-color="#fafafa">
+        <div class="quote-slide">
+          <div class="q-photo"><img src="images/karpathy.png" alt="Andrej Karpathy" /></div>
+          <div class="q-body">
+            <div class="qmark">"</div>
+          <blockquote>
+            The hottest new programming language is <span class="accent">English</span>.
+          </blockquote>
+          <div class="attribution">
+            <span class="name">Andrej Karpathy</span>
+            <span class="role">founding member, OpenAI · ex-Director of AI, Tesla</span>
+          </div>
+          </div>
+        </div>
+        <aside class="notes">
+          0:15. Karpathy nailed it: "The hottest new programming language is English." Hold onto that, we'll come back to it.
+        </aside>
+      </section>
+
+      <!-- ============================================================
+           SECTION 1, THE PROBLEM (Slides 11 to 16)
+           ============================================================ -->
+
+      <!-- SLIDE 11: Section header, The Problem -->
+      <section>
+        <div class="section-divider">
+          <div class="module-num">Part 1 · The Problem</div>
+          <h2>Your AIs have <span class="accent">amnesia.</span></h2>
+          <p class="sub">Every chat starts from zero. Every teammate works from a different memory. It's costing you more than you think.</p>
+          <div class="accent-rule"></div>
+        </div>
+        <aside class="notes">
+          0:10. First, let's name the problem clearly. Your AIs have amnesia.
+        </aside>
+      </section>
+
+      <!-- SLIDE 12: The Real Problem -->
+      <section>
+        <div class="slide-pad top">
+          <span class="eyebrow orange"><span class="dot"></span>The Problem · The real one</span>
+          <h2>AI memory is broken, especially for Amazon teams.</h2>
+          <ul class="icon-list" style="margin-top:1.2rem; font-size: 1.15rem;">
+            <li class="fragment fade-in-fast"><span class="ic no"></span><span>Every new chat <strong>starts from zero</strong>.</span></li>
+            <li class="fragment fade-in-fast"><span class="ic no"></span><span>Even when you DO set up memory, it lives on <strong>one laptop</strong>.</span></li>
+            <li class="fragment fade-in-fast"><span class="ic no"></span><span>Your VAs, your designer, your PPC manager, your supplier, your 10 background agents, <strong>none of them can see it</strong>.</span></li>
+            <li class="fragment fade-in-fast"><span class="ic no"></span><span>You re-explain your brand, your avatar, your ASINs, your TikTok angle, your email voice, <strong>to every AI, every day, forever</strong>.</span></li>
+          </ul>
+        </div>
+        <div class="slide-footer"><span>Build Your LLM Team Wiki</span><span class="right">Part 1 · The Problem</span></div>
+        <aside class="notes">
+          1:00. Read the bullets, don't paraphrase. AI memory is broken, especially for Amazon teams. Every new chat starts from zero. Memory lives on one laptop. Your VAs, designer, PPC manager, supplier in China, 10 background agents, none of them can see it. You re-explain your brand, avatar, ASINs, TikTok angle, email voice, to every AI, every day, forever. Sound familiar? WAIT FOR NODS.
+        </aside>
+      </section>
+
+      <!-- SLIDE 13: Two Failure Modes -->
+      <section>
+        <div class="slide-pad top">
+          <span class="eyebrow orange"><span class="dot"></span>Two Failure Modes</span>
+          <h2>You can't out-prompt this.<br/>You have to <span class="accent">out-structure</span> it.</h2>
+          <div class="two-col" style="margin-top: 1.6rem;">
+            <div class="card tint-blue">
+              <div class="col-head"><span class="marker too-little">−</span> Too Little Context</div>
+              <div class="card-body" style="font-style:italic; font-size:1.05rem; margin: 0.5rem 0;">
+                "Update my listing copy."
+              </div>
+              <div class="card-result"><strong>Result:</strong> generic hallucination that could be for any seller in any niche.</div>
+            </div>
+            <div class="card tint-purple">
+              <div class="col-head"><span class="marker too-much">+</span> Too Much Context</div>
+              <div class="card-body" style="font-style:italic; font-size:1.05rem; margin: 0.5rem 0;">
+                "Just read my entire Google Drive."
+              </div>
+              <div class="card-result"><strong>Result:</strong> noise, dilution, confusion.</div>
+            </div>
+          </div>
+        </div>
+        <div class="slide-footer"><span>Build Your LLM Team Wiki</span><span class="right">Part 1 · The Problem</span></div>
+        <aside class="notes">
+          1:00. Two failure modes. Too little context, "update my listing copy", generic hallucinated garbage. Too much, "just read my entire Google Drive", noise, dilution, confusion. You CANNOT out-prompt this. You have to OUT-STRUCTURE it. LAND "out-structure it", that's a phrase people will repeat.
+        </aside>
+      </section>
+
+      <!-- SLIDE 14: Team problem visual -->
+      <section>
+        <div class="slide-pad top">
+          <span class="eyebrow orange"><span class="dot"></span>The Team Problem</span>
+          <h2>You're conducting a symphony where everyone has <span class="accent">different sheet music.</span></h2>
+
+          <div class="two-col" style="margin-top:1.6rem; gap: 4rem;">
+            <div>
+              <div class="card" style="text-align:center;">
+                <div class="card-label">You</div>
+                <div class="card-title" style="margin: 0.4rem 0;">Local Obsidian Vault</div>
+                <div style="font-family: var(--font-mono); color: var(--ih-orange-dark); font-weight: 700; margin: 0.3rem 0;">↓</div>
+                <div class="card-body">Genius context that <strong>nobody else can read.</strong></div>
+              </div>
+            </div>
+            <div>
+              <ul class="icon-list">
+                <li class="fragment fade-in-fast"><span class="ic no"></span><span>Your <strong>ops manager</strong> doesn't have it.</span></li>
+                <li class="fragment fade-in-fast"><span class="ic no"></span><span>Your <strong>supplier in Shenzhen</strong> doesn't have it.</span></li>
+                <li class="fragment fade-in-fast"><span class="ic no"></span><span>Your <strong>TikTok Shop VA</strong> doesn't have it.</span></li>
+                <li class="fragment fade-in-fast"><span class="ic no"></span><span>Your <strong>PPC bot</strong> doesn't have it.</span></li>
+                <li class="fragment fade-in-fast"><span class="ic no"></span><span>The <strong>10 Claudes</strong> running your product research don't have it.</span></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="slide-footer"><span>Build Your LLM Team Wiki</span><span class="right">Part 1 · The Problem</span></div>
+        <aside class="notes">
+          1:00. And the team layer makes it worse. Even if you've set it up perfectly for yourself, your ops manager doesn't have it. Your supplier in Shenzhen doesn't have it. Your TikTok Shop VA doesn't have it. Your PPC bot doesn't have it. You're conducting a symphony where every player has different sheet music.
+        </aside>
+      </section>
+
+      <!-- SLIDE 15: One-liner, shared brain -->
+      <section>
+        <div class="one-liner">
+          <div class="ol-mark"></div>
+          <div class="ol-text">
+            You don't need a <span style="color: var(--ih-neutral-400);">smarter AI.</span><br/>
+            You need a <span class="accent">shared brain.</span>
+          </div>
+        </div>
+        <aside class="notes">
+          0:15. SAY SLOWLY. You don't need a smarter AI. You need a shared brain. PAUSE FOR A BEAT. LET IT LAND.
+        </aside>
+      </section>
+
+      <!-- SLIDE 16: Quote, Aaron Levie -->
+      <section data-background-color="#fafafa">
+        <div class="quote-slide">
+          <div class="q-photo"><img src="images/levie.jpg" alt="Aaron Levie" /></div>
+          <div class="q-body">
+            <div class="qmark">"</div>
+          <blockquote>
+            AI without your data is just a <span class="accent">parlor trick</span>.
+          </blockquote>
+          <div class="attribution">
+            <span class="name">Aaron Levie</span>
+            <span class="role">co-founder &amp; CEO, Box</span>
+          </div>
+          </div>
+        </div>
+        <aside class="notes">
+          0:15. Aaron Levie, CEO of Box: "AI without your data is just a parlor trick." Memorize that one.
+        </aside>
+      </section>
+
+      <!-- ============================================================
+           SECTION 2, SOFT SIGN-UP (Slides 17 to 18)
+           ============================================================ -->
+
+      <!-- SLIDE 17: The "sync in background" CTA -->
+      <section>
+        <div class="slide-pad top">
+          <span class="eyebrow orange"><span class="dot"></span>Before we go any further</span>
+          <h2>Sign up <span class="accent">now</span>, your account syncs while I talk.</h2>
+
+          <div class="two-col" style="margin-top:1.2rem; grid-template-columns: 1.4fr 1fr; gap: 3rem; align-items: center;">
+            <div class="body">
+              <p style="font-size:1.15rem;">Later in this talk I'll do a live demo using <strong>YOUR Amazon SP-API data</strong>.</p>
+              <p style="font-size:1.15rem;">If you scan this QR code right now, your account will sync in the background while I'm talking. By minute 45, your store will be live, your catalog loaded, and you'll be <strong>building alongside me. For free.</strong></p>
+              <div class="pillrow">
+                <span class="pill"><span class="dot"></span>No credit card</span>
+                <span class="pill"><span class="dot"></span>Beta access</span>
+                <span class="pill"><span class="dot"></span>~3 min to authorize SP-API</span>
+              </div>
+            </div>
+            <div style="text-align:center;">
+              <div class="qr-block">
+                <div class="qr-hint">Scan to sign up</div>
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=280x280&data=https%3A%2F%2Finventoryhero.ai%2Fsignup&color=171717&bgcolor=FFFFFF&margin=0" width="240" height="240" alt="Sign up QR" />
+                <div class="qr-label">inventoryhero.ai/signup</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="slide-footer"><span>Build Your LLM Team Wiki</span><span class="right">Part 2 · Sync While We Talk</span></div>
+        <aside class="notes">
+          1:00. SOFT PITCH. DON'T SELL, INVITE. Quick aside. Later I'm going to do a live demo using REAL Amazon SP-API data. If you sign up right now, phone out, scan this QR, your account will sync in the background while we talk. By the demo at minute 45 your store will be live, your catalog loaded, and you'll be building alongside me. For free. Beta access. No credit card. Three minutes to authorize SP-API. PAUSE. LET PHONES COME OUT.
+        </aside>
+      </section>
+
+      <!-- SLIDE 18: Three reasons to sign up now -->
+      <section>
+        <div class="slide-pad top">
+          <span class="eyebrow orange"><span class="dot"></span>Why now, not later</span>
+          <h2>Three reasons to sign up <span class="accent">while you listen.</span></h2>
+          <ol class="numlist" style="grid-template-columns: 1fr; gap: 0.8rem; max-width: 60rem;">
+            <li class="fragment fade-in-fast"><strong>SP-API sync takes ~20 minutes.</strong> Start it now and it's done before we need it.</li>
+            <li class="fragment fade-in-fast"><strong>Watch the AI Employee Handbook auto-populate from YOUR real data</strong>, not a demo account.</li>
+            <li class="fragment fade-in-fast"><strong>By minute 50, you'll have a working memory layer</strong> you can use Monday morning.</li>
+          </ol>
+          <p style="margin-top:1.4rem; font-size: 1.1rem; color: var(--ih-neutral-500); max-width: 50ch; font-style: italic;">
+            If you wait until the end of the talk, you'll have to go home and do this on your own.<br/>
+            <strong style="color: var(--ih-neutral-900); font-style: normal;">Don't.</strong>
+          </p>
+        </div>
+        <div class="slide-footer"><span>Build Your LLM Team Wiki</span><span class="right">Part 2 · Sync While We Talk</span></div>
+        <aside class="notes">
+          1:00. Three reasons to do this RIGHT NOW. One, SP-API takes ~20 min to fully sync, start it before we need it. Two, when we get to the demo you'll watch the Handbook auto-populate from YOUR real data. Three, by minute 50 you'll have a working memory layer for Monday morning. If you wait, you'll have to do this at home. Don't. BEAT. MOVE ON.
+        </aside>
+      </section>
+
+      <!-- ============================================================
+           SECTION 3, MODULE 1: ANATOMY (Slides 19 to 24)
+           ============================================================ -->
+
+      <!-- SLIDE 19: Section header, Module 1 -->
+      <section>
+        <div class="section-divider">
+          <div class="module-num">Module 1 · 7 minutes</div>
+          <h2>The Anatomy of<br/><span class="accent">AI Memory.</span></h2>
+          <p class="sub">In human terms. No vector math. No jargon.</p>
+          <div class="accent-rule"></div>
+        </div>
+        <aside class="notes">
+          0:10. Module 1: how AI memory actually works, in human terms.
+        </aside>
+      </section>
+
+      <!-- SLIDE 20: Brain mapping table -->
+      <section>
+        <div class="slide-pad top">
+          <span class="eyebrow orange"><span class="dot"></span>The Anatomy</span>
+          <h2>Don't think "vector embeddings."<br/>Think about <span class="accent">how YOU remember.</span></h2>
+          <table style="margin-top:1.2rem; font-size: 1.05rem;">
+            <thead>
+              <tr><th style="width:32%;">Human Brain</th><th>AI Equivalent</th><th>Example</th></tr>
+            </thead>
+            <tbody>
+              <tr class="fragment fade-in-fast">
+                <td class="col-name">Working Memory</td>
+                <td><strong>Context Window</strong></td>
+                <td>The chat you have open right now</td>
+              </tr>
+              <tr class="fragment fade-in-fast">
+                <td class="col-name">Long-Term Memory</td>
+                <td><strong>Vector DB / RAG retrieval</strong></td>
+                <td>Pinecone, Chroma, your wiki</td>
+              </tr>
+              <tr class="fragment fade-in-fast">
+                <td class="col-name">Notebook on your desk</td>
+                <td><strong>Markdown files</strong></td>
+                <td><code>brand_guidelines.md</code></td>
+              </tr>
+              <tr class="fragment fade-in-fast hot">
+                <td class="col-name">Calling a friend</td>
+                <td><strong>MCP tool call</strong></td>
+                <td>"Hey SP-API, what's stock on B0XYZ?"</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="slide-footer"><span>Build Your LLM Team Wiki</span><span class="right">Module 1 · Anatomy</span></div>
+        <aside class="notes">
+          1:30. FOUNDATIONAL SLIDE. TAKE YOUR TIME. Don't think "vector embeddings." Think about how YOU remember. Working memory = what you hold in your head right now, sharp but limited = context window. Long-term memory = everything stored over years = vector DBs and RAG. Notebook on your desk = markdown files. Calling a friend when you don't know something = MCP tool call. MAKE SURE THE ROOM IS WITH YOU BEFORE MOVING ON.
+        </aside>
+      </section>
+
+      <!-- SLIDE 21: Working Memory -->
+      <section>
+        <div class="slide-pad top">
+          <span class="eyebrow orange"><span class="dot"></span>Working Memory</span>
+          <h2>The Context Window <span style="color: var(--ih-neutral-400); font-weight: 600;">=</span> Working Memory</h2>
+          <div class="two-col" style="margin-top:1rem; align-items: center;">
+            <ul class="icon-list">
+              <li class="fragment fade-in-fast"><span class="ic">▶</span><span><strong>Short-term, in-the-moment focus.</strong></span></li>
+              <li class="fragment fade-in-fast"><span class="ic">▶</span><span><strong>Incredibly sharp</strong>, Claude can hold massive content in one conversation.</span></li>
+              <li class="fragment fade-in-fast"><span class="ic">▶</span><span><strong>Completely ephemeral</strong>, gone the moment the chat ends.</span></li>
+              <li class="fragment fade-in-fast"><span class="ic">▶</span><span>This is why "memory" doesn't survive a new conversation. <em>It was never actually saved.</em></span></li>
+            </ul>
+            <div class="callout">
+              The chat ends.<br/>The memory dies.<br/><span style="color: var(--ih-orange-dark);">Every. Single. Time.</span>
+            </div>
+          </div>
+        </div>
+        <div class="slide-footer"><span>Build Your LLM Team Wiki</span><span class="right">Module 1 · Anatomy</span></div>
+        <aside class="notes">
+          1:00. The context window is working memory. Incredibly sharp, Claude or GPT can hold massive amounts in a single conversation. But completely ephemeral. The moment that chat ends, it's gone. That's WHY "memory" doesn't survive a new conversation. It was never actually saved.
+        </aside>
+      </section>
+
+      <!-- SLIDE 22: Long-term memory -->
+      <section>
+        <div class="slide-pad top">
+          <span class="eyebrow orange"><span class="dot"></span>Long-Term Memory</span>
+          <h2>Vector Embeddings <span style="color: var(--ih-neutral-400); font-weight: 600;">+</span> Retrieval</h2>
+          <div class="two-col" style="margin-top:1rem; align-items: center;">
+            <ul class="icon-list">
+              <li class="fragment fade-in-fast"><span class="ic">▶</span><span>Your knowledge becomes <strong>coordinates in N-dimensional space</strong>.</span></li>
+              <li class="fragment fade-in-fast"><span class="ic">▶</span><span>Filing cabinet organized by <strong>meaning</strong>, not alphabet.</span></li>
+              <li class="fragment fade-in-fast"><span class="ic">▶</span><span>When you ask a question, the AI fetches relevant chunks…</span></li>
+              <li class="fragment fade-in-fast"><span class="ic">▶</span><span>…and pulls them <strong>INTO working memory</strong>, on demand.</span></li>
+            </ul>
+            <div class="callout">
+              This is how you give an AI a <em>past</em>.<br/>
+              <span style="font-weight: 600; font-size: 1.05rem; color: var(--ih-neutral-700); display:block; margin-top:0.4rem;">This is how you stop starting from zero.</span>
+            </div>
+          </div>
+        </div>
+        <div class="slide-footer"><span>Build Your LLM Team Wiki</span><span class="right">Module 1 · Anatomy</span></div>
+        <aside class="notes">
+          1:30. Long-term memory works differently. Your knowledge gets converted into coordinates in high-dimensional vector space, basically the AI's version of a filing cabinet, but organized by meaning instead of alphabet. When you ask, an algorithm fetches the most relevant chunks and pulls them INTO working memory on demand. That's how you give an AI a past. That's how you stop starting from zero.
+        </aside>
+      </section>
+
+      <!-- SLIDE 23: One-liner, VA day 1 vs ops year 3 -->
+      <section>
+        <div class="one-liner small">
+          <div class="ol-mark"></div>
+          <div class="ol-text">
+            Memory isn't a feature.<br/><br/>
+            It's the difference between<br/>
+            <span style="color: var(--ih-neutral-500);">a VA on Day 1</span><br/>
+            and an <span class="accent">ops manager on Year 3.</span>
+          </div>
+        </div>
+        <aside class="notes">
+          0:20. SAY SLOWLY. Memory isn't a feature. It's the difference between a VA on Day 1 and an ops manager on Year 3.
+        </aside>
+      </section>
+
+      <!-- SLIDE 24: Quote, Aravind Srinivas -->
+      <section data-background-color="#fafafa">
+        <div class="quote-slide">
+          <div class="q-photo"><img src="images/srinivas.jpg" alt="Aravind Srinivas" /></div>
+          <div class="q-body">
+            <div class="qmark">"</div>
+          <blockquote>
+            The bottleneck isn't model capability anymore, it's <span class="accent">context</span>.
+          </blockquote>
+          <div class="attribution">
+            <span class="name">Aravind Srinivas</span>
+            <span class="role">co-founder &amp; CEO, Perplexity</span>
+          </div>
+          <div class="qfooter-note">(paraphrased from his 2025 interview appearances)</div>
+          </div>
+        </div>
+        <aside class="notes">
+          0:15. Aravind from Perplexity put it perfectly: "The bottleneck isn't model capability anymore, it's context."
+        </aside>
+      </section>
+
+      <!-- ============================================================
+           SECTION 3.5, MODULE 2: CONTEXT MECHANICS (NEW)
+           ============================================================ -->
+
+      <!-- NEW: Section header, Module 2 - Context Mechanics -->
+      <section>
+        <div class="section-divider">
+          <div class="module-num">Module 2 · 8 minutes</div>
+          <h2>How Context<br/><span class="accent">Actually Works.</span></h2>
+          <p class="sub">What fills it up. What gets forgotten. The numbers nobody tells you.</p>
+          <div class="accent-rule"></div>
+        </div>
+        <aside class="notes">
+          0:15. Module 2. If you remember nothing else, remember this section. We're going to look at what your AI actually does with the text you give it. How much it really holds onto. And what it quietly forgets. This part has changed more sellers' results than any prompt trick I've ever taught.
+        </aside>
+      </section>
+
+      <!-- NEW: Context = RAM, with token budget reality -->
+      <section>
+        <div class="slide-pad top">
+          <span class="eyebrow orange"><span class="dot"></span>Context = the AI's RAM</span>
+          <h2>Every chat has a <span class="accent">token budget.</span></h2>
+          <p class="lede wide" style="margin-top:0.4rem; font-size:1.1rem;">
+            1 token ≈ 4 characters ≈ ¾ of a word. 200K tokens ≈ a <strong>500-page book</strong>. Sounds infinite. It isn't.
+          </p>
+          <div style="margin-top: 1.4rem; display:flex; flex-direction:column; gap: 0.9rem; max-width: 64rem;">
+            <div class="fragment fade-in-fast token-bar">
+              <div class="label"><span class="model">Claude Opus 4.7</span><span class="nums">advertised 1M · sharp recall ~200K</span></div>
+              <div class="track"><div class="fill-sharp" style="width:20%;"></div><div class="fill-fuzzy" style="left:20%; width:80%;"></div></div>
+              <div class="pct">20%</div>
+            </div>
+            <div class="fragment fade-in-fast token-bar">
+              <div class="label"><span class="model">GPT-5</span><span class="nums">advertised 400K · sharp recall ~100K</span></div>
+              <div class="track"><div class="fill-sharp" style="width:25%;"></div><div class="fill-fuzzy" style="left:25%; width:75%;"></div></div>
+              <div class="pct">25%</div>
+            </div>
+            <div class="fragment fade-in-fast token-bar">
+              <div class="label"><span class="model">Gemini 2.5 Pro</span><span class="nums">advertised 2M · sharp recall ~200K</span></div>
+              <div class="track"><div class="fill-sharp" style="width:10%;"></div><div class="fill-fuzzy" style="left:10%; width:90%;"></div></div>
+              <div class="pct">10%</div>
+            </div>
+            <div class="fragment fade-in-fast token-bar legend">
+              <span><span class="swatch sharp"></span>Sharp recall zone</span>
+              <span><span class="swatch fuzzy"></span>Fuzzy / degraded recall</span>
+            </div>
+          </div>
+          <p style="margin-top:1.2rem; font-size:1rem; color: var(--ih-neutral-500); font-style: italic;">
+            "1M context" is a marketing number. <strong style="color: var(--ih-neutral-900); font-style: normal;">Effective context</strong> is what your AI actually uses well.
+          </p>
+        </div>
+        <div class="slide-footer"><span>Build Your LLM Team Wiki</span><span class="right">Module 2 · Context Mechanics</span></div>
+        <aside class="notes">
+          1:30. Context is the AI's RAM. Every model has a hard ceiling on how much text it can hold in a single chat. 1 token is roughly 4 characters, or three-quarters of a word. 200K tokens is about a 500-page book. Now look at the bars. Claude Opus advertises 1M tokens. The sharp recall zone, where the model actually uses what you gave it correctly, is more like 200K. GPT-5 advertises 400K, sharp recall is about 100K. Gemini advertises 2 million, but the sharp recall band is about the same, 200K. The rest is fuzzy. Marketing number versus effective context. Burn that into your brain.
+        </aside>
+      </section>
+
+      <!-- NEW: Lost in the middle, the U-curve -->
+      <section>
+        <div class="slide-pad top">
+          <span class="eyebrow orange"><span class="dot"></span>Lost in the Middle</span>
+          <h2>AI recall is a <span class="accent">U-curve</span>, not a flat line.</h2>
+          <div class="two-col" style="margin-top:1rem; grid-template-columns: 1.1fr 1fr; align-items:center; gap: 2.4rem;">
+            <div>
+              <div class="u-curve">
+                <svg viewBox="0 0 600 220" preserveAspectRatio="none">
+                  <defs>
+                    <linearGradient id="ucv" x1="0" x2="0" y1="0" y2="1">
+                      <stop offset="0%" stop-color="#f97316" stop-opacity="0.3"/>
+                      <stop offset="100%" stop-color="#f97316" stop-opacity="0.02"/>
+                    </linearGradient>
+                  </defs>
+                  <line x1="40" y1="20"  x2="580" y2="20"  stroke="#e5e5e5" stroke-dasharray="3 4"/>
+                  <line x1="40" y1="100" x2="580" y2="100" stroke="#e5e5e5" stroke-dasharray="3 4"/>
+                  <line x1="40" y1="180" x2="580" y2="180" stroke="#e5e5e5"/>
+                  <text x="20" y="26"  font-size="11" fill="#737373" font-family="JetBrains Mono">100%</text>
+                  <text x="20" y="106" font-size="11" fill="#737373" font-family="JetBrains Mono">60%</text>
+                  <text x="20" y="186" font-size="11" fill="#737373" font-family="JetBrains Mono">20%</text>
+                  <path d="M40,40 C140,60 220,150 310,160 C400,150 480,60 580,40 L580,200 L40,200 Z" fill="url(#ucv)"/>
+                  <path d="M40,40 C140,60 220,150 310,160 C400,150 480,60 580,40" fill="none" stroke="#ea580c" stroke-width="3" stroke-linecap="round"/>
+                  <circle cx="40" cy="40" r="5" fill="#16a34a"/>
+                  <circle cx="310" cy="160" r="5" fill="#dc2626"/>
+                  <circle cx="580" cy="40" r="5" fill="#16a34a"/>
+                  <text x="40" y="216" font-size="11" fill="#525252" font-family="JetBrains Mono" text-anchor="middle">start</text>
+                  <text x="310" y="216" font-size="11" fill="#dc2626" font-family="JetBrains Mono" text-anchor="middle" font-weight="700">middle (forgotten)</text>
+                  <text x="580" y="216" font-size="11" fill="#525252" font-family="JetBrains Mono" text-anchor="middle">end</text>
+                </svg>
+                <div class="axis-label"><span>Position of fact in prompt →</span></div>
+              </div>
+            </div>
+            <div>
+              <ul class="icon-list" style="font-size: 1.05rem;">
+                <li class="fragment fade-in-fast"><span class="ic yes"></span><span><strong>Sharp at the start.</strong> First ~10K tokens get full attention.</span></li>
+                <li class="fragment fade-in-fast"><span class="ic yes"></span><span><strong>Sharp at the end.</strong> Last ~5K tokens (recency).</span></li>
+                <li class="fragment fade-in-fast"><span class="ic no"></span><span><strong>Hazy in the middle.</strong> Recall drops <strong>20 to 40%</strong> on facts buried mid-prompt.</span></li>
+                <li class="fragment fade-in-fast"><span class="ic">▶</span><span>Documented in <em>Liu et al. 2023, "Lost in the Middle"</em> and reproduced on every frontier model since.</span></li>
+              </ul>
+              <p style="margin-top:0.9rem; font-size:0.95rem; color: var(--ih-neutral-500); font-style: italic;">
+                Same prompt. Same model. Same question. Move the answer to the middle, and it gets it wrong.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="slide-footer"><span>Build Your LLM Team Wiki</span><span class="right">Module 2 · Context Mechanics</span></div>
+        <aside class="notes">
+          1:45. This is the slide. Get this and you stop fighting your AI. Researchers at Stanford in 2023 ran a clean experiment: bury the answer to a question at different positions in a long prompt. Then ask the question. What they found, and what every frontier model still shows today, is a U-curve. The AI is sharp at the beginning. It is sharp at the end. And it goes hazy in the middle. Recall drops between 20 and 40 percent on facts buried in the middle. Same prompt, same model, same question, just move the answer. So when you dump "read my entire Google Drive" into one chat, the stuff that matters is sitting in the dead zone. This is not a model getting smarter problem. It is a how you load context problem.
+        </aside>
+      </section>
+
+      <!-- NEW: What fills the budget -->
+      <section>
+        <div class="slide-pad top">
+          <span class="eyebrow orange"><span class="dot"></span>What's eating your context</span>
+          <h2>Your data is the <span class="accent">thin slice.</span> Most of the budget is overhead.</h2>
+          <p class="lede wide" style="margin-top:0.4rem; font-size: 1.05rem;">
+            A typical agentic chat with 3 MCPs connected, before you've even typed your question:
+          </p>
+
+          <div class="budget-stack" style="margin-top: 1.4rem;">
+            <div class="seg sys"   style="flex: 6;">Sys</div>
+            <div class="seg tools" style="flex: 22;">Tool definitions</div>
+            <div class="seg hist"  style="flex: 38;">Conversation history</div>
+            <div class="seg rag"   style="flex: 28;">Retrieved docs / RAG</div>
+            <div class="seg q"     style="flex: 6;">Q</div>
+          </div>
+          <div class="budget-legend" style="margin-top: 0.8rem;">
+            <div class="li"><span class="sw sys"></span><span><strong>System prompt</strong><br/><span style="color: var(--ih-neutral-500);">1K to 10K</span></span></div>
+            <div class="li"><span class="sw tools"></span><span><strong>Tool defs (MCP)</strong><br/><span style="color: var(--ih-neutral-500);">5K to 30K each</span></span></div>
+            <div class="li"><span class="sw hist"></span><span><strong>Chat history</strong><br/><span style="color: var(--ih-neutral-500);">grows linearly</span></span></div>
+            <div class="li"><span class="sw rag"></span><span><strong>Retrieved docs</strong><br/><span style="color: var(--ih-neutral-500);">10K to 80K</span></span></div>
+            <div class="li"><span class="sw q"></span><span><strong>Your question</strong><br/><span style="color: var(--ih-neutral-500);">~200 tokens</span></span></div>
+          </div>
+
+          <p style="margin-top: 1.4rem; font-size: 1.3rem; color: var(--ih-neutral-900); font-family: var(--font-head); font-weight: 700; max-width: 50ch;">
+            By turn 10, the model is reading 90K tokens of overhead to answer 200 tokens of you.
+          </p>
+        </div>
+        <div class="slide-footer"><span>Build Your LLM Team Wiki</span><span class="right">Module 2 · Context Mechanics</span></div>
+        <aside class="notes">
+          1:30. Here is the slide that explains why every long chat slowly gets dumber. Look at the bar. Each color is a real chunk of tokens being shipped to the model on every single turn. System prompt, 1 to 10 thousand. Each MCP tool definition, 5 to 30 thousand, and most of you have 3 to 5 connected. Conversation history, grows linearly with every back and forth. Retrieved RAG chunks, 10 to 80 thousand. And your actual question, the thing you typed, is about 200 tokens. By turn 10 the model is reading 90 thousand tokens of overhead to answer 200 tokens of you. THIS is why you do not dump. You curate. You give the model a map and let it pull only the right page.
+        </aside>
+      </section>
+
+      <!-- NEW: Implication -->
+      <section>
+        <div class="slide-pad top">
+          <span class="eyebrow orange"><span class="dot"></span>The implication</span>
+          <h2>Never dump. <span class="accent">Always curate.</span></h2>
+
+          <div class="two-col" style="margin-top: 1.4rem;">
+            <div class="card" style="background:#fef2f2; border-color:#fecaca;">
+              <div class="card-label" style="color: var(--ih-red-600);">What most teams do</div>
+              <div class="card-title">Dump and pray.</div>
+              <ul class="icon-list" style="margin-top: 0.6rem; font-size: 0.95rem;">
+                <li class="fragment fade-in-fast"><span class="ic no"></span><span>"Just read my entire Google Drive."</span></li>
+                <li class="fragment fade-in-fast"><span class="ic no"></span><span>Pile 14 PDFs into one chat.</span></li>
+                <li class="fragment fade-in-fast"><span class="ic no"></span><span>Re-paste the same SOPs every prompt.</span></li>
+              </ul>
+              <div class="card-result" style="margin-top: 0.6rem;"><strong>Result:</strong> the answer they cared about lands in the dead-zone.</div>
+            </div>
+            <div class="card tint-green">
+              <div class="card-label">What the Handbook does</div>
+              <div class="card-title">Map + pull.</div>
+              <ul class="icon-list" style="margin-top: 0.6rem; font-size: 0.95rem;">
+                <li class="fragment fade-in-fast"><span class="ic yes"></span><span>One small <code>handbook_overview.md</code> in the sharp zone.</span></li>
+                <li class="fragment fade-in-fast"><span class="ic yes"></span><span>AI pulls only the <strong>1 to 3 files</strong> it needs.</span></li>
+                <li class="fragment fade-in-fast"><span class="ic yes"></span><span>Sharp recall on the part that actually matters.</span></li>
+              </ul>
+              <div class="card-result" style="margin-top: 0.6rem;"><strong>Result:</strong> the model thinks with your business, not against it.</div>
+            </div>
+          </div>
+          <p style="margin-top: 1.4rem; font-size: 1.4rem; color: var(--ih-orange-dark); font-family: var(--font-head); font-weight: 800; text-align:center;">
+            The Handbook is a context-budget strategy, not a wiki.
+          </p>
+        </div>
+        <div class="slide-footer"><span>Build Your LLM Team Wiki</span><span class="right">Module 2 · Context Mechanics</span></div>
+        <aside class="notes">
+          1:30. So what do you do with all this? You stop dumping and you start curating. Left side, what most teams do. Read my entire Google Drive. Pile 14 PDFs in. Re-paste SOPs every turn. The answer that mattered lands in the dead zone in the middle. Right side, what the Handbook does. You put a tiny overview file in the sharp zone at the top. The AI uses that map to pull the 1 to 3 files it actually needs. Sharp recall on the part that mattered. THAT is why the Handbook works. The Handbook is a context-budget strategy, dressed up as a wiki.
+        </aside>
+      </section>
+
+      <!-- ============================================================
+           SECTION 4, MODULE 3: HIERARCHY (Expanded)
+           ============================================================ -->
+
+      <!-- SLIDE 25: Section header, Module 2 -->
+      <section>
+        <div class="section-divider">
+          <div class="module-num">Module 3 · 7 minutes</div>
+          <h2>The Hierarchy of<br/><span class="accent">Memory Tools.</span></h2>
+          <p class="sub">Why every solution you've tried has failed your team.</p>
+          <div class="accent-rule"></div>
+        </div>
+        <aside class="notes">
+          0:10. Module 3: the hierarchy of memory tools, and why every solution you've tried has failed your team.
+        </aside>
+      </section>
+
+      <!-- SLIDE 26: Memory hierarchy table -->
+      <section>
+        <div class="slide-pad top">
+          <span class="eyebrow orange"><span class="dot"></span>The Memory Hierarchy</span>
+          <h2>Four tiers. Three of them fail your team.</h2>
+          <table style="margin-top:1.2rem; font-size: 0.97rem;">
+            <thead>
+              <tr><th>Type</th><th>Implementation</th><th>Good for</th><th>Where it breaks</th></tr>
+            </thead>
+            <tbody>
+              <tr class="fragment fade-in-fast">
+                <td class="col-name">Ephemeral</td>
+                <td>Copy-paste · system prompts</td>
+                <td>One-off chats</td>
+                <td>Manual. Every. Time.</td>
+              </tr>
+              <tr class="fragment fade-in-fast">
+                <td class="col-name">Siloed Static</td>
+                <td>Obsidian · LogSeq on laptop</td>
+                <td>Solo founders</td>
+                <td>Can't share across team</td>
+              </tr>
+              <tr class="fragment fade-in-fast">
+                <td class="col-name">Vector Space</td>
+                <td>Pinecone · Chroma · raw RAG</td>
+                <td>Engineers</td>
+                <td>Humans can't read it</td>
+              </tr>
+              <tr class="fragment fade-in-fast hot">
+                <td class="col-name" style="color: var(--ih-orange-dark);">Dynamic Shared</td>
+                <td><strong>Team MCP + cloud markdown</strong></td>
+                <td><strong>Real businesses</strong></td>
+                <td><span class="check"> Needs scaffolding</span></td>
+              </tr>
+            </tbody>
+          </table>
+          <p style="margin-top:1rem; font-size:1rem; color: var(--ih-neutral-500); font-style: italic;">
+            Only the bottom row scales past one person. The first three are why your team is stuck.
+          </p>
+        </div>
+        <div class="slide-footer"><span>Build Your LLM Team Wiki</span><span class="right">Module 3 · Hierarchy</span></div>
+        <aside class="notes">
+          2:00. MOST INFORMATION-DENSE SLIDE. WALK IT ROW BY ROW. Ephemeral, copy-paste, prompts. One-off chats. Breaks because manual every time. Siloed Static, Obsidian, LogSeq on laptop. Solo founders. Can't sync. Vector Space, Pinecone, Chroma. Engineers. Humans can't read or edit it. Dynamic Shared, team MCP plus cloud markdown. Real businesses. Works IF you set up the scaffolding right. That's what we're teaching today.
+        </aside>
+      </section>
+
+      <!-- NEW: Tier 1 deep dive -->
+      <section>
+        <div class="slide-pad top">
+          <span class="eyebrow orange"><span class="dot"></span>Tier 1 of 4</span>
+          <h2 style="font-size:2.4rem; margin-bottom: 0.3rem;">Ephemeral <span style="color: var(--ih-neutral-400); font-weight:600;">,  the napkin.</span></h2>
+          <div class="tier-page">
+            <div class="col-left">
+              <div class="tier-badge"><span class="num">01</span>·<span>copy · paste · prompt</span></div>
+              <p class="tier-what">
+                Context that lives <strong>only inside one chat</strong>. You paste it in, the model uses it, the chat ends, the memory dies.
+              </p>
+              <div class="fragment fade-in-fast examples">
+                <span class="ex-label">You're using this if you use…</span>
+                <ul>
+                  <li>ChatGPT memory</li>
+                  <li>Claude Projects</li>
+                  <li>Custom GPTs</li>
+                  <li>Cursor Rules</li>
+                  <li>system prompts</li>
+                  <li>"here's my context, here's my question…"</li>
+                </ul>
+              </div>
+            </div>
+            <div class="col-right">
+              <div class="fragment fade-in-fast pros-cons">
+                <div class="pc-box pros">
+                  <div class="pc-head">Why it's useful</div>
+                  <ul>
+                    <li>Zero setup. Works in any tool.</li>
+                    <li>Immediate. Fine for one-off tasks.</li>
+                    <li>You always know exactly what the AI saw.</li>
+                  </ul>
+                </div>
+                <div class="pc-box cons">
+                  <div class="pc-head">Why it breaks</div>
+                  <ul>
+                    <li>Manual <em>every single time</em>.</li>
+                    <li>Doesn't survive a new chat.</li>
+                    <li>Zero team sharing. Zero version history.</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="fragment fade-in-fast tier-verdict">
+                <span class="verdict-label">Use it for</span>
+                A one-off prompt where the context fits in a paragraph and the answer fits in a tweet. <strong>Not your business.</strong>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="slide-footer"><span>Build Your LLM Team Wiki</span><span class="right">Module 3 · Hierarchy</span></div>
+        <aside class="notes">
+          1:30. Tier 1, ephemeral. You're using this if you use ChatGPT memory, Claude Projects, Custom GPTs, Cursor rules, or you paste your brand brief into every chat. It is fine for one-off tasks. The catch, manual every time. Doesn't survive a new chat. Zero team sharing. Zero version history. Verdict: fine for a one-off prompt. Not for running a business.
+        </aside>
+      </section>
+
+      <!-- NEW: Tier 2 deep dive -->
+      <section>
+        <div class="slide-pad top">
+          <span class="eyebrow orange"><span class="dot"></span>Tier 2 of 4</span>
+          <h2 style="font-size:2.4rem; margin-bottom: 0.3rem;">Siloed Static <span style="color: var(--ih-neutral-400); font-weight:600;">,  the genius notebook.</span></h2>
+          <div class="tier-page">
+            <div class="col-left">
+              <div class="tier-badge"><span class="num">02</span>·<span>local · markdown · single device</span></div>
+              <p class="tier-what">
+                A real, persistent knowledge vault, but it lives on <strong>one machine</strong>. You can use it. Nobody else can.
+              </p>
+              <div class="fragment fade-in-fast examples">
+                <span class="ex-label">You're using this if you use…</span>
+                <ul>
+                  <li>Obsidian</li>
+                  <li>LogSeq</li>
+                  <li>Apple Notes</li>
+                  <li>Notion (personal)</li>
+                  <li>a Desktop folder of <code>.md</code> files</li>
+                  <li>Claude Code + local repo</li>
+                </ul>
+              </div>
+            </div>
+            <div class="col-right">
+              <div class="fragment fade-in-fast pros-cons">
+                <div class="pc-box pros">
+                  <div class="pc-head">Why it's useful</div>
+                  <ul>
+                    <li>Real persistence. Survives new chats.</li>
+                    <li>Markdown is human + AI readable.</li>
+                    <li>Fast, local, private.</li>
+                  </ul>
+                </div>
+                <div class="pc-box cons">
+                  <div class="pc-head">Why it breaks</div>
+                  <ul>
+                    <li>Trapped on <strong>one laptop</strong>. Other laptop blind.</li>
+                    <li>Your VA, supplier, designer can't see it.</li>
+                    <li>Cloud agents (n8n, background Claudes) can't read it.</li>
+                    <li>Sync via Dropbox = merge-conflict hell.</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="fragment fade-in-fast tier-verdict">
+                <span class="verdict-label">Use it for</span>
+                Solo founder, single workstation, content you genuinely never want to share. <strong>The moment you have a teammate, this is broken.</strong>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="slide-footer"><span>Build Your LLM Team Wiki</span><span class="right">Module 3 · Hierarchy</span></div>
+        <aside class="notes">
+          1:30. Tier 2, siloed static. Obsidian. LogSeq. Notion personal. A Desktop full of markdown. Claude Code pointed at a local repo. This is the "genius notebook" stage. Real persistence. Survives new chats. Markdown that you and the AI can both read. Fast and private. The catch is in the name, siloed. Trapped on one laptop. Other laptop blind. Your VA can't see it. Your supplier can't see it. Cloud agents like n8n and background Claudes can't reach it. Sync via Dropbox is merge-conflict hell. Verdict: fine for a true solo operator. The moment you have one teammate, it is broken.
+        </aside>
+      </section>
+
+      <!-- NEW: Tier 3 deep dive -->
+      <section>
+        <div class="slide-pad top">
+          <span class="eyebrow orange"><span class="dot"></span>Tier 3 of 4</span>
+          <h2 style="font-size:2.4rem; margin-bottom: 0.3rem;">Vector Space <span style="color: var(--ih-neutral-400); font-weight:600;">,  the black box.</span></h2>
+          <div class="tier-page">
+            <div class="col-left">
+              <div class="tier-badge"><span class="num">03</span>·<span>embeddings · similarity · RAG</span></div>
+              <p class="tier-what">
+                Your text gets converted into <strong>numbers</strong> and stored in a database that retrieves by <strong>meaning</strong>. Powerful. Engineer-shaped.
+              </p>
+              <div class="fragment fade-in-fast examples">
+                <span class="ex-label">You're using this if you use…</span>
+                <ul>
+                  <li>Pinecone</li>
+                  <li>Chroma</li>
+                  <li>Weaviate</li>
+                  <li>OpenAI Assistants (file search)</li>
+                  <li>LlamaIndex</li>
+                  <li>raw RAG pipelines</li>
+                </ul>
+              </div>
+            </div>
+            <div class="col-right">
+              <div class="fragment fade-in-fast pros-cons">
+                <div class="pc-box pros">
+                  <div class="pc-head">Why it's useful</div>
+                  <ul>
+                    <li>Scales to millions of documents.</li>
+                    <li>Semantic search, not keyword.</li>
+                    <li>AI-native. Built for retrieval.</li>
+                  </ul>
+                </div>
+                <div class="pc-box cons">
+                  <div class="pc-head">Why it breaks</div>
+                  <ul>
+                    <li>Humans <em>cannot read or edit it</em> directly.</li>
+                    <li>Debugging "why didn't it retrieve X?" is brutal.</li>
+                    <li>Re-embed on every schema change.</li>
+                    <li>Engineer required. Bill scales with usage.</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="fragment fade-in-fast tier-verdict">
+                <span class="verdict-label">Use it for</span>
+                You have 10,000+ documents, a dedicated engineering team, and a search problem. <strong>Not a memory problem.</strong>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="slide-footer"><span>Build Your LLM Team Wiki</span><span class="right">Module 3 · Hierarchy</span></div>
+        <aside class="notes">
+          1:30. Tier 3, vector space. Pinecone. Chroma. Weaviate. OpenAI Assistants file search. LlamaIndex. Raw RAG pipelines. This is the stage every engineer assumes is the answer. It is powerful, scales to millions of documents, semantic instead of keyword search. AI-native. The catch is huge. Humans cannot read or edit the actual memory. It is numbers. Debugging "why didn't it retrieve the right chunk" is brutal. Schema change, you re-embed. Engineer required. Bill scales with usage. Verdict: vector DBs solve a search problem at scale. Most of you don't have a search problem. You have a memory problem.
+        </aside>
+      </section>
+
+      <!-- NEW: Tier 4 deep dive -->
+      <section>
+        <div class="slide-pad top">
+          <span class="eyebrow orange"><span class="dot"></span>Tier 4 of 4 · <span style="color: var(--ih-orange-dark);">the answer</span></span>
+          <h2 style="font-size:2.4rem; margin-bottom: 0.3rem;">Dynamic Shared <span style="color: var(--ih-neutral-400); font-weight:600;">,  the team brain.</span></h2>
+          <div class="tier-page">
+            <div class="col-left">
+              <div class="tier-badge"><span class="num" style="color: var(--ih-orange-dark);">04</span>·<span>cloud markdown · MCP · team-visible</span></div>
+              <p class="tier-what">
+                A <strong>cloud-hosted markdown vault</strong> exposed to every AI via MCP. Humans read it. AIs write it. Your whole team sees the same brain.
+              </p>
+              <div class="fragment fade-in-fast examples">
+                <span class="ex-label">You're using this if you use…</span>
+                <ul>
+                  <li>InventoryHero MCP</li>
+                  <li>GitHub repo + Claude Code</li>
+                  <li>Letta</li>
+                  <li>OpenMemory</li>
+                  <li>a custom MCP on top of a shared Drive</li>
+                </ul>
+              </div>
+            </div>
+            <div class="col-right">
+              <div class="fragment fade-in-fast pros-cons">
+                <div class="pc-box pros">
+                  <div class="pc-head">Why it wins</div>
+                  <ul>
+                    <li>Humans <strong>and</strong> AIs read and write.</li>
+                    <li>Whole team sees the same brain.</li>
+                    <li>Version controlled. Diffable. Auditable.</li>
+                    <li>Works from mobile, voice, CLI, any agent.</li>
+                    <li>Curates context, plays nicely with the U-curve.</li>
+                  </ul>
+                </div>
+                <div class="pc-box cons">
+                  <div class="pc-head">The cost</div>
+                  <ul>
+                    <li>Initial scaffolding (the Handbook).</li>
+                    <li>New paradigm, new habits.</li>
+                    <li>Either an afternoon (Road 1) or 5 minutes (Road 2).</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="fragment fade-in-fast tier-verdict tier4">
+                <span class="verdict-label">Use it for</span>
+                <strong>Any team of 2+ humans.</strong> Any business running 2+ AI agents. Which is, basically, all of you.
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="slide-footer"><span>Build Your LLM Team Wiki</span><span class="right">Module 3 · Hierarchy</span></div>
+        <aside class="notes">
+          1:45. Tier 4, dynamic shared. The answer. A cloud-hosted markdown vault exposed to every AI via MCP. Humans read it AND write it. AIs read it AND write it. Your whole team sees the same brain. Version controlled. Diffable. Auditable. Works from mobile, voice, CLI, any agent. And because it is curated markdown that a small overview file maps, it plays nicely with everything we just learned about the U-curve. The cost: initial scaffolding, the Handbook. New habits. An afternoon if you take the GitHub road, 5 minutes if you take the hosted road. Verdict: any team of 2 or more humans. Any business running 2 or more AI agents. Which means basically all of you in this room.
+        </aside>
+      </section>
+
+      <!-- SLIDE 27: Local silo callout -->
+      <section>
+        <div class="slide-pad top">
+          <span class="eyebrow orange"><span class="dot"></span>The Local Silo Problem</span>
+          <h2>Brilliance trapped on one drive is <span class="accent">brilliance wasted.</span></h2>
+          <div class="callout" style="margin-top:1.4rem; max-width: 44ch; font-size: 1.4rem; line-height: 1.3;">
+            "If your context lives in a brilliant Obsidian vault on one laptop…<br/><br/>
+            it's invisible to your <em>ops manager</em>,<br/>
+            your <em>TikTok Shop VA</em>,<br/>
+            your <em>supplier in Shenzhen</em>,<br/>
+            and the <em>10 Claudes</em> running your product research."
+          </div>
+        </div>
+        <div class="slide-footer"><span>Build Your LLM Team Wiki</span><span class="right">Module 3 · Hierarchy</span></div>
+        <aside class="notes">
+          0:45. SAY WITH FEELING. Listen, if your context lives in a brilliant Obsidian vault on one laptop, it's invisible to your ops manager. Invisible to your TikTok Shop VA. Invisible to your supplier in Shenzhen. And invisible to the 10 Claudes you've got running your product research. Brilliance trapped on one drive is brilliance wasted.
+        </aside>
+      </section>
+
+      <!-- SLIDE 28: $40M Seller Story -->
+      <section>
+        <div class="slide-pad top">
+          <span class="eyebrow orange"><span class="dot"></span>A real story · last week</span>
+          <h2>A CEO of a <span class="accent">$40M revenue</span> brand told me…</h2>
+          <div class="seller-quote" style="margin-top:1.2rem;">
+            <div class="sq-line">"I just got it set up.</div>
+            <div class="sq-line">I have it on my laptop at home.</div>
+            <div class="sq-line">I have it on my laptop at work.</div>
+            <div class="sq-line">And they don't talk to each other.</div>
+            <div class="sq-line" style="color: var(--ih-orange-dark);">And it's <em>so frustrating.</em>"</div>
+            <div class="sq-attrib">,  anonymous 8-figure Amazon seller</div>
+            <div class="sq-followup">
+              Then I asked: <em>do you share it with your team?</em>
+              <span class="he">He said: no.</span>
+            </div>
+          </div>
+        </div>
+        <div class="slide-footer"><span>Build Your LLM Team Wiki</span><span class="right">Module 3 · Hierarchy</span></div>
+        <aside class="notes">
+          1:00. TELL AS A STORY, NOT A QUOTE. I was on a call last week with a CEO of a $40M revenue brand. He's smart. Technical enough. He told me, "I just got it set up. I have it on my laptop at home. I have it on my laptop at work. And they don't talk to each other. And it's so frustrating." Then I asked, do you share it with your team? He said no. $40M revenue. No team-wide context. That's the gap we're closing today.
+        </aside>
+      </section>
+
+      <!-- SLIDE 29: Different not better -->
+      <section>
+        <div class="slide-pad top">
+          <span class="eyebrow orange"><span class="dot"></span>Different ≠ Better</span>
+          <h2>Same rule as your products.</h2>
+          <p class="lede wide" style="font-size:1.3rem;">You don't need a <strong>better</strong> memory system.<br/>You need a <strong style="color: var(--ih-orange-dark);">different</strong> one.</p>
+          <ul class="icon-list" style="margin-top:1.6rem; font-size: 1.1rem;">
+            <li class="fragment fade-in-fast"><span class="ic yes"></span><span>One that lives in the <strong>cloud</strong>.</span></li>
+            <li class="fragment fade-in-fast"><span class="ic yes"></span><span>One that <strong>humans</strong> can read.</span></li>
+            <li class="fragment fade-in-fast"><span class="ic yes"></span><span>One that <strong>AIs</strong> can write.</span></li>
+            <li class="fragment fade-in-fast"><span class="ic yes"></span><span>One every <strong>team member</strong> can see.</span></li>
+          </ul>
+        </div>
+        <div class="slide-footer"><span>Build Your LLM Team Wiki</span><span class="right">Module 3 · Hierarchy</span></div>
+        <aside class="notes">
+          0:45. Same lesson as products. You don't need a "better" memory system, you need a DIFFERENT one. One that lives in the cloud. One that humans can read. One that AIs can write. One that every team member can see.
+        </aside>
+      </section>
+
+      <!-- SLIDE 30: One-liner, local vaults / PDFs -->
+      <section>
+        <div class="one-liner">
+          <div class="ol-mark"></div>
+          <div class="ol-text">
+            Local vaults are the<br/>
+            <span class="accent">PDFs of AI memory.</span>
+            <div style="font-size: 2.4rem; color: var(--ih-neutral-500); margin-top: 1.4rem; font-weight: 600;">It's time to kill them.</div>
+          </div>
+        </div>
+        <aside class="notes">
+          0:20. SAY SLOWLY. Local vaults are the PDFs of AI memory. It's time to kill them. THIS WILL GET A LAUGH FROM ANYONE WHO'S SEEN THE SOPHIE SOCIETY DECK.
+        </aside>
+      </section>
+
+      <!-- SLIDE 31: 5 humans / 50 AIs / 1 brain -->
+      <section>
+        <div class="slide-pad top">
+          <span class="eyebrow orange"><span class="dot"></span>The 18-Month Org Chart</span>
+          <h2>The perfect e-com team in <span class="accent">18 months.</span></h2>
+          <div class="vision-stack" style="margin-top:2rem;">
+            <div class="vn">5</div><div class="vl">humans</div>
+            <div class="vn">50</div><div class="vl">AIs</div>
+            <div class="vn alt">1</div><div class="vl"><strong style="color: var(--ih-orange-dark);">shared brain</strong></div>
+          </div>
+        </div>
+        <div class="slide-footer"><span>Build Your LLM Team Wiki</span><span class="right">Module 3 · Hierarchy</span></div>
+        <aside class="notes">
+          0:30. Here's the org chart I think wins the next 18 months in e-com. 5 humans. 50 AIs. One shared brain. That's the future we're building toward.
+        </aside>
+      </section>
+
+      <!-- SLIDE 32: Quote, Jensen Huang -->
+      <section data-background-color="#fafafa">
+        <div class="quote-slide">
+          <div class="q-photo"><img src="images/huang.jpg" alt="Jensen Huang" /></div>
+          <div class="q-body">
+            <div class="qmark">"</div>
+          <blockquote>
+            Every company will be an AI company. <span class="accent">Every employee</span> will work alongside AI.
+          </blockquote>
+          <div class="attribution">
+            <span class="name">Jensen Huang</span>
+            <span class="role">founder &amp; CEO, NVIDIA</span>
+          </div>
+          <div class="qfooter-note">(paraphrased from GTC 2024 keynote)</div>
+          </div>
+        </div>
+        <aside class="notes">
+          0:15. Jensen Huang of NVIDIA: "Every company will be an AI company. Every employee will work alongside AI."
+        </aside>
+      </section>
+
+      <!-- ============================================================
+           SECTION 5, MODULE 3: EMPLOYEE HANDBOOK (Slides 33 to 40)
+           ============================================================ -->
+
+      <!-- SLIDE 33: Section header, Module 3 -->
+      <section>
+        <div class="section-divider">
+          <div class="module-num">Module 4 · 9 minutes · The Framework</div>
+          <h2>The<br/><span class="accent">AI Employee<br/>Handbook.</span></h2>
+          <p class="sub">The named framework for shared team memory. This is the part you'll leave with.</p>
+          <div class="accent-rule"></div>
+        </div>
+        <aside class="notes">
+          0:10. Module 4, the main framework I want you to leave with. The AI Employee Handbook.
+        </aside>
+      </section>
+
+      <!-- SLIDE 34: The reframe -->
+      <section>
+        <div class="slide-pad top">
+          <span class="eyebrow orange"><span class="dot"></span>The Reframe</span>
+          <h2 style="margin-bottom: 1rem;">
+            <span style="color: var(--ih-neutral-400); text-decoration: line-through; text-decoration-thickness: 4px; text-decoration-color: var(--ih-orange);">Knowledge base.</span><br/>
+            <span style="color: var(--ih-neutral-400); text-decoration: line-through; text-decoration-thickness: 4px; text-decoration-color: var(--ih-orange);">Wiki.</span><br/>
+            <span style="color: var(--ih-neutral-400); text-decoration: line-through; text-decoration-thickness: 4px; text-decoration-color: var(--ih-orange);">Second brain.</span>
+          </h2>
+          <div class="callout" style="font-size: 2rem; margin-top:1.4rem; max-width: 26ch;">
+            Your AIs aren't <span style="color: var(--ih-neutral-400);">readers</span>.<br/>
+            They're <em>workers</em>.<br/><br/>
+            <span style="font-size: 1.4rem; font-weight: 600; color: var(--ih-neutral-700);">What they need is an</span><br/>
+            <span style="color: var(--ih-orange-dark);">Employee Handbook.</span>
+          </div>
+        </div>
+        <div class="slide-footer"><span>Build Your LLM Team Wiki</span><span class="right">Module 4 · The Handbook</span></div>
+        <aside class="notes">
+          1:00. SLOW DOWN. THIS IS THE KEY REFRAME. Stop thinking "knowledge base." Stop thinking "wiki." Stop thinking "second brain." Those are all reader frames, built for humans who skim and search. Your AIs aren't readers. They're WORKERS. What they need is an employee handbook. A handbook tells a new hire, here's who we are, here's what you do, here's what you don't do. That's exactly what your AI needs.
+        </aside>
+      </section>
+
+      <!-- SLIDE 35: What goes in it -->
+      <section>
+        <div class="slide-pad top">
+          <span class="eyebrow orange"><span class="dot"></span>What goes in the Handbook</span>
+          <h2>Five sections. <span style="color: var(--ih-neutral-500); font-weight:600; font-size: 1.7rem;">10 to 100 markdown files.</span></h2>
+
+          <div style="display:grid; grid-template-columns: repeat(5, 1fr); gap: 0.9rem; margin-top: 1.2rem;">
+            <div class="fragment fade-in-fast card tint-orange" style="padding: 1.1rem 1.1rem;">
+              <div class="card-label">01 · Identity</div>
+              <div class="card-title" style="font-size:1.15rem;">Who you are</div>
+              <div class="card-body" style="font-size:0.9rem;">Brand, mission, voice, customer avatar.</div>
+            </div>
+            <div class="fragment fade-in-fast card" style="padding: 1.1rem 1.1rem;">
+              <div class="card-label">02 · Catalog</div>
+              <div class="card-title" style="font-size:1.15rem;">What you sell</div>
+              <div class="card-body" style="font-size:0.9rem;">ASINs, USPs, keyword clusters, pricing logic.</div>
+            </div>
+            <div class="fragment fade-in-fast card tint-purple" style="padding: 1.1rem 1.1rem;">
+              <div class="card-label">03 · Marketing</div>
+              <div class="card-title" style="font-size:1.15rem;">How you market</div>
+              <div class="card-body" style="font-size:0.9rem;">Listing rules, image stacks, email voice, TikTok angle, Shopify brand.</div>
+            </div>
+            <div class="fragment fade-in-fast card tint-blue" style="padding: 1.1rem 1.1rem;">
+              <div class="card-label">04 · Ops</div>
+              <div class="card-title" style="font-size:1.15rem;">How you operate</div>
+              <div class="card-body" style="font-size:0.9rem;">Org chart, suppliers, freight, lead times, PPC rules.</div>
+            </div>
+            <div class="fragment fade-in-fast card tint-green" style="padding: 1.1rem 1.1rem;">
+              <div class="card-label">05 · Team</div>
+              <div class="card-title" style="font-size:1.15rem;">Who's on the team</div>
+              <div class="card-body" style="font-size:0.9rem;">Humans <em>and</em> active AI agents.</div>
+            </div>
+          </div>
+          <p style="margin-top: 1.4rem; text-align:center; font-size: 1.1rem; color: var(--ih-neutral-600); font-style: italic;">
+            Not 10,000 pages. <strong style="color: var(--ih-neutral-900); font-style:normal;">100</strong>, because nobody reads 10,000.
+          </p>
+        </div>
+        <div class="slide-footer"><span>Build Your LLM Team Wiki</span><span class="right">Module 4 · The Handbook</span></div>
+        <aside class="notes">
+          1:30. Walk the bullets. Emphasize the seller-specific ones. WHO YOU ARE, brand voice, mission, customer avatar. WHAT YOU SELL, catalog, every ASIN, USPs, keyword clusters, pricing. HOW YOU MARKET, listing copy rules, image stack briefs, email voice, TikTok Shop angle, Shopify brand. HOW YOU OPERATE, org chart, suppliers, freight, lead times, PPC rules. WHO'S ON THE TEAM, humans AND AI agents. Not 10,000 pages. 100, because nobody reads 10,000.
+        </aside>
+      </section>
+
+      <!-- SLIDE 36: Directory structure -->
+      <section>
+        <div class="slide-pad top">
+          <span class="eyebrow orange"><span class="dot"></span>The Actual Folder Structure</span>
+          <h2 style="font-size:2.2rem;">Drop this in a folder. <span class="accent">Done.</span></h2>
+          <div class="filetree" style="margin-top:1rem;">
+<pre style="background:none; box-shadow:none; border:none; padding:0; margin:0; font-size: 0.86rem; line-height: 1.55;"><span class="dir">core-company-wiki/</span>
+<span class="tree">├──</span> <span class="file">handbook_overview.md</span>
+<span class="tree">├──</span> <span class="dir">brand/</span>
+<span class="tree">│   ├──</span> <span class="file">brand_guidelines.md</span>       <span class="comment"># voice · banned phrases · hero copy</span>
+<span class="tree">│   └──</span> <span class="file">customer_avatars.md</span>       <span class="comment"># e.g., "organic-leaning millennial moms"</span>
+<span class="tree">├──</span> <span class="dir">products/</span>
+<span class="tree">│   ├──</span> <span class="file">catalog_index.md</span>          <span class="comment"># SKU → ASIN map</span>
+<span class="tree">│   ├──</span> <span class="file">[ASIN]_listing.md</span>         <span class="comment"># title · bullets · A+ · keyword clusters</span>
+<span class="tree">│   └──</span> <span class="file">[ASIN]_image_stack.md</span>     <span class="comment"># main image rules · lifestyle · infographics</span>
+<span class="tree">├──</span> <span class="dir">marketing/</span>
+<span class="tree">│   ├──</span> <span class="file">ppc_rules.md</span>              <span class="comment"># ACoS targets · dayparting · defensive bids</span>
+<span class="tree">│   ├──</span> <span class="file">email_playbook.md</span>         <span class="comment"># Klaviyo flows · voice · send cadence</span>
+<span class="tree">│   ├──</span> <span class="file">tiktok_shop_playbook.md</span>   <span class="comment"># creator briefs · hook formulas · hashtags</span>
+<span class="tree">│   └──</span> <span class="file">shopify_brand.md</span>          <span class="comment"># DTC tone · hero pages · CRO rules</span>
+<span class="tree">└──</span> <span class="dir">operations/</span>
+<span class="tree">    ├──</span> <span class="file">org_structure.md</span>          <span class="comment"># humans + active AI agents</span>
+<span class="tree">    ├──</span> <span class="file">supplier_directory.md</span>     <span class="comment"># factories · MOQs · lead times</span>
+<span class="tree">    └──</span> <span class="file">reorder_rules.md</span>          <span class="comment"># when InventoryHero should trigger POs</span></pre>
+          </div>
+        </div>
+        <div class="slide-footer"><span>Build Your LLM Team Wiki</span><span class="right">Module 4 · The Handbook</span></div>
+        <aside class="notes">
+          2:00. WALK THE TREE. SLOW. Top-level handbook overview, the front page. BRAND folder, guidelines and customer avatars. PRODUCTS folder, catalog index mapping SKUs to ASINs, plus a file per ASIN with listing copy and image stack rules. MARKETING folder, and this is where the magic happens for you, PPC rules with ACoS targets, email playbook with Klaviyo flows, TikTok Shop playbook with creator briefs and hook formulas, Shopify brand file. OPERATIONS, org structure, supplier directory, reorder rules. Every AI on your team reads from these files.
+        </aside>
+      </section>
+
+      <!-- SLIDE 37: Scaffolding, not schema -->
+      <section>
+        <div class="slide-pad top">
+          <span class="eyebrow orange"><span class="dot"></span>80/20 Rule for Memory</span>
+          <h2>Scaffolded, <span class="accent">not rigid.</span></h2>
+          <div class="two-col" style="margin-top:1.4rem;">
+            <div class="card tint-orange">
+              <div class="card-label">80%</div>
+              <div class="card-title">Scaffolded</div>
+              <div class="card-body">Folder structure + file names are <strong>fixed</strong>. AIs always know where to look.</div>
+            </div>
+            <div class="card">
+              <div class="card-label">20%</div>
+              <div class="card-title">Fluid</div>
+              <div class="card-body">Inside each file, the AI writes freely. Markdown adapts as your business does.</div>
+            </div>
+          </div>
+          <p style="margin-top:1.4rem; font-size: 1.6rem; color: var(--ih-neutral-700); font-family: var(--font-head); font-weight: 700; max-width: 28ch;">
+            Rigid databases die.<br/><span style="color: var(--ih-orange-dark);">Markdown adapts.</span>
+          </p>
+        </div>
+        <div class="slide-footer"><span>Build Your LLM Team Wiki</span><span class="right">Module 4 · The Handbook</span></div>
+        <aside class="notes">
+          0:45. 80/20 rule for memory structure. 80% scaffolded, folder structure and file names don't change. 20% fluid, inside each file, the AI writes freely. Rigid databases die because business is messy. Markdown adapts because it's just text.
+        </aside>
+      </section>
+
+      <!-- SLIDE 38: Progressive elaboration -->
+      <section>
+        <div class="slide-pad top">
+          <span class="eyebrow orange"><span class="dot"></span>Progressive Elaboration</span>
+          <h2>Every file <span class="accent">knows how complete</span> it is.</h2>
+          <div class="two-col" style="margin-top:1rem; align-items:center;">
+            <div class="meta-block">
+              <div class="meta-line"><span class="comment">&lt;!-- Context Completeness:</span> <span class="pct">10%</span> <span class="comment">--&gt;</span></div>
+              <div class="meta-line"><span class="comment">&lt;!-- AI Directive:</span> <span class="val">Trigger Socratic interview to fill gaps.</span> <span class="comment">--&gt;</span></div>
+              <div class="meta-line"><span class="comment">&lt;!-- Last Updated:</span> <span class="val">2026-05-26 by ClaudeAgent</span> <span class="comment">--&gt;</span></div>
+              <br/>
+              <div class="meta-line"><span class="key"># Customer Avatars</span></div>
+              <div class="meta-line"><span class="val">[ Sparse, pending Socratic fill ]</span></div>
+            </div>
+            <div>
+              <ul class="icon-list">
+                <li class="fragment fade-in-fast"><span class="ic">▶</span><span>The AI will literally <strong>come ask you</strong> what's missing.</span></li>
+                <li class="fragment fade-in-fast"><span class="ic">▶</span><span>You answer <strong>4 questions</strong>.</span></li>
+                <li class="fragment fade-in-fast"><span class="ic">▶</span><span>The file <strong>fills itself out.</strong></span></li>
+                <li class="fragment fade-in-fast"><span class="ic">▶</span><span>You never sit down to write a wiki. You answer questions over time.</span></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="slide-footer"><span>Build Your LLM Team Wiki</span><span class="right">Module 4 · The Handbook</span></div>
+        <aside class="notes">
+          1:00. Every file knows how complete it is. We put a little comment at the top, "Context Completeness: 10%. AI Directive: Trigger Socratic interview to fill gaps." The AI will literally come ask you what's missing. Four questions. The file fills itself out. You never sit down to write a wiki. You answer questions over time.
+        </aside>
+      </section>
+
+      <!-- SLIDE 39: One-liner, onboarding -->
+      <section>
+        <div class="one-liner">
+          <div class="ol-mark"></div>
+          <div class="ol-text">
+            This isn't a <span style="color: var(--ih-neutral-400);">wiki.</span><br/><br/>
+            It's <span class="accent">onboarding</span> , <br/>
+            <span style="font-size: 3rem; color: var(--ih-neutral-700); font-weight: 700;">for every AI you'll ever hire.</span>
+          </div>
+        </div>
+        <aside class="notes">
+          0:20. SAY SLOWLY. This isn't a wiki. It's onboarding, for every AI you'll ever hire.
+        </aside>
+      </section>
+
+      <!-- SLIDE 40: Quote, Dario Amodei -->
+      <section data-background-color="#fafafa">
+        <div class="quote-slide">
+          <div class="q-photo"><img src="images/amodei.jpg" alt="Dario Amodei" /></div>
+          <div class="q-body">
+            <div class="qmark">"</div>
+          <blockquote>
+            In the next 12 months, you'll have <span class="accent">AI coworkers in Slack.</span>
+          </blockquote>
+          <div class="attribution">
+            <span class="name">Dario Amodei</span>
+            <span class="role">CEO, Anthropic</span>
+          </div>
+          <div class="qfooter-note">That day is today. The question is, do your AI coworkers know your brand?</div>
+          </div>
+        </div>
+        <aside class="notes">
+          0:20. Dario Amodei, CEO of Anthropic: "In the next 12 months, you'll have AI coworkers in Slack." That day is already here. The question is, do your AI coworkers know your brand?
+        </aside>
+      </section>
+
+      <!-- ============================================================
+           SECTION 6, MODULE 4: KARPATHY / GITHUB (Slides 41 to 48)
+           ============================================================ -->
+
+      <!-- SLIDE 41: Section header, Module 4 -->
+      <section>
+        <div class="section-divider">
+          <div class="module-num">Module 5 · 7 minutes · Power-User Route</div>
+          <h2>Karpathy + GitHub.<br/><span class="accent">Free. Advanced.</span></h2>
+          <p class="sub">A memory layer with zero monthly cost. For the comfortable-in-terminal crowd.</p>
+          <div class="accent-rule"></div>
+        </div>
+        <aside class="notes">
+          0:10. Module 5. The power-user route. I'm going to show you the free, advanced way to do this, and then in the next module, the easy button.
+        </aside>
+      </section>
+
+      <!-- SLIDE 42: Two roads -->
+      <section>
+        <div class="slide-pad top">
+          <span class="eyebrow orange"><span class="dot"></span>The Fork in the Road</span>
+          <h2>Two paths. Both work. <span class="accent">Pick yours.</span></h2>
+          <div class="two-col" style="margin-top:1.2rem;">
+            <div class="card">
+              <div class="col-head"><span class="marker road-1">1</span> The Power-User Path</div>
+              <div class="card-body" style="margin-top:0.5rem;">
+                <ul class="icon-list" style="font-size: 0.95rem;">
+                  <li class="fragment fade-in-fast"><span class="ic yes"></span><span>Free</span></li>
+                  <li class="fragment fade-in-fast"><span class="ic yes"></span><span>Karpathy-style LLM repo</span></li>
+                  <li class="fragment fade-in-fast"><span class="ic yes"></span><span>GitHub as your memory store</span></li>
+                  <li class="fragment fade-in-fast"><span class="ic yes"></span><span>Total control · total ownership</span></li>
+                  <li class="fragment fade-in-fast"><span class="ic no"></span><span>Requires terminal comfort</span></li>
+                </ul>
+              </div>
+              <div class="card-result"><strong>We're doing this one first.</strong></div>
+            </div>
+            <div class="card tint-orange">
+              <div class="col-head"><span class="marker road-2">2</span> The Easy Button</div>
+              <div class="card-body" style="margin-top:0.5rem;">
+                <ul class="icon-list" style="font-size: 0.95rem;">
+                  <li class="fragment fade-in-fast"><span class="ic yes"></span><span>5-minute hosted MCP setup</span></li>
+                  <li class="fragment fade-in-fast"><span class="ic yes"></span><span>Non-technical team friendly</span></li>
+                  <li class="fragment fade-in-fast"><span class="ic yes"></span><span>Mobile + voice friendly</span></li>
+                  <li class="fragment fade-in-fast"><span class="ic yes"></span><span>Same Employee Handbook framework</span></li>
+                  <li class="fragment fade-in-fast"><span class="ic no">$</span><span>Hosted (free in beta)</span></li>
+                </ul>
+              </div>
+              <div class="card-result"><strong>Module 5, coming up next.</strong></div>
+            </div>
+          </div>
+          <p style="margin-top:1rem; font-size: 0.95rem; color: var(--ih-neutral-500); font-style:italic;">
+            If "git push" sounds scary, relax, watch this section, then act on Road 2.
+          </p>
+        </div>
+        <div class="slide-footer"><span>Build Your LLM Team Wiki</span><span class="right">Module 5 · Power-User Route</span></div>
+        <aside class="notes">
+          1:00. Two paths. Road 1, I'm doing now, Karpathy-style repo, GitHub as memory, you learn git push and git pull. Total control. Free. Terminal required. Road 2, next, 5-minute hosted MCP, non-technical, works from your phone. If "git push" sounds scary, relax, watch this anyway, then act on Road 2. Both work. Pick the right one for your team.
+        </aside>
+      </section>
+
+      <!-- SLIDE 43: Karpathy structure -->
+      <section>
+        <div class="slide-pad top">
+          <span class="eyebrow orange"><span class="dot"></span>The Karpathy Pattern</span>
+          <h2>From <code>nanoGPT</code> &amp; "Software 3.0", applied to <span class="accent">your brand.</span></h2>
+          <div class="filetree" style="margin-top:1rem;">
+<pre style="background:none; box-shadow:none; border:none; padding:0; margin:0; font-size: 0.95rem; line-height: 1.65;"><span class="dir">repo/</span>
+<span class="tree">├──</span> <span class="file">README.md</span>                  <span class="comment"># the map</span>
+<span class="tree">├──</span> <span class="dir">prompts/</span>                   <span class="comment"># reusable instruction templates</span>
+<span class="tree">├──</span> <span class="dir">context/</span>                    <span class="comment">#  your Employee Handbook lives here</span>
+<span class="tree">│   ├──</span> <span class="dir">brand/</span>
+<span class="tree">│   ├──</span> <span class="dir">products/</span>
+<span class="tree">│   ├──</span> <span class="dir">marketing/</span>
+<span class="tree">│   └──</span> <span class="dir">operations/</span>
+<span class="tree">├──</span> <span class="dir">data/</span>                       <span class="comment"># raw inputs · SP-API exports · reviews · sales</span>
+<span class="tree">└──</span> <span class="dir">outputs/</span>                    <span class="comment"># what the AI generated · drafts · briefs · ads</span></pre>
+          </div>
+          <p style="margin-top:1.2rem; font-size:1.15rem; color: var(--ih-neutral-700);">
+            Plain text. <strong>Git-tracked.</strong> Diffable. Forkable. <span style="color: var(--ih-orange-dark); font-weight: 700;">Free forever.</span>
+          </p>
+        </div>
+        <div class="slide-footer"><span>Build Your LLM Team Wiki</span><span class="right">Module 5 · Power-User Route</span></div>
+        <aside class="notes">
+          1:30. Pattern Karpathy popularized in nanoGPT and "Software 3.0". A repo. README that's the map. Prompts folder for reusable instructions. Context folder, that's where your Employee Handbook lives, exact same structure. Data folder for raw inputs, SP-API exports, reviews, sales data. Outputs folder where the AI saves what it generated, drafts, briefs, ad copy. Plain text. Git-tracked. Diffable. Forkable. Free forever.
+        </aside>
+      </section>
+
+      <!-- SLIDE 44: Why GitHub works -->
+      <section>
+        <div class="slide-pad top">
+          <span class="eyebrow orange"><span class="dot"></span>Why GitHub Works</span>
+          <h2>GitHub is <span class="accent">shockingly good</span> at this.</h2>
+          <ul class="icon-list" style="margin-top:1.2rem; font-size: 1.1rem; column-count:2; column-gap: 3rem;">
+            <li class="fragment fade-in-fast" style="break-inside:avoid;"><span class="ic yes"></span><span><strong>Free</strong> for private repos.</span></li>
+            <li class="fragment fade-in-fast" style="break-inside:avoid;"><span class="ic yes"></span><span>Built-in <strong>version history</strong>, never lose context.</span></li>
+            <li class="fragment fade-in-fast" style="break-inside:avoid;"><span class="ic yes"></span><span><strong>Pull requests</strong> = paper trail for every memory change.</span></li>
+            <li class="fragment fade-in-fast" style="break-inside:avoid;"><span class="ic yes"></span><span><strong>Collaborators</strong> = instant team access.</span></li>
+            <li class="fragment fade-in-fast" style="break-inside:avoid;"><span class="ic yes"></span><span>Works with <strong>Claude Code · Cursor · Codex · Gemini CLI</strong>.</span></li>
+            <li class="fragment fade-in-fast" style="break-inside:avoid;"><span class="ic yes"></span><span><code>git push</code> from one laptop → <code>git pull</code> from another → <strong>synced.</strong></span></li>
+          </ul>
+        </div>
+        <div class="slide-footer"><span>Build Your LLM Team Wiki</span><span class="right">Module 5 · Power-User Route</span></div>
+        <aside class="notes">
+          1:00. Why does GitHub work so well? Free for private repos. Built-in version history, you never lose a memory. Pull requests = paper trail for every change, you can review the AI's edits before they merge. Collaborators = instant team access. Works with every coding agent, Claude Code, Cursor, Codex, Gemini CLI.
+        </aside>
+      </section>
+
+      <!-- SLIDE 45: LIVE DEMO, GitHub as memory -->
+      <section>
+        <div class="slide-pad top">
+          <span class="demo-badge"><span class="red-dot"></span>LIVE DEMO</span>
+          <h2>GitHub as memory, in <span class="accent">7 steps.</span></h2>
+
+          <ol class="numlist" style="margin-top:1rem; grid-template-columns: 1fr 1fr; gap: 0.7rem 1.4rem; font-size: 0.95rem;">
+            <li class="fragment fade-in-fast">Create a private repo: <code>my-brand-handbook</code></li>
+            <li class="fragment fade-in-fast">Drop in the Karpathy folder structure.</li>
+            <li class="fragment fade-in-fast">Open it in <strong>Claude Code</strong> (or Cursor).</li>
+            <li class="fragment fade-in-fast">"Read my <code>brand_guidelines.md</code> and write 5 TikTok Shop hooks for ASIN <code>B0XXXXXXX</code>."</li>
+            <li class="fragment fade-in-fast">Claude writes the hooks → I review → <code>git commit</code> → <code>git push</code>.</li>
+            <li class="fragment fade-in-fast">Switch to my second laptop → <code>git pull</code> → <strong>the memory is there.</strong></li>
+            <li class="fragment fade-in-fast">Add my VA as a Collaborator → she has the <strong>same brain.</strong></li>
+          </ol>
+        </div>
+        <div class="slide-footer"><span>Build Your LLM Team Wiki</span><span class="right">Module 5 · Power-User Route</span></div>
+        <aside class="notes">
+          3:00. THIS IS THE LIVE DEMO. HAVE IT PRE-STAGED. Don't actually create the repo on stage, show it pre-built. Watch, I've got a private repo, my-brand-handbook, Karpathy structure. I open in Claude Code. Type: "Read brand_guidelines.md, write 5 TikTok Shop hooks for ASIN B0XXX." Claude reads context, writes hooks, saves to outputs. I review. Commit. Push. Switch to second laptop, git pull, new hooks AND updated context are here. Add my VA as collaborator, she clones the repo, same brain. PAUSE FOR "OH DAMN" MOMENT.
+        </aside>
+      </section>
+
+      <!-- SLIDE 46: When this is right for you -->
+      <section>
+        <div class="slide-pad top">
+          <span class="eyebrow orange"><span class="dot"></span>Is Road 1 right for you?</span>
+          <h2>Be honest with yourself.</h2>
+          <div class="two-col" style="margin-top: 1.2rem;">
+            <div class="fragment fade-in-fast card tint-green">
+              <div class="card-label"> This IS you if…</div>
+              <ul class="icon-list" style="margin-top: 0.4rem; font-size: 1rem;">
+                <li class="fragment fade-in-fast"><span class="ic yes"></span><span>You're comfortable in a terminal.</span></li>
+                <li class="fragment fade-in-fast"><span class="ic yes"></span><span>You use Cursor / Claude Code daily.</span></li>
+                <li class="fragment fade-in-fast"><span class="ic yes"></span><span>You want $0/mo memory costs.</span></li>
+                <li class="fragment fade-in-fast"><span class="ic yes"></span><span>You want a <strong>full audit history</strong>.</span></li>
+                <li class="fragment fade-in-fast"><span class="ic yes"></span><span>You sell products AND ship code.</span></li>
+              </ul>
+            </div>
+            <div class="fragment fade-in-fast card" style="background:#fef2f2; border-color:#fecaca;">
+              <div class="card-label" style="color: var(--ih-red-600);"> This is NOT you if…</div>
+              <ul class="icon-list" style="margin-top: 0.4rem; font-size: 1rem;">
+                <li class="fragment fade-in-fast"><span class="ic no"></span><span>You've never run <code>git push</code>.</span></li>
+                <li class="fragment fade-in-fast"><span class="ic no"></span><span>Your team is mostly VAs &amp; creatives.</span></li>
+                <li class="fragment fade-in-fast"><span class="ic no"></span><span>You want this working in 5 minutes.</span></li>
+                <li class="fragment fade-in-fast"><span class="ic no"></span><span>You want to use it from your phone.</span></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="slide-footer"><span>Build Your LLM Team Wiki</span><span class="right">Module 5 · Power-User Route</span></div>
+        <aside class="notes">
+          1:00. Road 1 is for you IF you're comfortable in a terminal, use Cursor or Claude Code daily, want zero monthly cost, want full audit history. NOT for you if you've never run git push, your team is mostly VAs and creatives, or you want it working in 5 minutes. Be honest with yourself.
+        </aside>
+      </section>
+
+      <!-- SLIDE 47: Honest catch -->
+      <section>
+        <div class="slide-pad top">
+          <span class="eyebrow orange"><span class="dot"></span>The Honest Catch</span>
+          <h2>Truth time.</h2>
+          <ul class="icon-list" style="margin-top:1rem; font-size:1.15rem;">
+            <li class="fragment fade-in-fast"><span class="ic no"></span><span>You'll spend <strong>an afternoon</strong> setting it up.</span></li>
+            <li class="fragment fade-in-fast"><span class="ic no"></span><span>You'll Google "<strong>merge conflict</strong>" at least once.</span></li>
+            <li class="fragment fade-in-fast"><span class="ic no"></span><span>Your VAs probably won't touch it.</span></li>
+          </ul>
+          <p style="margin-top:1.6rem; font-size:1.4rem; color: var(--ih-neutral-700); font-family: var(--font-head); font-weight: 700;">
+            That's fine, most $1M to $10M Amazon teams want…
+          </p>
+          <div style="margin-top: 0.6rem; font-family: var(--font-head); font-size: 4rem; font-weight: 900; color: var(--ih-orange-dark); letter-spacing: -0.03em;">
+            Road 2. <span style="color: var(--ih-neutral-400); font-size: 1rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; vertical-align: middle;">(next section →)</span>
+          </div>
+        </div>
+        <div class="slide-footer"><span>Build Your LLM Team Wiki</span><span class="right">Module 5 · Power-User Route</span></div>
+        <aside class="notes">
+          1:00. VULNERABLE, HONEST MOMENT. Honest truth. Road 1 takes an afternoon. You'll Google "merge conflict" at least once. Your VAs probably won't touch it. That's fine, most $1M-to-$10M Amazon teams want… Road 2. CLICK, SET UP NEXT SECTION.
+        </aside>
+      </section>
+
+      <!-- SLIDE 48: Quote, Karpathy #2 -->
+      <section data-background-color="#fafafa">
+        <div class="quote-slide">
+          <div class="q-photo"><img src="images/karpathy.png" alt="Andrej Karpathy" /></div>
+          <div class="q-body">
+            <div class="qmark">"</div>
+          <blockquote>
+            Software is no longer just written, it's <span class="accent">grown</span>.<br/>
+            Memory and context are the soil.
+          </blockquote>
+          <div class="attribution">
+            <span class="name">Andrej Karpathy</span>
+            <span class="role">adapted from "Software 3.0"</span>
+          </div>
+          <div class="qfooter-note">(paraphrased)</div>
+          </div>
+        </div>
+        <aside class="notes">
+          0:20. Karpathy again, paraphrasing his "Software 3.0" talk: "Software is no longer just written. It's grown. Memory and context are the soil."
+        </aside>
+      </section>
+
+      <!-- ============================================================
+           SECTION 7, MODULE 5: HOSTED MCP (Slides 49 to 56)
+           ============================================================ -->
+
+      <!-- SLIDE 49: Section header, Module 5 -->
+      <section>
+        <div class="section-divider">
+          <div class="module-num">Module 6 · 8 minutes · The Easy Button</div>
+          <h2>Hosted MCP.<br/><span class="accent">5 minutes flat.</span></h2>
+          <p class="sub">Same framework. Zero setup. Mobile + voice friendly. Built for the rest of your team.</p>
+          <div class="accent-rule"></div>
+        </div>
+        <aside class="notes">
+          0:10. Module 6. The easy button. Same framework. Zero setup. 5 minutes.
+        </aside>
+      </section>
+
+      <!-- SLIDE 50: Architecture -->
+      <section>
+        <div class="slide-pad top">
+          <span class="eyebrow orange"><span class="dot"></span>The Architecture</span>
+          <h2>Two tools. <span class="accent">One vault.</span></h2>
+
+          <div class="arch" style="margin-top:1.4rem;">
+            <div class="fragment fade-in-fast arch-row">
+              <div class="arch-node client">Claude<span class="micro">desktop · code</span></div>
+              <div class="arch-node client">Gemini<span class="micro">mobile · CLI</span></div>
+              <div class="arch-node client">Cursor<span class="micro">editor</span></div>
+              <div class="arch-node client">ChatGPT<span class="micro">desktop</span></div>
+            </div>
+            <div class="fragment fade-in-fast arch-line"></div>
+            <div style="font-size: 0.85rem; color: var(--ih-neutral-500); letter-spacing: 0.1em; text-transform: uppercase; font-weight: 600;">reads &amp; writes via MCP</div>
+            <div class="fragment fade-in-fast arch-line"></div>
+            <div class="fragment fade-in-fast arch-row">
+              <div class="arch-node mcp">InventoryHero.ai MCP<span class="micro">read_memory · write_memory</span></div>
+            </div>
+            <div class="fragment fade-in-fast arch-line"></div>
+            <div class="fragment fade-in-fast arch-row">
+              <div class="arch-node manager">Internal AI Manager<span class="micro">structures · routes · de-duplicates</span></div>
+            </div>
+            <div class="fragment fade-in-fast arch-line"></div>
+            <div class="fragment fade-in-fast arch-row">
+              <div class="arch-node vault">Secure Markdown Cloud Vault<span class="micro" style="color: var(--ih-green-700);">your URL · 4-digit PIN · shareable</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="slide-footer"><span>Build Your LLM Team Wiki</span><span class="right">Module 6 · Easy Button</span></div>
+        <aside class="notes">
+          1:30. WALK THE DIAGRAM. Your Claude, or Gemini, Cursor, ChatGPT, connects to our hosted MCP via two tools: read_memory and write_memory. When you call write, our internal AI manager intercepts, structures the data, files it in the right markdown file. When you call read, it fetches the right chunks and serves them back. All of it lives in a secure markdown cloud vault, your own URL, 4-digit PIN, shareable with your team.
+        </aside>
+      </section>
+
+      <!-- SLIDE 51: Two tools -->
+      <section>
+        <div class="slide-pad top">
+          <span class="eyebrow orange"><span class="dot"></span>The Whole API</span>
+          <h2>Two tools. <span class="accent">That's it.</span></h2>
+          <div class="two-col" style="margin-top:1.4rem;">
+            <div class="card tint-blue">
+              <div class="card-label">Tool 01</div>
+              <div class="card-title" style="font-family: var(--font-mono); font-size: 1.5rem; color: var(--ih-blue-600);">read_memory()</div>
+              <div class="card-body" style="margin-top: 0.4rem; font-size: 1.05rem;">
+                "Get me what you know about <em>X</em>."
+              </div>
+            </div>
+            <div class="card tint-orange">
+              <div class="card-label">Tool 02</div>
+              <div class="card-title" style="font-family: var(--font-mono); font-size: 1.5rem; color: var(--ih-orange-dark);">write_memory()</div>
+              <div class="card-body" style="margin-top: 0.4rem; font-size: 1.05rem;">
+                "Here's something new, <em>file it</em>."
+              </div>
+            </div>
+          </div>
+          <p style="margin-top:1.6rem; text-align:center; font-size: 1.2rem; color: var(--ih-neutral-700); max-width: 50ch; margin-left:auto; margin-right:auto;">
+            Same Employee Handbook framework.<br/>
+            <strong style="color: var(--ih-neutral-900);">We do the structuring behind the scenes.</strong>
+          </p>
+        </div>
+        <div class="slide-footer"><span>Build Your LLM Team Wiki</span><span class="right">Module 6 · Easy Button</span></div>
+        <aside class="notes">
+          0:45. That's it. Two tools. read_memory, get me what you know about X. write_memory, here's something new, file it. Same Employee Handbook framework. We just do the structuring behind the scenes.
+        </aside>
+      </section>
+
+      <!-- SLIDE 52: Auto-population -->
+      <section>
+        <div class="slide-pad top">
+          <span class="eyebrow orange"><span class="dot"></span>Auto-Population</span>
+          <h2>You don't fill <span style="color: var(--ih-neutral-400); text-decoration: line-through; text-decoration-color: var(--ih-orange); text-decoration-thickness: 4px;">100 blank files.</span></h2>
+          <p class="lede wide" style="margin-top:0.4rem; font-size:1.2rem;">
+            If you signed up at slide 17, <strong>this is already running.</strong>
+          </p>
+
+          <div style="display:grid; grid-template-columns: repeat(2, 1fr); gap: 0.9rem; margin-top: 1.2rem;">
+            <div class="card">
+              <div class="card-label">Source · Live</div>
+              <div class="card-title" style="font-size:1.2rem;">Your Amazon SP-API</div>
+              <div class="card-body">→ populates <code>catalog_index</code> + per-ASIN listing files.</div>
+            </div>
+            <div class="card">
+              <div class="card-label">Source · Live</div>
+              <div class="card-title" style="font-size:1.2rem;">Keepa product history</div>
+              <div class="card-body">→ pricing context, BSR trends, competitor moves.</div>
+            </div>
+            <div class="card">
+              <div class="card-label">Source · You</div>
+              <div class="card-title" style="font-size:1.2rem;">Uploaded brand docs</div>
+              <div class="card-body">→ <code>brand_guidelines.md</code> + <code>customer_avatars.md</code>.</div>
+            </div>
+            <div class="card tint-orange">
+              <div class="card-label">Source · AI</div>
+              <div class="card-title" style="font-size:1.2rem;">4 Socratic questions</div>
+              <div class="card-body">→ fills in the gaps the data can't see.</div>
+            </div>
+          </div>
+        </div>
+        <div class="slide-footer"><span>Build Your LLM Team Wiki</span><span class="right">Module 6 · Easy Button</span></div>
+        <aside class="notes">
+          1:00. You don't fill in 100 blank files. If you signed up at slide 17, and I really hope you did, this is already running. SP-API is populating catalog and ASIN files. Keepa is filling in pricing context and BSR trends. Brand docs you upload, Sheets, Docs, PDFs, get parsed into brand guidelines and customer avatars. And four Socratic questions fill in the gaps the data can't see.
+        </aside>
+      </section>
+
+      <!-- SLIDE 53: LIVE DEMO #1, Mobile Vignette -->
+      <section>
+        <div class="slide-pad top">
+          <span class="demo-badge"><span class="red-dot"></span>LIVE DEMO · #1</span>
+          <h2>The mobile vignette. <span class="accent">I'm on a run.</span></h2>
+
+          <div class="two-col" style="margin-top:1.4rem; grid-template-columns: 1fr 1fr; align-items: center;">
+            <div>
+              <p style="font-size:1.15rem; color: var(--ih-neutral-700);">Headphones in. Phone in pocket. No laptop in sight.</p>
+              <p style="font-size:1.15rem; color: var(--ih-neutral-700); margin-top: 1rem;">
+                Voice memo to Gemini. It pulls my brand voice. Pulls my product context. Writes three TikTok hooks. While I run.
+              </p>
+              <p style="margin-top:1rem; font-size: 1rem; color: var(--ih-neutral-500); font-style: italic;">
+                <strong style="color: var(--ih-orange-dark); font-style: normal;">The unlock:</strong> the memory layer is independent of which AI app you use.
+              </p>
+            </div>
+            <div style="display:flex; justify-content: center;">
+              <div class="phone-mock">
+                <div style="text-align:center; padding-top: 1.5rem; font-size: 0.7rem; letter-spacing: 0.15em; color: var(--ih-neutral-500); text-transform: uppercase;">9:42 AM · Trail</div>
+                <div class="voice-line">
+                  <span class="you">You · voice</span>
+                  Hey Gemini, draft 3 TikTok Shop hook ideas for my <strong>B0XXXXXXX</strong> product. Use my brand voice.<br/><br/>
+                  For context, read <code style="background: rgba(255,255,255,0.1); color: var(--ih-orange-light);">memory.delmarave.io</code>, PIN <strong>1234</strong>.
+                </div>
+                <div class="reply">
+                  <span class="who">Gemini · 0.8s</span>
+                  Pulled brand voice (warm, witty, organic-leaning). Three hooks coming up, drop 1 leads with a problem, drop 2 with a stat, drop 3 with a POV…
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="slide-footer"><span>Build Your LLM Team Wiki</span><span class="right">Module 6 · Easy Button</span></div>
+        <aside class="notes">
+          2:30. PHONE IN HAND. MAKE THIS PHYSICAL. I'm pulling out my phone. Headphones in. On a run. VOICE INTO PHONE: "Hey Gemini, draft 3 TikTok Shop hook ideas for my B0XXX product. Use my brand voice. For context, read memory.delmarave.io, PIN 1234." HOLD UP PHONE SO AUDIENCE SEES THE RESPONSE. Look at that. Hook ideas. In my voice. With my product context. From my phone. On a run. That's the unlock.
+        </aside>
+      </section>
+
+      <!-- SLIDE 54: LIVE DEMO #2, Write path -->
+      <section>
+        <div class="slide-pad top">
+          <span class="demo-badge"><span class="red-dot"></span>LIVE DEMO · #2</span>
+          <h2>The write path. <span class="accent">Claude logs it for the team.</span></h2>
+
+          <div class="two-col" style="margin-top: 1.2rem; align-items: center;">
+            <div class="card" style="font-family: var(--font-mono); font-size: 0.95rem; color: var(--ih-neutral-800); line-height: 1.55;">
+              <div style="font-family: var(--font-body); font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ih-orange-dark); font-weight: 700; margin-bottom: 0.6rem;">Claude · agent log</div>
+              <div>
+                <span style="color: var(--ih-blue-600);">▸ read_memory("catalog/B0XYZ")</span><br/>
+                <span style="color: var(--ih-neutral-500);">↳ found: hero ASIN, margin playbook, current price.</span><br/><br/>
+                <span style="color: var(--ih-blue-600);">▸ fetch_sp_api("inventory/B0XYZ")</span><br/>
+                <span style="color: var(--ih-neutral-500);">↳ supplier cost: <strong style="color:var(--ih-red-600);">+8.1%</strong> vs prior order.</span><br/><br/>
+                <span style="color: var(--ih-orange-dark);">▸ write_memory("catalog/B0XYZ", patch)</span><br/>
+                <span style="color: var(--ih-neutral-500);">  + flagged: sourcing_cost_change<br/>
+                  + recommended: test +$0.50 price lift<br/>
+                  + team_visible: true</span>
+              </div>
+            </div>
+            <div>
+              <div class="callout" style="font-size: 1.4rem; max-width: 30ch;">
+                "I'm updating your catalog.<br/>
+                Your hero ASIN's sourcing cost jumped <em>8%</em>.<br/>
+                Your margin playbook says <em>test a price lift</em> before absorbing it.<br/>
+                I've logged this for the team."
+              </div>
+              <p style="margin-top:0.9rem; font-size:1rem; color: var(--ih-neutral-500); font-style: italic;">Watch the markdown file update, <strong style="color: var(--ih-neutral-900); font-style: normal;">live on screen.</strong></p>
+            </div>
+          </div>
+        </div>
+        <div class="slide-footer"><span>Build Your LLM Team Wiki</span><span class="right">Module 6 · Easy Button</span></div>
+        <aside class="notes">
+          2:30. SWITCH BACK TO LAPTOP. Now watch the write path. I just dropped fresh SP-API data in. Claude reads it and says, "I'm updating your catalog. Your hero ASIN's sourcing cost just jumped 8%. Your margin playbook says to test a price lift before absorbing it. I've logged this for the team." SHOW THE FILE DIFF ON SCREEN.
+        </aside>
+      </section>
+
+      <!-- SLIDE 55: Sign-up + ta-da -->
+      <section>
+        <div class="slide-pad top">
+          <span class="eyebrow orange"><span class="dot"></span>Live audience reveal</span>
+          <h2><span class="accent">Half the room</span> is already running.</h2>
+
+          <div class="two-col" style="margin-top:1.2rem; grid-template-columns: 1.4fr 1fr; gap: 3rem; align-items:center;">
+            <div>
+              <ul class="icon-list" style="font-size:1.1rem;">
+                <li class="fragment fade-in-fast"><span class="ic yes"></span><span>If you signed up at slide 17, <strong>you're already running.</strong> </span></li>
+                <li class="fragment fade-in-fast"><span class="ic">→</span><span>Half signing up now will be live by slide 60.</span></li>
+                <li class="fragment fade-in-fast"><span class="ic">→</span><span>The other half: by end of Q&amp;A.</span></li>
+                <li class="fragment fade-in-fast"><span class="ic no"></span><span>8-figure sellers, you'll probably break us a little. We'll wear it like a badge.</span></li>
+              </ul>
+            </div>
+            <div style="text-align:center;">
+              <div class="qr-block">
+                <div class="qr-hint">Last chance to sync</div>
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=240x240&data=https%3A%2F%2Finventoryhero.ai%2Fsignup&color=171717&bgcolor=FFFFFF&margin=0" width="220" height="220" alt="Sign up QR" />
+                <div class="qr-label">inventoryhero.ai/signup</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="slide-footer"><span>Build Your LLM Team Wiki</span><span class="right">Module 6 · Easy Button</span></div>
+        <aside class="notes">
+          1:00. Live audience reveal. If you signed up at slide 17, congratulations, you're already running. Half of you signing up right now will be set up by slide 60. The other half, by end of Q&A. The 8-figure sellers, sorry, you'll probably break us a little. We'll wear it like a badge. BEAT. QR STAYS UP.
+        </aside>
+      </section>
+
+      <!-- SLIDE 56: Quote, Marc Benioff -->
+      <section data-background-color="#fafafa">
+        <div class="quote-slide">
+          <div class="q-photo"><img src="images/benioff.jpg" alt="Marc Benioff" /></div>
+          <div class="q-body">
+            <div class="qmark">"</div>
+          <blockquote>
+            Every company will deploy <span class="accent">thousands of agents</span> alongside their employees.
+          </blockquote>
+          <div class="attribution">
+            <span class="name">Marc Benioff</span>
+            <span class="role">CEO, Salesforce</span>
+          </div>
+          <div class="qfooter-note">(paraphrased from Dreamforce 2024)</div>
+          </div>
+        </div>
+        <aside class="notes">
+          0:15. Marc Benioff at Dreamforce: "Every company will deploy thousands of agents alongside their employees."
+        </aside>
+      </section>
+
+      <!-- ============================================================
+           SECTION 8, CLOSE (Slides 57 to 62)
+           ============================================================ -->
+
+      <!-- SLIDE 57: Summary -->
+      <section>
+        <div class="slide-pad top">
+          <span class="eyebrow orange"><span class="dot"></span>What we covered</span>
+          <h2>The whole talk, in <span class="accent">four pieces.</span></h2>
+          <ol class="numlist" style="margin-top:1rem; grid-template-columns: 1fr 1fr; gap: 0.8rem 1.4rem; font-size:0.98rem;">
+            <li class="fragment fade-in-fast"><strong>AI memory ≈ human memory.</strong><br/>Working vs long-term.</li>
+            <li class="fragment fade-in-fast"><strong>Local vaults are dead.</strong><br/>They're the PDFs of AI memory.</li>
+            <li class="fragment fade-in-fast"><strong>The AI Employee Handbook.</strong>
+              <span class="sub-opt">○ 10 to 100 markdown files</span>
+              <span class="sub-opt">○ Scaffolded, not rigid</span>
+              <span class="sub-opt">○ Progressive elaboration</span>
+            </li>
+            <li class="fragment fade-in-fast"><strong>Two deployment paths.</strong>
+              <span class="sub-opt">○ Karpathy + GitHub, free, advanced</span>
+              <span class="sub-opt">○ Hosted MCP, easy, hosted</span>
+            </li>
+          </ol>
+          <p style="margin-top: 1.4rem; font-size: 1.4rem; color: var(--ih-neutral-700); font-family: var(--font-head); font-weight: 700;">
+            Outcome: <span style="color: var(--ih-orange-dark);">every AI in your business reads from the same brain.</span>
+          </p>
+        </div>
+        <div class="slide-footer"><span>Build Your LLM Team Wiki</span><span class="right">Close</span></div>
+        <aside class="notes">
+          1:30. MIRROR THE OPENING PREVIEW. Quick recap. One, AI memory works like human memory: working vs long-term. Two, local vaults are the PDFs of AI memory, they're dead. Three, the AI Employee Handbook framework: 10 to 100 markdown files, scaffolded but not rigid, with progressive elaboration. Four, two deployment paths: Karpathy + GitHub if you're a power user, hosted MCP via InventoryHero if you want the easy button. Outcome: every AI in your business reads from the same brain.
+        </aside>
+      </section>
+
+      <!-- SLIDE 58: One-liner, best-onboarded -->
+      <section>
+        <div class="one-liner">
+          <div class="ol-mark"></div>
+          <div class="ol-text">
+            The Amazon sellers who win the next 5 years<br/>
+            <span style="color: var(--ih-neutral-400);">won't have the smartest AIs.</span><br/><br/>
+            They'll have the<br/>
+            <span class="accent">best-onboarded ones.</span>
+          </div>
+        </div>
+        <aside class="notes">
+          0:30. SAY SLOWLY. The Amazon sellers who win the next 5 years won't have the smartest AIs. They'll have the best-onboarded ones.
+        </aside>
+      </section>
+
+      <!-- SLIDE 59: Quote, Satya Nadella -->
+      <section data-background-color="#fafafa">
+        <div class="quote-slide">
+          <div class="q-photo"><img src="images/nadella.jpg" alt="Satya Nadella" /></div>
+          <div class="q-body">
+            <div class="qmark">"</div>
+          <blockquote>
+            It's not about man versus machine. It's about <span class="accent">augmenting human capabilities</span> through AI.
+          </blockquote>
+          <div class="attribution">
+            <span class="name">Satya Nadella</span>
+            <span class="role">chair &amp; CEO, Microsoft</span>
+          </div>
+          </div>
+        </div>
+        <aside class="notes">
+          0:20. Satya Nadella: "It's not about man versus machine. It's about augmenting human capabilities through AI." That's the whole game.
+        </aside>
+      </section>
+
+      <!-- SLIDE 60: Hackathon CTA -->
+      <section data-background-color="#171717" class="dark">
+        <div class="dark-slide glow">
+          <span class="eyebrow dark"><span class="dot"></span>Build it with me · 100% free</span>
+          <h1 style="font-size: 4.8rem; line-height: 1.02;"> <span style="font-family: var(--font-head);">AI</span> <span class="accent" style="font-style:normal;">Hackathon.</span></h1>
+          <p style="font-family: var(--font-mono); font-size: 1.2rem; color: var(--ih-orange-light); margin-top: 0.6rem; letter-spacing:-0.005em;">
+            Tuesday · June 2 · <strong style="color:white;">9 AM PT</strong> / 12 PM ET / 5 PM London
+          </p>
+
+          <div class="two-col" style="margin-top:1.4rem; grid-template-columns: 1.4fr 1fr; gap: 3rem; align-items:center;">
+            <div>
+              <p style="color: var(--ih-neutral-400); font-size: 1.1rem; margin-bottom: 0.8rem;">We'll walk through:</p>
+              <ul class="icon-list" style="font-size: 1.05rem; color: var(--ih-neutral-300);">
+                <li class="fragment fade-in-fast"><span class="ic yes"></span><span>Spinning up your <strong style="color:white;">Employee Handbook</strong> from scratch.</span></li>
+                <li class="fragment fade-in-fast"><span class="ic yes"></span><span>Wiring up the <strong style="color:white;">GitHub power-user path</strong> (Road 1).</span></li>
+                <li class="fragment fade-in-fast"><span class="ic yes"></span><span>Installing the <strong style="color:white;">InventoryHero MCP</strong> (Road 2).</span></li>
+                <li class="fragment fade-in-fast"><span class="ic yes"></span><span>Live Q&amp;A with my <strong style="color:white;">dev team</strong>.</span></li>
+              </ul>
+              <p style="margin-top: 1.2rem; font-size: 1.05rem; color: var(--ih-neutral-400);"><strong style="color: white;">100% free.</strong> Bring your laptop and a cup of coffee.</p>
+            </div>
+            <div style="text-align:center;">
+              <div class="qr-block">
+                <div class="qr-hint">Save your seat</div>
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=240x240&data=https%3A%2F%2Finventoryhero.ai%2Fhackathon&color=171717&bgcolor=FFFFFF&margin=0" width="220" height="220" alt="Hackathon QR" />
+                <div class="qr-label">inventoryhero.ai/hackathon</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <aside class="notes">
+          1:30. ENERGY UP. THIS IS THE OFFER. Want to actually build this with me? Tuesday, June 2nd. 9 AM Pacific. 12 PM Eastern. 5 PM London. Free AI Hackathon. We'll walk through spinning up your Employee Handbook from scratch. Wire up the GitHub power-user path. Install the hosted MCP. Live Q&A with my dev team. 100% free. Bring your laptop and a cup of coffee. Scan the code.
+        </aside>
+      </section>
+
+      <!-- SLIDE 61: InventoryHero beta -->
+      <section>
+        <div class="slide-pad top">
+          <span class="eyebrow orange"><span class="dot"></span>The other thing I'm building</span>
+          <h2>
+            <span class="logo" style="font-size: 3rem; gap: 1rem;">
+              <span class="mark" style="width: 3rem; height: 3rem;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width: 1.6rem; height: 1.6rem;"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              </span>
+              Inventory<span class="ih-h">Hero</span>.ai
+            </span>
+          </h2>
+          <p class="lede wide" style="font-size: 1.3rem; margin-top: 0.5rem;">The agentic inventory operating system for Amazon.</p>
+
+          <div class="two-col" style="margin-top:1.2rem; grid-template-columns: 1.4fr 1fr; align-items:center;">
+            <div>
+              <ul class="icon-list" style="font-size: 1.05rem;">
+                <li class="fragment fade-in-fast"><span class="ic yes"></span><span>Talks to your <strong>SP-API in plain English</strong>.</span></li>
+                <li class="fragment fade-in-fast"><span class="ic yes"></span><span>Detects <strong>stockouts, overstock, reorder risk</strong>.</span></li>
+                <li class="fragment fade-in-fast"><span class="ic yes"></span><span><strong>Acts on it</strong>, not just reports it.</span></li>
+                <li class="fragment fade-in-fast"><span class="ic yes"></span><span>Built on the <strong>memory layer</strong> you just learned about.</span></li>
+                <li class="fragment fade-in-fast"><span class="ic yes"></span><span>Multi-channel ready: Amazon → Shopify → <strong>TikTok Shop</strong>.</span></li>
+              </ul>
+              <p style="margin-top: 1.2rem; font-size: 1.05rem; color: var(--ih-neutral-600);"><strong>Beta open. Free to sign up. Limited slots.</strong></p>
+            </div>
+            <div style="text-align:center;">
+              <div class="qr-block">
+                <div class="qr-hint">Join the beta</div>
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=240x240&data=https%3A%2F%2Finventoryhero.ai&color=171717&bgcolor=FFFFFF&margin=0" width="220" height="220" alt="InventoryHero QR" />
+                <div class="qr-label">inventoryhero.ai</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="slide-footer"><span>Build Your LLM Team Wiki</span><span class="right">Close</span></div>
+        <aside class="notes">
+          1:00. The other thing I'm building, InventoryHero.ai. Agentic inventory operating system for Amazon. Talks to your SP-API in plain English. Detects stockouts, overstock, reorder risk. Acts on it, not just reports it. Built on the same memory layer you just learned about. Multi-channel ready, Amazon, Shopify, TikTok Shop. Beta open. Free to sign up. Limited slots.
+        </aside>
+      </section>
+
+      <!-- SLIDE 62: Q&A -->
+      <section data-background-color="#fafafa">
+        <div class="slide-pad" style="justify-content:center; align-items:center;">
+          <div class="qa-mark">Q<span class="amp">&amp;</span>A</div>
+          <p class="lede" style="text-align:center; margin: 2rem auto 0; max-width: 36ch; font-size: 1.3rem;">
+            That's the whole framework. <strong style="color: var(--ih-neutral-900);">What did I miss?</strong>
+          </p>
+          <div class="pillrow" style="margin-top:2rem; justify-content:center;">
+            <span class="pill"><span class="dot"></span>Andrew@TitanMembers.com</span>
+            <span class="pill"><span class="dot"></span>inventoryhero.ai/hackathon</span>
+            <span class="pill"><span class="dot"></span>Tuesday · 9 AM PT</span>
+          </div>
+        </div>
+        <aside class="notes">
+          8:00. That's the whole framework. Questions? Q&A TIPS: deep tech → redirect to Tuesday's hackathon. Shopify-only sellers → yes, SP-API piece is optional, manual context load works. Pricing → beta is free, paid tier later, hackathon attendees grandfathered. Security → markdown vault is private, PIN-gated, or self-host via Road 1. SHORT ON TIME: skip to 58 (one-liner) → 60 (hackathon CTA) → Q&A.
+        </aside>
+      </section>
+
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/notes/notes.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/highlight/highlight.js"></script>
+
+  <script>
+    Reveal.initialize({
+      width: 1600,
+      height: 900,
+      margin: 0.02,
+      minScale: 0.2,
+      maxScale: 2.0,
+      controls: true,
+      controlsTutorial: false,
+      progress: true,
+      slideNumber: 'c/t',
+      hash: true,
+      history: false,
+      keyboard: true,
+      overview: true,
+      center: false,
+      touch: true,
+      transition: 'slide',
+      transitionSpeed: 'default',
+      backgroundTransition: 'fade',
+      pdfSeparateFragments: false,
+      pdfMaxPagesPerSlide: 1,
+      navigationMode: 'linear',
+      showNotes: false,
+      plugins: [ RevealNotes, RevealHighlight ]
+    });
+  </script>
+</body>
+</html>

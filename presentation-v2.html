@@ -1,0 +1,2140 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Build Your LLM Team Wiki, Andrew Erickson (v2, Power Design layout)</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reset.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css" />
+
+  <style>
+  /* =================================================================
+     Build Your LLM Team Wiki, Andrew Erickson, v2
+     InventoryHero brand DNA × Power Design's 20 codified principles.
+     Mode: PRESENTER (≤15 words/content slide).
+     Type scale ratio: 1.333 (base 20px → 20, 27, 36, 48, 64, 84, 112).
+     8-pt grid for all spacing. 12-column inner grid. 96px safe-zone.
+     60-30-10 color: neutral 60 / secondary 30 / orange accent 10.
+     ================================================================= */
+
+  :root {
+    /* --- Brand DNA (unchanged from v1) --- */
+    --ih-orange: #f97316;
+    --ih-orange-dark: #ea580c;
+    --ih-orange-soft: #fff7ed;
+
+    --ink-900: #0b0b0c;   /* near-black, for AAA contrast */
+    --ink-700: #2a2a2d;
+    --ink-500: #5b5b62;
+    --ink-300: #b6b6bc;
+    --ink-200: #e2e2e5;
+    --ink-100: #f1f1f3;
+    --ink-050: #fafafa;
+    --paper:   #fbfaf7;   /* warm paper, the 60% dominant */
+
+    --font-display: 'Outfit', 'Inter', system-ui, sans-serif;
+    --font-body:    'Inter', system-ui, -apple-system, sans-serif;
+    --font-mono:    'JetBrains Mono', ui-monospace, Menlo, monospace;
+
+    /* --- Modular type scale (ratio 1.333, base 28px for projection readability) --- */
+    --t-100: 28px;   /* body floor, projector-safe */
+    --t-200: 36px;   /* body-large / subhead-small */
+    --t-300: 44px;   /* subhead */
+    --t-400: 56px;   /* h3 / small headline */
+    --t-500: 72px;   /* h2 */
+    --t-600: 96px;   /* h1 / hero */
+    --t-700: 128px;  /* mega hero */
+    --t-caption: 22px;
+    --t-micro: 18px; /* footer only */
+
+    /* --- 8pt spacing scale --- */
+    --s-1: 8px;
+    --s-2: 16px;
+    --s-3: 24px;
+    --s-4: 32px;
+    --s-6: 48px;
+    --s-8: 64px;
+    --s-12: 96px;
+    --s-16: 128px;
+  }
+
+  html, body { background: var(--paper); }
+  .reveal-viewport { background: var(--paper) !important; }
+
+  .reveal {
+    font-family: var(--font-body);
+    font-size: var(--t-100);
+    color: var(--ink-700);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  .reveal .slides { text-align: left; }
+  .reveal .slides section,
+  .reveal .slides section > section {
+    height: 100%;
+    padding: 0;
+    line-height: 1.5;
+    font-weight: 400;
+  }
+  .reveal h1, .reveal h2, .reveal h3, .reveal h4 {
+    font-family: var(--font-display);
+    color: var(--ink-900);
+    margin: 0;
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+    font-weight: 800;
+  }
+  .reveal p { margin: 0; }
+  ::selection { background: var(--ink-900); color: var(--paper); }
+
+  /* =================================================================
+     Slide frame, 96px safe-zone on every side (Rule #5)
+     12-col grid available inside (Rule #16)
+     Content is vertically centered by default; the .body row takes
+     all leftover height so its child fills the canvas, not the top-left.
+     ================================================================= */
+  .frame {
+    position: absolute;
+    inset: 0;
+    padding: 72px var(--s-12);
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: auto 1fr auto;
+    grid-column-gap: var(--s-4);
+    grid-row-gap: var(--s-6);
+    box-sizing: border-box;
+    align-content: stretch;
+  }
+  /* Make the body row vertically center its content by default */
+  .body, .body-8, .body-7, .body-6, .side-5, .side-6 {
+    align-self: center;
+  }
+  .frame.top-align .body,
+  .frame.top-align .body-8,
+  .frame.top-align .body-7 { align-self: start; }
+  .frame.center { align-items: center; }
+
+  /* Slot helpers, F-pattern by default (Rule #19), centered variants
+     for sparse slides where intentional symmetry beats asymmetry (Rule #20). */
+  .top      { grid-row: 1; grid-column: 1 / -1; }
+  .body     { grid-row: 2; grid-column: 1 / -1; }
+  .body-8   { grid-row: 2; grid-column: 1 / span 8; }
+  .body-7   { grid-row: 2; grid-column: 1 / span 7; }
+  .body-6   { grid-row: 2; grid-column: 1 / span 6; }
+  .side-5   { grid-row: 2; grid-column: 8 / -1; }
+  .side-6   { grid-row: 2; grid-column: 7 / -1; }
+  .foot     { grid-row: 3; grid-column: 1 / -1; }
+
+  /* Centered body, for sparse slides (single text block / list w/ no side) */
+  .body-c {
+    grid-row: 2; grid-column: 1 / -1;
+    justify-self: center;
+    text-align: center;
+    max-width: 64ch;
+    align-self: center;
+  }
+  .body-c .row-items {
+    text-align: left;
+    display: inline-grid;
+    margin-inline: auto;
+  }
+  .body-c .body-text,
+  .body-c .lede {
+    margin-inline: auto;
+  }
+
+  /* Centered top, for sparse slides */
+  .top.is-centered { text-align: center; }
+  .top.is-centered .kicker { justify-content: center; }
+  .top.is-centered .headline { margin-inline: auto; }
+
+  /* =================================================================
+     Type roles, ≤4 distinct sizes per slide, ≤6 across deck
+     ================================================================= */
+  .kicker {
+    font-family: var(--font-body);
+    font-size: var(--t-caption);
+    font-weight: 600;
+    color: var(--ink-500);
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    margin-bottom: var(--s-3);
+    display: flex; align-items: center; gap: var(--s-2);
+  }
+  .kicker::before {
+    content: '';
+    width: 24px; height: 2px; background: var(--ih-orange);
+    display: inline-block;
+  }
+
+  .headline {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: var(--t-500);
+    line-height: 1.05;
+    color: var(--ink-900);
+    letter-spacing: -0.025em;
+    max-width: 24ch;
+  }
+  .headline.hero    { font-size: 112px;  max-width: 18ch; line-height: 1.0;  letter-spacing: -0.03em; }
+  .headline.mega    { font-size: 168px;  max-width: 13ch; line-height: 0.92; letter-spacing: -0.035em; font-weight: 900; }
+  .headline.small   { font-size: var(--t-400); max-width: 28ch; }
+
+  .lede {
+    font-family: var(--font-body);
+    font-size: var(--t-200);
+    color: var(--ink-500);
+    line-height: 1.4;
+    max-width: 36ch;
+    font-weight: 400;
+  }
+
+  .body-text {
+    font-size: var(--t-200);
+    color: var(--ink-700);
+    line-height: 1.5;
+    max-width: 48ch;
+  }
+
+  /* One accent per slide (Rule #13), orange only */
+  .accent { color: var(--ih-orange-dark); font-style: normal; font-weight: 800; }
+
+  /* =================================================================
+     Footer, wordmark bottom-left inside safe-zone (Rule #21)
+     ================================================================= */
+  .wordmark {
+    grid-row: 3; grid-column: 1 / span 6;
+    display: flex; align-items: center; gap: var(--s-2);
+    font-family: var(--font-display);
+    font-weight: 800; font-size: var(--t-caption);
+    color: var(--ink-900);
+    letter-spacing: -0.01em;
+  }
+  .wordmark .dot {
+    width: 14px; height: 14px; border-radius: 4px;
+    background: var(--ih-orange);
+  }
+  .wordmark .ih-h { color: var(--ih-orange-dark); }
+  .page-no {
+    grid-row: 3; grid-column: 7 / -1;
+    text-align: right;
+    font-family: var(--font-mono);
+    font-size: var(--t-micro);
+    color: var(--ink-300);
+    letter-spacing: 0.06em;
+    align-self: end;
+  }
+
+  /* =================================================================
+     Chunk primitives, grouped cards (Gestalt common-region, Rule #17)
+     Card padding ≥32, card gap ≥24
+     ================================================================= */
+  .chunks {
+    display: grid;
+    gap: var(--s-3);
+  }
+  .chunks.row-3 { grid-template-columns: repeat(3, 1fr); }
+  .chunks.row-2 { grid-template-columns: repeat(2, 1fr); }
+  .chunks.row-4 { grid-template-columns: repeat(4, 1fr); }
+
+  .card {
+    padding: var(--s-4);
+    background: white;
+    border: 1px solid var(--ink-200);
+    border-radius: 8px;
+  }
+  .card .ch-label {
+    font-family: var(--font-body);
+    font-size: var(--t-caption);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--ink-500);
+    margin-bottom: var(--s-2);
+  }
+  .card .ch-title {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--t-300);
+    color: var(--ink-900);
+    line-height: 1.1;
+    margin-bottom: var(--s-2);
+  }
+  .card .ch-body {
+    font-size: var(--t-100);
+    color: var(--ink-500);
+    line-height: 1.5;
+  }
+  .card.accent-card {
+    border-color: var(--ih-orange);
+    background: var(--ih-orange-soft);
+  }
+  .card.accent-card .ch-label { color: var(--ih-orange-dark); }
+  .card.accent-card .ch-title { color: var(--ink-900); }
+
+  /* =================================================================
+     Sparse lists, ≤3 items, ≤8 words each (no 6×6)
+     Distance encodes hierarchy: related ≤16px, unrelated ≥48px
+     ================================================================= */
+  .stack { display: grid; gap: var(--s-6); }
+  .stack-tight { display: grid; gap: var(--s-2); }
+  .row-items {
+    display: grid; gap: var(--s-3);
+    list-style: none; padding: 0; margin: 0;
+  }
+  .row-items li {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: var(--s-4);
+    align-items: baseline;
+  }
+  .row-items .num {
+    font-family: var(--font-mono);
+    font-size: var(--t-300);
+    color: var(--ih-orange-dark);
+    font-weight: 500;
+  }
+  .row-items .label {
+    font-size: var(--t-300);
+    color: var(--ink-900);
+    font-weight: 500;
+    line-height: 1.3;
+  }
+
+  /* =================================================================
+     Hero / section divider, vertically centered, fills the canvas.
+     Eyebrow tag at top; foot row reserved for wordmark + page no.
+     ================================================================= */
+  .hero-frame {
+    position: absolute; inset: 0;
+    padding: 72px var(--s-12);
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    grid-row-gap: var(--s-6);
+    box-sizing: border-box;
+    text-align: center;
+  }
+  .hero-frame .hero-top {
+    font-family: var(--font-body);
+    font-size: var(--t-caption);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--ih-orange-dark);
+    text-align: center;
+  }
+  .hero-frame .hero-body {
+    align-self: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .hero-frame .headline { margin-inline: auto; }
+  .hero-frame .lede { margin-inline: auto; }
+
+  /* =================================================================
+     Quote slide, two layouts.
+     (a) WITH portrait: editorial split. Left 5/12 = full-bleed photo,
+         right 7/12 = quote + attribution, left-aligned with generous type.
+     (b) WITHOUT portrait (slides 27, 28): centered fallback.
+     ================================================================= */
+
+  /* Shared positioning */
+  .quote-frame {
+    position: absolute; inset: 0;
+    box-sizing: border-box;
+    background: var(--paper);
+  }
+
+  /* --- (a) WITH portrait --- */
+  .quote-frame:has(.quote-portrait) {
+    display: grid;
+    grid-template-columns: 5fr 7fr;
+    grid-template-rows: 1fr auto auto 1fr;
+    padding: 0;
+    align-items: stretch;
+  }
+  .quote-frame > .quote-portrait {
+    grid-column: 1;
+    grid-row: 1 / -1;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 22%;
+    border-radius: 0;
+    box-shadow: inset -6px 0 0 0 var(--ih-orange);
+    margin: 0;
+    display: block;
+  }
+  .quote-frame:has(.quote-portrait) > .quote-text {
+    grid-column: 2;
+    grid-row: 2;
+    padding: 0 96px 0 80px;
+    margin: 0;
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 76px;
+    line-height: 1.04;
+    letter-spacing: -0.025em;
+    color: var(--ink-900);
+    max-width: none;
+    text-align: left;
+  }
+  .quote-frame:has(.quote-portrait) > .quote-text::before {
+    content: '';
+    display: block;
+    width: 72px;
+    height: 6px;
+    background: var(--ih-orange);
+    margin-bottom: 32px;
+  }
+  .quote-frame:has(.quote-portrait) > .quote-attrib {
+    grid-column: 2;
+    grid-row: 3;
+    padding: 40px 96px 0 80px;
+    margin: 0;
+    font-family: var(--font-body);
+    font-size: 26px;
+    color: var(--ink-500);
+    line-height: 1.45;
+    text-align: left;
+    max-width: none;
+  }
+  .quote-frame:has(.quote-portrait) > .quote-attrib strong {
+    color: var(--ink-900);
+    font-weight: 700;
+    font-size: 32px;
+    display: block;
+    margin-bottom: 6px;
+  }
+
+  /* --- (b) WITHOUT portrait, centered --- */
+  .quote-frame:not(:has(.quote-portrait)) {
+    padding: 72px var(--s-12);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+  .quote-frame:not(:has(.quote-portrait)) .quote-mark {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 180px;
+    line-height: 0.6;
+    color: var(--ih-orange);
+    height: 80px;
+    overflow: visible;
+    margin-bottom: var(--s-4);
+    text-align: center;
+    width: 100%;
+  }
+  .quote-frame:not(:has(.quote-portrait)) .quote-text {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 96px;
+    line-height: 1.04;
+    letter-spacing: -0.025em;
+    color: var(--ink-900);
+    max-width: 22ch;
+    margin-inline: auto;
+    text-align: center;
+  }
+  .quote-frame:not(:has(.quote-portrait)) .quote-attrib {
+    font-family: var(--font-body);
+    font-size: var(--t-200);
+    color: var(--ink-500);
+    line-height: 1.45;
+    margin: var(--s-6) auto 0;
+    max-width: 56ch;
+    text-align: center;
+  }
+  .quote-frame:not(:has(.quote-portrait)) .quote-attrib strong {
+    color: var(--ink-900);
+    font-weight: 600;
+  }
+
+  /* =================================================================
+     Data slides, ≥80% data-ink (Tufte, Rule #18)
+     No 3D, no shadows, no gradients on data.
+     ================================================================= */
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--t-100);
+  }
+  .data-table th {
+    text-align: left;
+    font-weight: 600;
+    color: var(--ink-500);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: var(--t-caption);
+    padding: var(--s-2) 0;
+    border-bottom: 1px solid var(--ink-200);
+  }
+  .data-table td {
+    padding: var(--s-3) var(--s-4) var(--s-3) 0;
+    border-bottom: 1px solid var(--ink-100);
+    color: var(--ink-700);
+    line-height: 1.4;
+    vertical-align: top;
+  }
+  .data-table td:first-child {
+    font-weight: 600; color: var(--ink-900);
+  }
+  .data-table tr.row-accent td {
+    background: var(--ih-orange-soft);
+    color: var(--ink-900);
+  }
+  .data-table tr.row-accent td:first-child { color: var(--ih-orange-dark); }
+
+  /* Mapping table, used for "human brain ↔ AI" */
+  .map-grid {
+    display: grid;
+    grid-template-columns: 1fr 64px 1fr;
+    gap: var(--s-4) var(--s-4);
+    font-size: var(--t-200);
+  }
+  .map-grid .arrow {
+    color: var(--ih-orange);
+    font-weight: 600;
+    text-align: center;
+    align-self: center;
+  }
+  .map-grid .from { color: var(--ink-500); }
+  .map-grid .to { color: var(--ink-900); font-weight: 600; }
+
+  /* =================================================================
+     Code block, no shadows, no rounded gimmicks, monospace only
+     ================================================================= */
+  pre.code {
+    font-family: var(--font-mono);
+    font-size: var(--t-100);
+    line-height: 1.55;
+    background: white;
+    border: 1px solid var(--ink-200);
+    color: var(--ink-700);
+    padding: var(--s-4);
+    border-radius: 4px;
+    overflow: hidden;
+    margin: 0;
+  }
+  pre.code .c-com  { color: var(--ink-300); }
+  pre.code .c-acc  { color: var(--ih-orange-dark); font-weight: 500; }
+  pre.code .c-key  { color: var(--ink-900); font-weight: 500; }
+
+  /* Diagram blocks for the MCP architecture */
+  .arch {
+    display: grid;
+    gap: var(--s-3);
+    justify-items: center;
+    font-family: var(--font-mono);
+    font-size: var(--t-100);
+  }
+  .arch .node {
+    background: white;
+    border: 1px solid var(--ink-200);
+    padding: var(--s-3) var(--s-4);
+    border-radius: 6px;
+    color: var(--ink-900);
+    min-width: 28ch;
+    text-align: center;
+  }
+  .arch .node.accent {
+    border-color: var(--ih-orange);
+    background: var(--ih-orange-soft);
+    color: var(--ih-orange-dark);
+    font-weight: 600;
+  }
+  .arch .edge {
+    color: var(--ink-300);
+    font-size: var(--t-caption);
+    letter-spacing: 0.04em;
+  }
+  .arch .branch {
+    display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-4);
+    width: 100%;
+  }
+  .arch .branch .node { min-width: 0; width: 100%; box-sizing: border-box; }
+
+  /* QR placeholder, a neutral square, not decorative */
+  .qr {
+    width: 200px; height: 200px;
+    background:
+      repeating-conic-gradient(var(--ink-900) 0% 25%, white 0% 50%) 0/24px 24px;
+    border: 1px solid var(--ink-200);
+    border-radius: 8px;
+  }
+  .qr-block {
+    display: grid; gap: var(--s-3); justify-items: start;
+  }
+  .qr-block .qr-url {
+    font-family: var(--font-mono);
+    font-size: var(--t-100);
+    color: var(--ih-orange-dark);
+    font-weight: 500;
+  }
+  .qr-block .qr-note {
+    font-size: var(--t-caption);
+    color: var(--ink-500);
+  }
+
+  /* Headshot/photo placeholders (Rule #18: no decorative effects) */
+  .photo-row {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: var(--s-6);
+  }
+  .photo {
+    aspect-ratio: 4 / 5;
+    background: var(--ink-200) center/cover no-repeat;
+    border-radius: 8px;
+    position: relative;
+  }
+  .photo .ph-cap {
+    position: absolute; left: var(--s-3); bottom: var(--s-3);
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--t-200);
+    color: var(--ink-900);
+    background: var(--paper);
+    padding: var(--s-1) var(--s-2);
+    border-radius: 4px;
+  }
+
+  /* Image-headline composition for Aliza/Arlo slide */
+  .photo-launch { background-color: var(--ih-orange-soft); }
+
+  /* =================================================================
+     Print/PDF safeguards
+     ================================================================= */
+  @media print {
+    .reveal { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+  </style>
+</head>
+<body>
+
+<div class="reveal">
+<div class="slides">
+
+<!-- ====================================================================
+     SECTION 0, OPEN
+     ==================================================================== -->
+
+<!-- 1: TITLE -->
+<section data-page="1">
+  <div class="hero-frame">
+    <div class="hero-top">Andrew Erickson · May 31, 2026</div>
+    <div class="hero-body">
+      <h1 class="headline mega">Build your <span class="accent">LLM team wiki.</span></h1>
+      <p class="lede" style="margin-top: var(--s-6); font-size: var(--t-300); max-width: 28ch;">
+        The shared brain your humans and your AIs are missing.
+      </p>
+    </div>
+    <div style="display:flex; justify-content:space-between; align-items:end;">
+      <div class="wordmark" style="grid-row:auto;grid-column:auto;">
+        <span class="dot"></span><span>Inventory<span class="ih-h">Hero</span></span>
+      </div>
+      <div class="page-no" style="grid-row:auto;grid-column:auto;">01 / 62</div>
+    </div>
+  </div>
+</section>
+
+<!-- 2: ABOUT ME, split per Rule #1 (was 9 bullets), part 1: who I am -->
+<section data-page="2">
+  <div class="frame">
+    <div class="top">
+      <div class="kicker">About me · 1 of 2</div>
+      <h2 class="headline">Engineer turned operator. <span class="accent">Three 7-figure brands.</span></h2>
+    </div>
+    <div class="body-8">
+      <ul class="row-items" style="margin-top: var(--s-2);">
+        <li><span class="num">2015</span><span class="label">Started selling on Etsy and Amazon.</span></li>
+        <li><span class="num">2021</span><span class="label">First 7-figure exit.</span></li>
+        <li><span class="num">2026</span><span class="label">BDSS Grand Prize winner · Kevin King's Billion Dollar Seller Summit.</span></li>
+        <li><span class="num">100+</span><span class="label">Physical products designed and launched.</span></li>
+      </ul>
+    </div>
+    <div class="wordmark"><span class="dot"></span><span>Inventory<span class="ih-h">Hero</span></span></div>
+    <div class="page-no">02 / 62</div>
+  </div>
+</section>
+
+<!-- 3: ABOUT ME part 2, what I'm building -->
+<section data-page="3">
+  <div class="frame">
+    <div class="top">
+      <div class="kicker">About me · 2 of 2</div>
+      <h2 class="headline">What I'm building now: <span class="accent">InventoryHero.ai</span></h2>
+    </div>
+    <div class="body">
+      <div class="chunks row-3" style="margin-top: var(--s-3);">
+        <div class="card accent-card">
+          <div class="ch-label">Now shipping</div>
+          <div class="ch-title">InventoryHero.ai</div>
+          <div class="ch-body">Agentic inventory ops for Amazon. Talks to SP-API in plain English.</div>
+        </div>
+        <div class="card">
+          <div class="ch-label">Hosting</div>
+          <div class="ch-title">OpenClaw Hackathon</div>
+          <div class="ch-body">Weekly builder series for AI-native ecommerce teams.</div>
+        </div>
+        <div class="card">
+          <div class="ch-label">Running</div>
+          <div class="ch-title">AI for Ecom</div>
+          <div class="ch-body">WhatsApp group for sellers building with agents day-to-day.</div>
+        </div>
+      </div>
+    </div>
+    <div class="wordmark"><span class="dot"></span><span>Inventory<span class="ih-h">Hero</span></span></div>
+    <div class="page-no">03 / 62</div>
+  </div>
+</section>
+
+<!-- 4: Launches I'm proudest of, image-led, Rule of Thirds composition -->
+<section data-page="4">
+  <div class="frame">
+    <div class="top">
+      <div class="kicker">Two launches</div>
+      <h2 class="headline small">The ones I'm proudest of.</h2>
+    </div>
+    <div class="body">
+      <div class="photo-row" style="max-width: 78%;">
+        <div class="photo photo-launch"><div class="ph-cap">Aliza · April 2020</div></div>
+        <div class="photo photo-launch"><div class="ph-cap">Arlo · September 2022</div></div>
+      </div>
+    </div>
+    <div class="wordmark"><span class="dot"></span><span>Inventory<span class="ih-h">Hero</span></span></div>
+    <div class="page-no">04 / 62</div>
+  </div>
+</section>
+
+<!-- 5: OPENING HOOK, presenter mode: massive single-line statement -->
+<section data-page="5">
+  <div class="hero-frame">
+    <div class="hero-top">Opening</div>
+    <div class="hero-body">
+      <h2 class="headline hero">
+        Just had my second exit. Which makes me, officially, <span class="accent">a jobless bum.</span>
+      </h2>
+      <p class="lede" style="margin-top: var(--s-6);">So I'm filling my time by giving away the playbook.</p>
+    </div>
+    <div style="display:flex; justify-content:space-between; align-items:end;">
+      <div class="wordmark" style="grid-row:auto;grid-column:auto;"><span class="dot"></span><span>Inventory<span class="ih-h">Hero</span></span></div>
+      <div class="page-no" style="grid-row:auto;grid-column:auto;">05 / 62</div>
+    </div>
+  </div>
+</section>
+
+<!-- 6: Let's talk business -->
+<section data-page="6">
+  <div class="hero-frame">
+    <div class="hero-top">&nbsp;</div>
+    <div class="hero-body">
+      <h2 class="headline mega">Let's talk <span class="accent">business.</span></h2>
+    </div>
+    <div style="display:flex; justify-content:space-between; align-items:end;">
+      <div class="wordmark" style="grid-row:auto;grid-column:auto;"><span class="dot"></span><span>Inventory<span class="ih-h">Hero</span></span></div>
+      <div class="page-no" style="grid-row:auto;grid-column:auto;">06 / 62</div>
+    </div>
+  </div>
+</section>
+
+<!-- 7: Goal slide -->
+<section data-page="7">
+  <div class="frame center">
+    <div class="top">
+      <div class="kicker">My goal · next 60 minutes</div>
+    </div>
+    <div class="body" style="display:flex; flex-direction:column; justify-content:center;">
+      <h2 class="headline hero">Blow your <span class="accent">mind.</span></h2>
+    </div>
+    <div class="wordmark"><span class="dot"></span><span>Inventory<span class="ih-h">Hero</span></span></div>
+    <div class="page-no">07 / 62</div>
+  </div>
+</section>
+
+<!-- 8: Stakes -->
+<section data-page="8">
+  <div class="frame">
+    <div class="top is-centered">
+      <div class="kicker">Why this matters</div>
+      <h2 class="headline">In 12 months, your business is <span class="accent">running 10 AIs</span>, or being run over by them.</h2>
+    </div>
+    <div class="body-c">
+      <p class="lede" style="font-size: var(--t-200);">
+        The Amazon sellers who own their context will own their category.
+      </p>
+    </div>
+    <div class="wordmark"><span class="dot"></span><span>Inventory<span class="ih-h">Hero</span></span></div>
+    <div class="page-no">08 / 62</div>
+  </div>
+</section>
+
+<!-- 9: Numbered preview -->
+<section data-page="9">
+  <div class="frame">
+    <div class="top is-centered">
+      <div class="kicker">Agenda</div>
+      <h2 class="headline">What you'll <span class="accent">learn.</span></h2>
+    </div>
+    <div class="body-c">
+      <ul class="row-items">
+        <li><span class="num">01</span><span class="label">How AI memory actually works, in human terms.</span></li>
+        <li><span class="num">02</span><span class="label">Why every memory hack you've tried breaks at the team level.</span></li>
+        <li><span class="num">03</span><span class="label">The AI Employee Handbook framework.</span></li>
+        <li><span class="num">04</span><span class="label">Two ways to deploy it today, power-user and easy-button.</span></li>
+      </ul>
+    </div>
+    <div class="wordmark"><span class="dot"></span><span>Inventory<span class="ih-h">Hero</span></span></div>
+    <div class="page-no">09 / 62</div>
+  </div>
+</section>
+
+<!-- 10: QUOTE #1, Karpathy -->
+<section data-page="10">
+  <div class="quote-frame">
+    <img class="quote-portrait" src="images/quotes/karpathy.png" alt="Andrej Karpathy" />
+    <div class="quote-text">
+      The hottest new programming language is <span class="accent">English.</span>
+    </div>
+    <div class="quote-attrib">
+      <strong>Andrej Karpathy</strong><br/>
+      Founding member, OpenAI · ex-Director of AI, Tesla
+    </div>
+    <div style="position:absolute; bottom: var(--s-12); right: var(--s-12); display:flex; gap: var(--s-3); align-items:center;">
+      <div class="wordmark" style="grid-row:auto;grid-column:auto;"><span class="dot"></span><span>Inventory<span class="ih-h">Hero</span></span></div>
+      <div class="page-no" style="grid-row:auto;grid-column:auto;">10 / 62</div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================================================================
+     SECTION 1, THE PROBLEM
+     ==================================================================== -->
+
+<!-- 11: SECTION HEADER -->
+<section data-page="11">
+  <div class="hero-frame">
+    <div class="hero-top">Part 1 of 5</div>
+    <div class="hero-body">
+      <div class="kicker" style="margin-bottom: var(--s-3);">The Problem</div>
+      <h2 class="headline mega">Your AIs have <span class="accent">amnesia.</span></h2>
+    </div>
+    <div style="display:flex; justify-content:space-between; align-items:end;">
+      <div class="wordmark" style="grid-row:auto;grid-column:auto;"><span class="dot"></span><span>Inventory<span class="ih-h">Hero</span></span></div>
+      <div class="page-no" style="grid-row:auto;grid-column:auto;">11 / 62</div>
+    </div>
+  </div>
+</section>
+
+<!-- 12: The real problem, split into 3 chunks (was a 4-bullet block) -->
+<section data-page="12">
+  <div class="frame">
+    <div class="top">
+      <div class="kicker">The real problem</div>
+      <h2 class="headline">AI memory is broken, <span class="accent">especially for teams.</span></h2>
+    </div>
+    <div class="body">
+      <div class="chunks row-3">
+        <div class="card">
+          <div class="ch-label">Every chat</div>
+          <div class="ch-title">Starts from zero.</div>
+        </div>
+        <div class="card">
+          <div class="ch-label">Even when set up</div>
+          <div class="ch-title">It lives on one laptop.</div>
+        </div>
+        <div class="card">
+          <div class="ch-label">Your team</div>
+          <div class="ch-title">Can't see any of it.</div>
+        </div>
+      </div>
+    </div>
+    <div class="wordmark"><span class="dot"></span><span>Inventory<span class="ih-h">Hero</span></span></div>
+    <div class="page-no">12 / 62</div>
+  </div>
+</section>
+
+<!-- 13: Two failure modes, bipolar layout -->
+<section data-page="13">
+  <div class="frame">
+    <div class="top">
+      <div class="kicker">Two failure modes</div>
+      <h2 class="headline">You can't out-prompt this. You have to <span class="accent">out-structure</span> it.</h2>
+    </div>
+    <div class="body">
+      <div class="chunks row-2">
+        <div class="card">
+          <div class="ch-label">Too little context</div>
+          <div class="ch-title" style="font-size: var(--t-300);">"Update my listing copy."</div>
+          <div class="ch-body" style="margin-top: var(--s-3);">Result: generic hallucination.</div>
+        </div>
+        <div class="card">
+          <div class="ch-label">Too much context</div>
+          <div class="ch-title" style="font-size: var(--t-300);">"Read my whole Drive."</div>
+          <div class="ch-body" style="margin-top: var(--s-3);">Result: noise. Dilution. Confusion.</div>
+        </div>
+      </div>
+    </div>
+    <div class="wordmark"><span class="dot"></span><span>Inventory<span class="ih-h">Hero</span></span></div>
+    <div class="page-no">13 / 62</div>
+  </div>
+</section>
+
+<!-- 14: The team problem, diagram -->
+<section data-page="14">
+  <div class="frame">
+    <div class="top">
+      <div class="kicker">The team problem</div>
+      <h2 class="headline">Genius context. <span class="accent">Nobody else can read it.</span></h2>
+    </div>
+    <div class="body">
+      <div class="map-grid" style="max-width: 80%;">
+        <div class="from">You · local Obsidian vault</div>
+        <div class="arrow">→</div>
+        <div class="to">Brilliant brand context</div>
+
+        <div class="from">Ops manager</div>
+        <div class="arrow">·</div>
+        <div class="to" style="color: var(--ink-300);">Can't see it</div>
+
+        <div class="from">Shenzhen supplier</div>
+        <div class="arrow">·</div>
+        <div class="to" style="color: var(--ink-300);">Can't see it</div>
+
+        <div class="from">TikTok Shop VA</div>
+        <div class="arrow">·</div>
+        <div class="to" style="color: var(--ink-300);">Can't see it</div>
+
+        <div class="from">10 background agents</div>
+        <div class="arrow">·</div>
+        <div class="to" style="color: var(--ink-300);">Can't see it</div>
+      </div>
+    </div>
+    <div class="wordmark"><span class="dot"></span><span>Inventory<span class="ih-h">Hero</span></span></div>
+    <div class="page-no">14 / 62</div>
+  </div>
+</section>
+
+<!-- 15: One-liner moment, ≥70% whitespace -->
+<section data-page="15">
+  <div class="hero-frame">
+    <div class="hero-top">&nbsp;</div>
+    <div class="hero-body">
+      <h2 class="headline hero">You don't need a smarter AI.<br/>You need a <span class="accent">shared brain.</span></h2>
+    </div>
+    <div style="display:flex; justify-content:space-between; align-items:end;">
+      <div class="wordmark" style="grid-row:auto;grid-column:auto;"><span class="dot"></span><span>Inventory<span class="ih-h">Hero</span></span></div>
+      <div class="page-no" style="grid-row:auto;grid-column:auto;">15 / 62</div>
+    </div>
+  </div>
+</section>
+
+<!-- 16: QUOTE #2, Aaron Levie -->
+<section data-page="16">
+  <div class="quote-frame">
+    <img class="quote-portrait" src="images/quotes/levie.jpg" alt="Aaron Levie" />
+    <div class="quote-text">
+      AI without your data is just a <span class="accent">parlor trick.</span>
+    </div>
+    <div class="quote-attrib">
+      <strong>Aaron Levie</strong><br/>
+      Co-founder and CEO, Box
+    </div>
+    <div style="position:absolute; bottom: var(--s-12); right: var(--s-12); display:flex; gap: var(--s-3); align-items:center;">
+      <div class="wordmark" style="grid-row:auto;grid-column:auto;"><span class="dot"></span><span>Inventory<span class="ih-h">Hero</span></span></div>
+      <div class="page-no" style="grid-row:auto;grid-column:auto;">16 / 62</div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================================================================
+     SECTION 2, SOFT SIGN-UP
+     ==================================================================== -->
+
+<!-- 17: The pitch -->
+<section data-page="17">
+  <div class="frame">
+    <div class="top">
+      <div class="kicker">Before we go further</div>
+      <h2 class="headline">Sign up now. Your MCP installs while we talk.</h2>
+    </div>
+    <div class="body-7">
+      <p class="body-text" style="max-width: 42ch;">
+        By the time we hit the live demo, you'll be writing
+        <strong>your</strong> brand's handbook, not just watching me write mine.
+      </p>
+      <p class="lede" style="margin-top: var(--s-4); font-size: var(--t-100);">
+        No credit card. Beta access. ~3 minutes to authorize SP-API.
+      </p>
+    </div>
+    <div class="side-5">
+      <div class="qr-block">
+        <div class="qr"></div>
+        <div class="qr-url">inventoryhero.ai/signup</div>
+      </div>
+    </div>
+    <div class="wordmark"><span class="dot"></span><span>Inventory<span class="ih-h">Hero</span></span></div>
+    <div class="page-no">17 / 62</div>
+  </div>
+</section>
+
+<!-- 18: Three reasons -->
+<section data-page="18">
+  <div class="frame">
+    <div class="top">
+      <div class="kicker">Three reasons to sign up now</div>
+      <h2 class="headline">Don't wait until the talk ends.</h2>
+    </div>
+    <div class="body">
+      <div class="chunks row-3">
+        <div class="card">
+          <div class="ch-label">01 · Setup time</div>
+          <div class="ch-title">Auth runs in the background.</div>
+        </div>
+        <div class="card">
+          <div class="ch-label">02 · Live demo</div>
+          <div class="ch-title">Write your handbook, not mine.</div>
+        </div>
+        <div class="card accent-card">
+          <div class="ch-label">03 · By minute 50</div>
+          <div class="ch-title">A working memory layer for Monday.</div>
+        </div>
+      </div>
+    </div>
+    <div class="wordmark"><span class="dot"></span><span>Inventory<span class="ih-h">Hero</span></span></div>
+    <div class="page-no">18 / 62</div>
+  </div>
+</section>
+
+<!-- ====================================================================
+     MODULE 1, ANATOMY OF AI MEMORY
+     ==================================================================== -->
+
+<!-- 19: SECTION HEADER -->
+<section data-page="19">
+  <div class="hero-frame">
+    <div class="hero-top">Module 1 of 5</div>
+    <div class="hero-body">
+      <div class="kicker" style="margin-bottom: var(--s-3);">In human terms</div>
+      <h2 class="headline mega">The anatomy of <span class="accent">AI memory.</span></h2>
+    </div>
+    <div style="display:flex; justify-content:space-between; align-items:end;">
+      <div class="wordmark" style="grid-row:auto;grid-column:auto;"><span class="dot"></span><span>Inventory<span class="ih-h">Hero</span></span></div>
+      <div class="page-no" style="grid-row:auto;grid-column:auto;">19 / 62</div>
+    </div>
+  </div>
+</section>
+
+<!-- 20: Mapping brain to AI -->
+<section data-page="20">
+  <div class="frame">
+    <div class="top">
+      <div class="kicker">Don't think "vector embeddings"</div>
+      <h2 class="headline">Think about how <span class="accent">you</span> remember.</h2>
+    </div>
+    <div class="body">
+      <div class="map-grid" style="max-width: 80%;">
+        <div class="from">Working memory</div>
+        <div class="arrow">→</div>
+        <div class="to">Context window</div>
+
+        <div class="from">Long-term memory</div>
+        <div class="arrow">→</div>
+        <div class="to">Vector DB / RAG</div>
+
+        <div class="from">Notebook on desk</div>
+        <div class="arrow">→</div>
+        <div class="to">Markdown files</div>
+
+        <div class="from">Calling a friend</div>
+        <div class="arrow">→</div>
+        <div class="to">MCP tool call</div>
+      </div>
+    </div>
+    <div class="wordmark"><span class="dot"></span><span>Inventory<span class="ih-h">Hero</span></span></div>
+    <div class="page-no">20 / 62</div>
+  </div>
+</section>
+
+<!-- 21: Working memory -->
+<section data-page="21">
+  <div class="frame">
+    <div class="top is-centered">
+      <div class="kicker">Working memory</div>
+      <h2 class="headline">The context window. <span class="accent">Sharp. Ephemeral.</span></h2>
+    </div>
+    <div class="body-c">
+      <p class="body-text">
+        Short-term, in-the-moment focus.
+        Incredibly sharp, and gone the moment the chat ends.
+        This is why "memory" doesn't survive a new conversation.
+      </p>
+    </div>
+    <div class="wordmark"><span class="dot"></span><span>Inventory<span class="ih-h">Hero</span></span></div>
+    <div class="page-no">21 / 62</div>
+  </div>
+</section>
+
+<!-- 22: Long-term memory -->
+<section data-page="22">
+  <div class="frame">
+    <div class="top is-centered">
+      <div class="kicker">Long-term memory</div>
+      <h2 class="headline">Vector embeddings + <span class="accent">retrieval.</span></h2>
+    </div>
+    <div class="body-c">
+      <p class="body-text">
+        Your knowledge becomes coordinates in N-dimensional space.
+        When you ask, the AI fetches the relevant chunks
+        into working memory on demand. This is how you give an AI a past.
+      </p>
+    </div>
+    <div class="wordmark"><span class="dot"></span><span>Inventory<span class="ih-h">Hero</span></span></div>
+    <div class="page-no">22 / 62</div>
+  </div>
+</section>
+
+<!-- 23: One-liner moment -->
+<section data-page="23">
+  <div class="hero-frame">
+    <div class="hero-top">&nbsp;</div>
+    <div class="hero-body">
+      <h2 class="headline hero">Memory isn't a feature.<br/>It's the difference between a VA on Day 1 and an <span class="accent">ops manager on Year 3.</span></h2>
+    </div>
+    <div style="display:flex; justify-content:space-between; align-items:end;">
+      <div class="wordmark" style="grid-row:auto;grid-column:auto;"><span class="dot"></span><span>Inventory<span class="ih-h">Hero</span></span></div>
+      <div class="page-no" style="grid-row:auto;grid-column:auto;">23 / 62</div>
+    </div>
+  </div>
+</section>
+
+<!-- 24: QUOTE #3, Aravind -->
+<section data-page="24">
+  <div class="quote-frame">
+    <img class="quote-portrait" src="images/quotes/srinivas.jpg" alt="Aravind Srinivas" />
+    <div class="quote-text">
+      The bottleneck isn't model capability anymore. It's <span class="accent">context.</span>
+    </div>
+    <div class="quote-attrib">
+      <strong>Aravind Srinivas</strong><br/>
+      Co-founder and CEO, Perplexity · paraphrased
+    </div>
+    <div style="position:absolute; bottom: var(--s-12); right: var(--s-12); display:flex; gap: var(--s-3); align-items:center;">
+      <div class="wordmark" style="grid-row:auto;grid-column:auto;"><span class="dot"></span><span>Inventory<span class="ih-h">Hero</span></span></div>
+      <div class="page-no" style="grid-row:auto;grid-column:auto;">24 / 62</div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================================================================
+     MODULE 2, HIERARCHY OF MEMORY TOOLS
+     ==================================================================== -->
+
+<!-- 25: SECTION HEADER -->
+<section data-page="25">
+  <div class="hero-frame">
+    <div class="hero-top">Module 2 of 5</div>
+    <div class="hero-body">
+      <div class="kicker" style="margin-bottom: var(--s-3);">Why every solution you've tried fails your team</div>
+      <h2 class="headline mega">The hierarchy of <span class="accent">memory tools.</span></h2>
+    </div>
+    <div style="display:flex; justify-content:space-between; align-items:end;">
+      <div class="wordmark" style="grid-row:auto;grid-column:auto;"><span class="dot"></span><span>Inventory<span class="ih-h">Hero</span></span></div>
+      <div class="page-no" style="grid-row:auto;grid-column:auto;">25 / 62</div>
+    </div>
+  </div>
+</section>
+
+<!-- 26: The hierarchy table, high data-ink ratio -->
+<section data-page="26">
+  <div class="frame">
+    <div class="top">
+      <div class="kicker">Memory hierarchy</div>
+      <h2 class="headline small">Four tiers. <span class="accent">Only one works for a team.</span></h2>
+    </div>
+    <div class="body">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th style="width: 22%;">Tier</th>
+            <th style="width: 28%;">Implementation</th>
+            <th style="width: 22%;">Good for</th>
+            <th style="width: 28%;">Where it breaks</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Ephemeral</td>
+            <td>Copy-paste, system prompts</td>
+            <td>One-off chats</td>
+            <td>Manual every time</td>
+          </tr>
+          <tr>
+            <td>Siloed Static</td>
+            <td>Obsidian, LogSeq on laptop</td>
+            <td>Solo founders</td>
+            <td>Invisible to the team</td>
+          </tr>
+          <tr>
+            <td>Vector Space</td>
+            <td>Pinecone, Chroma RAG</td>
+            <td>Engineers</td>
+            <td>Humans can't read it</td>
+          </tr>
+          <tr class="row-accent">
+            <td>Dynamic Shared</td>
+            <td>Team MCP + cloud markdown</td>
+            <td>Real businesses</td>
+            <td>Needs scaffolding</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="wordmark"><span class="dot"></span><span>Inventory<span class="ih-h">Hero</span></span></div>
+    <div class="page-no">26 / 62</div>
+  </div>
+</section>
+
+<!-- 27: The local silo problem -->
+<section data-page="27">
+  <div class="quote-frame">
+    <div class="quote-mark">"</div>
+    <div class="quote-text" style="font-size: var(--t-400); max-width: 28ch;">
+      A brilliant Obsidian vault on one laptop is <span class="accent">invisible</span> to your ops manager, your VA, and the ten Claudes running your product research.
+    </div>
+    <div class="quote-attrib">
+      The local silo problem
+    </div>
+    <div style="position:absolute; bottom: var(--s-12); right: var(--s-12); display:flex; gap: var(--s-3); align-items:center;">
+      <div class="wordmark" style="grid-row:auto;grid-column:auto;"><span class="dot"></span><span>Inventory<span class="ih-h">Hero</span></span></div>
+      <div class="page-no" style="grid-row:auto;grid-column:auto;">27 / 62</div>
+    </div>
+  </div>
+</section>
+
+<!-- 28: Real story, $40M seller -->
+<section data-page="28">
+  <div class="quote-frame">
+    <div class="quote-mark">"</div>
+    <div class="quote-text" style="font-size: var(--t-400); max-width: 26ch;">
+      I have it on my laptop at home. I have it on my laptop at work. <span class="accent">And they don't talk to each other.</span>
+    </div>
+    <div class="quote-attrib">
+      <strong>Anonymous · 8-figure Amazon seller</strong><br/>
+      (I asked: do you share it with your team? He said no.)
+    </div>
+    <div style="position:absolute; bottom: var(--s-12); right: var(--s-12); display:flex; gap: var(--s-3); align-items:center;">
+      <div class="wordmark" style="grid-row:auto;grid-column:auto;"><span class="dot"></span><span>Inventory<span class="ih-h">Hero</span></span></div>
+      <div class="page-no" style="grid-row:auto;grid-column:auto;">28 / 62</div>
+    </div>
+  </div>
+</section>
+
+<!-- 29: Different ≠ better -->
+<section data-page="29">
+  <div class="frame">
+    <div class="top">
+      <div class="kicker">Different, not better</div>
+      <h2 class="headline">You don't need a <span class="accent">smarter</span> memory system. You need a different one.</h2>
+    </div>
+    <div class="body">
+      <div class="chunks row-4">
+        <div class="card">
+          <div class="ch-label">Where it lives</div>
+          <div class="ch-title">In the cloud.</div>
+        </div>
+        <div class="card">
+          <div class="ch-label">Who can read it</div>
+          <div class="ch-title">Humans.</div>
+        </div>
+        <div class="card">
+          <div class="ch-label">Who can write it</div>
+          <div class="ch-title">AIs.</div>
+        </div>
+        <div class="card accent-card">
+          <div class="ch-label">Who can see it</div>
+          <div class="ch-title">The whole team.</div>
+        </div>
+      </div>
+    </div>
+    <div class="wordmark"><span class="dot"></span><span>Inventory<span class="ih-h">Hero</span></span></div>
+    <div class="page-no">29 / 62</div>
+  </div>
+</section>
+
+<!-- 30: One-liner -->
+<section data-page="30">
+  <div class="hero-frame">
+    <div class="hero-top">&nbsp;</div>
+    <div class="hero-body">
+      <h2 class="headline hero">Local vaults are the <span class="accent">PDFs</span> of AI memory.<br/>It's time to kill them.</h2>
+    </div>
+    <div style="display:flex; justify-content:space-between; align-items:end;">
+      <div class="wordmark" style="grid-row:auto;grid-column:auto;"><span class="dot"></span><span>Inventory<span class="ih-h">Hero</span></span></div>
+      <div class="page-no" style="grid-row:auto;grid-column:auto;">30 / 62</div>
+    </div>
+  </div>
+</section>
+
+<!-- 31: 5 humans, 50 AIs, 1 shared brain -->
+<section data-page="31">
+  <div class="frame center">
+    <div class="top">
+      <div class="kicker">The org chart · 18 months from now</div>
+    </div>
+    <div class="body" style="display:flex; flex-direction:column; justify-content:center; align-items:start; gap: var(--s-6);">
+      <div style="display:flex; align-items:baseline; gap: var(--s-3);">
+        <span style="font-family:var(--font-display); font-weight:900; font-size: var(--t-700); color: var(--ink-900); line-height:1;">5</span>
+        <span style="font-family:var(--font-display); font-weight:700; font-size: var(--t-400); color: var(--ink-500);">humans</span>
+      </div>
+      <div style="display:flex; align-items:baseline; gap: var(--s-3);">
+        <span style="font-family:var(--font-display); font-weight:900; font-size: var(--t-700); color: var(--ink-900); line-height:1;">50</span>
+        <span style="font-family:var(--font-display); font-weight:700; font-size: var(--t-400); color: var(--ink-500);">AIs</span>
+      </div>
+      <div style="display:flex; align-items:baseline; gap: var(--s-3);">
+        <span style="font-family:var(--font-display); font-weight:900; font-size: var(--t-700); color: var(--ih-orange-dark); line-height:1;">1</span>
+        <span style="font-family:var(--font-display); font-weight:700; font-size: var(--t-400); color: var(--ih-orange-dark);">shared brain</span>
+      </div>
+    </div>
+    <div class="wordmark"><span class="dot"></span><span>Inventory<span class="ih-h">Hero</span></span></div>
+    <div class="page-no">31 / 62</div>
+  </div>
+</section>
+
+<!-- 32: QUOTE #4, Jensen Huang -->
+<section data-page="32">
+  <div class="quote-frame">
+    <img class="quote-portrait" src="images/quotes/huang.jpg" alt="Jensen Huang" />
+    <div class="quote-text">
+      Every company will be an AI company. Every employee will work <span class="accent">alongside AI.</span>
+    </div>
+    <div class="quote-attrib">
+      <strong>Jensen Huang</strong><br/>
+      Founder and CEO, NVIDIA · paraphrased, GTC 2024
+    </div>
+    <div style="position:absolute; bottom: var(--s-12); right: var(--s-12); display:flex; gap: var(--s-3); align-items:center;">
+      <div class="wordmark" style="grid-row:auto;grid-column:auto;"><span class="dot"></span><span>Inventory<span class="ih-h">Hero</span></span></div>
+      <div class="page-no" style="grid-row:auto;grid-column:auto;">32 / 62</div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================================================================
+     MODULE 3, THE AI EMPLOYEE HANDBOOK
+     ==================================================================== -->
+
+<!-- 33: SECTION HEADER -->
+<section data-page="33">
+  <div class="hero-frame">
+    <div class="hero-top">Module 3 of 5</div>
+    <div class="hero-body">
+      <div class="kicker" style="margin-bottom: var(--s-3);">The named framework for shared team memory</div>
+      <h2 class="headline mega">The AI Employee <span class="accent">Handbook.</span></h2>
+    </div>
+    <div style="display:flex; justify-content:space-between; align-items:end;">
+      <div class="wordmark" style="grid-row:auto;grid-column:auto;"><span class="dot"></span><span>Inventory<span class="ih-h">Hero</span></span></div>
+      <div class="page-no" style="grid-row:auto;grid-column:auto;">33 / 62</div>
+    </div>
+  </div>
+</section>
+
+<!-- 34: The reframe -->
+<section data-page="34">
+  <div class="frame">
+    <div class="top is-centered">
+      <div class="kicker">The reframe</div>
+      <h2 class="headline">Your AIs aren't readers. <span class="accent">They're workers.</span></h2>
+    </div>
+    <div class="body-c">
+      <p class="body-text">
+        Forget "knowledge base." Forget "wiki." Forget "second brain."
+        What workers need is an <strong>employee handbook</strong>.
+      </p>
+    </div>
+    <div class="wordmark"><span class="dot"></span><span>Inventory<span class="ih-h">Hero</span></span></div>
+    <div class="page-no">34 / 62</div>
+  </div>
+</section>
+
+<!-- 35: What goes in it, grouped into 5 super-chunks (was 5 bullets, kept as cards with proximity) -->
+<section data-page="35">
+  <div class="frame">
+    <div class="top">
+      <div class="kicker">What goes inside · 10,100 markdown files</div>
+      <h2 class="headline small">Five categories. <span class="accent">No 10,000 pages.</span></h2>
+    </div>
+    <div class="body">
+      <div class="chunks row-3" style="grid-row-gap: var(--s-3);">
+        <div class="card">
+          <div class="ch-label">Who you are</div>
+          <div class="ch-title">Brand, mission, voice, avatar.</div>
+        </div>
+        <div class="card">
+          <div class="ch-label">What you sell</div>
+          <div class="ch-title">Catalog, ASINs, USPs, pricing.</div>
+        </div>
+        <div class="card">
+          <div class="ch-label">How you market</div>
+          <div class="ch-title">Listings, images, email, TikTok.</div>
+        </div>
+        <div class="card">
+          <div class="ch-label">How you operate</div>
+          <div class="ch-title">Suppliers, freight, PPC rules.</div>
+        </div>
+        <div class="card">
+          <div class="ch-label">Who's on the team</div>
+          <div class="ch-title">Humans and AI agents.</div>
+        </div>
+        <div class="card accent-card">
+          <div class="ch-label">The rule</div>
+          <div class="ch-title">100 pages, not 10,000.</div>
+        </div>
+      </div>
+    </div>
+    <div class="wordmark"><span class="dot"></span><span>Inventory<span class="ih-h">Hero</span></span></div>
+    <div class="page-no">35 / 62</div>
+  </div>
+</section>
+
+<!-- 36: Directory structure, chunked into 3 super-chunks per Miller's law -->
+<section data-page="36">
+  <div class="frame">
+    <div class="top">
+      <div class="kicker">The InventoryHero handbook · 14 folders, ~71 files</div>
+      <h2 class="headline small">Every facet of an FBA business. <span class="accent">One shared brain.</span></h2>
+    </div>
+    <div class="body">
+      <div class="chunks row-3">
+        <div class="card">
+          <div class="ch-label">Business core</div>
+          <ul style="list-style:none; padding:0; margin:0; font-family: var(--font-mono); font-size: var(--t-100); line-height:1.7; color: var(--ink-700);">
+            <li>00-business</li>
+            <li>01-strategy</li>
+            <li>02-account-health</li>
+            <li>11-legal-ip</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="ch-label">Supply chain</div>
+          <ul style="list-style:none; padding:0; margin:0; font-family: var(--font-mono); font-size: var(--t-100); line-height:1.7; color: var(--ink-700);">
+            <li>04-sourcing-suppliers</li>
+            <li>05-inventory-planning</li>
+            <li>06-logistics</li>
+            <li>07-finance</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="ch-label">Growth and ops</div>
+          <ul style="list-style:none; padding:0; margin:0; font-family: var(--font-mono); font-size: var(--t-100); line-height:1.7; color: var(--ink-700);">
+            <li>03-catalog-listings</li>
+            <li>08-advertising</li>
+            <li>09-marketing-brand</li>
+            <li>10-customer-service</li>
+            <li>12-team-operations</li>
+            <li>13-reference</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="wordmark"><span class="dot"></span><span>Inventory<span class="ih-h">Hero</span></span></div>
+    <div class="page-no">36 / 62</div>
+  </div>
+</section>
+
+<!-- 37: 80/20 scaffolding -->
+<section data-page="37">
+  <div class="frame">
+    <div class="top">
+      <div class="kicker">Scaffolded, not schematic</div>
+      <h2 class="headline">Rigid databases die. <span class="accent">Markdown adapts.</span></h2>
+    </div>
+    <div class="body">
+      <div class="chunks row-2">
+        <div class="card">
+          <div class="ch-label">80% scaffolded</div>
+          <div class="ch-title">Folder structure + filenames are fixed.</div>
+          <div class="ch-body" style="margin-top: var(--s-3);">The librarian always knows where things go.</div>
+        </div>
+        <div class="card accent-card">
+          <div class="ch-label">20% fluid</div>
+          <div class="ch-title">Inside each file, AI writes freely.</div>
+          <div class="ch-body" style="margin-top: var(--s-3);">Your brand's tone, decisions, and history evolve without migrations.</div>
+        </div>
+      </div>
+    </div>
+    <div class="wordmark"><span class="dot"></span><span>Inventory<span class="ih-h">Hero</span></span></div>
+    <div class="page-no">37 / 62</div>
+  </div>
+</section>
+
+<!-- 38: Progressive elaboration, code block, high data-ink -->
+<section data-page="38">
+  <div class="frame">
+    <div class="top">
+      <div class="kicker">Progressive elaboration</div>
+      <h2 class="headline small">Every file knows how complete it is.</h2>
+    </div>
+    <div class="body-7">
+      <pre class="code"><span class="c-com">&lt;!-- Context Completeness: 10% --&gt;</span>
+<span class="c-com">&lt;!-- AI Directive: Trigger Socratic</span>
+<span class="c-com">    interview to fill gaps --&gt;</span>
+
+<span class="c-key">## Brand voice</span>
+<span class="c-acc">[TBD, interview pending]</span></pre>
+    </div>
+    <div class="side-5">
+      <p class="body-text" style="font-size: var(--t-200); max-width: 28ch;">
+        The AI asks <strong>four questions</strong>.
+        You answer in plain English.
+        The file fills itself out.
+      </p>
+    </div>
+    <div class="wordmark"><span class="dot"></span><span>Inventory<span class="ih-h">Hero</span></span></div>
+    <div class="page-no">38 / 62</div>
+  </div>
+</section>
+
+<!-- 39: One-liner -->
+<section data-page="39">
+  <div class="hero-frame">
+    <div class="hero-top">&nbsp;</div>
+    <div class="hero-body">
+      <h2 class="headline hero">This isn't a wiki. It's <span class="accent">onboarding</span>, for every AI you'll ever hire.</h2>
+    </div>
+    <div style="display:flex; justify-content:space-between; align-items:end;">
+      <div class="wordmark" style="grid-row:auto;grid-column:auto;"><span class="dot"></span><span>Inventory<span class="ih-h">Hero</span></span></div>
+      <div class="page-no" style="grid-row:auto;grid-column:auto;">39 / 62</div>
+    </div>
+  </div>
+</section>
+
+<!-- 40: QUOTE #5, Dario -->
+<section data-page="40">
+  <div class="quote-frame">
+    <img class="quote-portrait" src="images/quotes/amodei.jpg" alt="Dario Amodei" />
+    <div class="quote-text">
+      In the next 12 months, you'll have <span class="accent">AI coworkers in Slack.</span>
+    </div>
+    <div class="quote-attrib">
+      <strong>Dario Amodei</strong><br/>
+      CEO, Anthropic · That day is today.
+    </div>
+    <div style="position:absolute; bottom: var(--s-12); right: var(--s-12); display:flex; gap: var(--s-3); align-items:center;">
+      <div class="wordmark" style="grid-row:auto;grid-column:auto;"><span class="dot"></span><span>Inventory<span class="ih-h">Hero</span></span></div>
+      <div class="page-no" style="grid-row:auto;grid-column:auto;">40 / 62</div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================================================================
+     MODULE 4, POWER-USER ROUTE
+     ==================================================================== -->
+
+<!-- 41: SECTION HEADER -->
+<section data-page="41">
+  <div class="hero-frame">
+    <div class="hero-top">Module 4 of 5</div>
+    <div class="hero-body">
+      <div class="kicker" style="margin-bottom: var(--s-3);">Karpathy-style · GitHub-backed · free</div>
+      <h2 class="headline mega">The <span class="accent">power-user</span> route.</h2>
+    </div>
+    <div style="display:flex; justify-content:space-between; align-items:end;">
+      <div class="wordmark" style="grid-row:auto;grid-column:auto;"><span class="dot"></span><span>Inventory<span class="ih-h">Hero</span></span></div>
+      <div class="page-no" style="grid-row:auto;grid-column:auto;">41 / 62</div>
+    </div>
+  </div>
+</section>
+
+<!-- 42: Two roads -->
+<section data-page="42">
+  <div class="frame">
+    <div class="top">
+      <div class="kicker">Two roads</div>
+      <h2 class="headline">Free and advanced. <span class="accent">Or hosted and easy.</span></h2>
+    </div>
+    <div class="body">
+      <div class="chunks row-2">
+        <div class="card accent-card">
+          <div class="ch-label">Road 1 · This module</div>
+          <div class="ch-title">Karpathy + GitHub</div>
+          <div class="ch-body" style="margin-top: var(--s-3);">Free. Total control. Requires the terminal.</div>
+        </div>
+        <div class="card">
+          <div class="ch-label">Road 2 · Module 5</div>
+          <div class="ch-title">Hosted MCP</div>
+          <div class="ch-body" style="margin-top: var(--s-3);">5-minute setup. Mobile-friendly. Non-technical team.</div>
+        </div>
+      </div>
+    </div>
+    <div class="wordmark"><span class="dot"></span><span>Inventory<span class="ih-h">Hero</span></span></div>
+    <div class="page-no">42 / 62</div>
+  </div>
+</section>
+
+<!-- 43: Karpathy structure, code, high data-ink -->
+<section data-page="43">
+  <div class="frame">
+    <div class="top">
+      <div class="kicker">The Karpathy pattern</div>
+      <h2 class="headline small">Plain text. Git-tracked. <span class="accent">Free forever.</span></h2>
+    </div>
+    <div class="body-7">
+      <pre class="code">repo/
+├── <span class="c-key">README.md</span>           <span class="c-com"># the map</span>
+├── <span class="c-key">prompts/</span>            <span class="c-com"># reusable templates</span>
+├── <span class="c-acc">context/</span>            <span class="c-com"># the Handbook lives here</span>
+│   ├── brand/
+│   ├── products/
+│   ├── marketing/
+│   └── operations/
+├── <span class="c-key">data/</span>               <span class="c-com"># SP-API, reviews, sales</span>
+└── <span class="c-key">outputs/</span>            <span class="c-com"># AI-written drafts</span></pre>
+    </div>
+    <div class="side-5">
+      <p class="body-text" style="font-size: var(--t-200); max-width: 26ch;">
+        From nanoGPT, llm.c, and the <strong>Software 3.0</strong> talk. Diffable, forkable, yours.
+      </p>
+    </div>
+    <div class="wordmark"><span class="dot"></span><span>Inventory<span class="ih-h">Hero</span></span></div>
+    <div class="page-no">43 / 62</div>
+  </div>
+</section>
+
+<!-- 44: Why GitHub works, chunked -->
+<section data-page="44">
+  <div class="frame">
+    <div class="top">
+      <div class="kicker">Why GitHub works as memory</div>
+      <h2 class="headline small">Shockingly good. <span class="accent">And free.</span></h2>
+    </div>
+    <div class="body">
+      <div class="chunks row-3">
+        <div class="card">
+          <div class="ch-label">Version history</div>
+          <div class="ch-title">Never lose context.</div>
+        </div>
+        <div class="card">
+          <div class="ch-label">Pull requests</div>
+          <div class="ch-title">A paper trail for every change.</div>
+        </div>
+        <div class="card">
+          <div class="ch-label">Collaborators</div>
+          <div class="ch-title">Instant team access.</div>
+        </div>
+        <div class="card">
+          <div class="ch-label">Tool support</div>
+          <div class="ch-title">Claude Code, Cursor, Codex, Gemini.</div>
+        </div>
+        <div class="card">
+          <div class="ch-label">Cost</div>
+          <div class="ch-title">Free for private repos.</div>
+        </div>
+        <div class="card accent-card">
+          <div class="ch-label">Sync</div>
+          <div class="ch-title">Push here. Pull there. Done.</div>
+        </div>
+      </div>
+    </div>
+    <div class="wordmark"><span class="dot"></span><span>Inventory<span class="ih-h">Hero</span></span></div>
+    <div class="page-no">44 / 62</div>
+  </div>
+</section>
+
+<!-- 45: LIVE DEMO, single focal point -->
+<section data-page="45">
+  <div class="frame">
+    <div class="top is-centered">
+      <div class="kicker">Live demo</div>
+      <h2 class="headline">GitHub as memory. <span class="accent">In seven moves.</span></h2>
+    </div>
+    <div class="body-c">
+      <ul class="row-items">
+        <li><span class="num">01</span><span class="label">Create a private repo: <code style="font-family: var(--font-mono); color: var(--ih-orange-dark);">my-brand-handbook</code>.</span></li>
+        <li><span class="num">02</span><span class="label">Drop in the Karpathy folder structure.</span></li>
+        <li><span class="num">03</span><span class="label">Open it in Claude Code.</span></li>
+        <li><span class="num">04</span><span class="label">"Write 5 TikTok Shop hooks for ASIN B0XXX."</span></li>
+        <li><span class="num">05</span><span class="label">Review · commit · push.</span></li>
+        <li><span class="num">06</span><span class="label">On laptop two: <code style="font-family: var(--font-mono); color: var(--ih-orange-dark);">git pull</code>. Memory is there.</span></li>
+        <li><span class="num">07</span><span class="label">Add your VA as a collaborator. Same brain.</span></li>
+      </ul>
+    </div>
+    <div class="wordmark"><span class="dot"></span><span>Inventory<span class="ih-h">Hero</span></span></div>
+    <div class="page-no">45 / 62</div>
+  </div>
+</section>
+
+<!-- 46: When this is right, pair fit/no-fit -->
+<section data-page="46">
+  <div class="frame">
+    <div class="top">
+      <div class="kicker">Is this path for you?</div>
+      <h2 class="headline small">It depends on <span class="accent">who's on your team.</span></h2>
+    </div>
+    <div class="body">
+      <div class="chunks row-2">
+        <div class="card accent-card">
+          <div class="ch-label">Yes, if</div>
+          <ul style="list-style:none; padding:0; margin: var(--s-2) 0 0; font-size: var(--t-100); line-height: 1.7; color: var(--ink-700);">
+            <li>You're comfortable in a terminal.</li>
+            <li>You use Cursor or Claude Code daily.</li>
+            <li>You want $0 in monthly cost.</li>
+            <li>You sell products and ship code.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="ch-label">No, if</div>
+          <ul style="list-style:none; padding:0; margin: var(--s-2) 0 0; font-size: var(--t-100); line-height: 1.7; color: var(--ink-500);">
+            <li>You've never run <code style="font-family: var(--font-mono);">git push</code>.</li>
+            <li>Your team is mostly VAs and creatives.</li>
+            <li>You want this working in 5 minutes.</li>
+            <li>You want it on your phone.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="wordmark"><span class="dot"></span><span>Inventory<span class="ih-h">Hero</span></span></div>
+    <div class="page-no">46 / 62</div>
+  </div>
+</section>
+
+<!-- 47: Honest catch -->
+<section data-page="47">
+  <div class="hero-frame">
+    <div class="hero-top">The honest catch</div>
+    <div class="hero-body">
+      <h2 class="headline hero">You'll spend an afternoon. You'll Google "merge conflict." <span class="accent">Your VAs won't touch it.</span></h2>
+      <p class="lede" style="margin-top: var(--s-6);">Which is why most $1M,$10M teams want Road 2.</p>
+    </div>
+    <div style="display:flex; justify-content:space-between; align-items:end;">
+      <div class="wordmark" style="grid-row:auto;grid-column:auto;"><span class="dot"></span><span>Inventory<span class="ih-h">Hero</span></span></div>
+      <div class="page-no" style="grid-row:auto;grid-column:auto;">47 / 62</div>
+    </div>
+  </div>
+</section>
+
+<!-- 48: QUOTE #6, Karpathy II -->
+<section data-page="48">
+  <div class="quote-frame">
+    <img class="quote-portrait" src="images/quotes/karpathy.png" alt="Andrej Karpathy" />
+    <div class="quote-text">
+      Software is no longer just written. It's <span class="accent">grown.</span> Memory and context are the soil.
+    </div>
+    <div class="quote-attrib">
+      <strong>Andrej Karpathy</strong><br/>
+      Adapted from "Software 3.0" · paraphrased
+    </div>
+    <div style="position:absolute; bottom: var(--s-12); right: var(--s-12); display:flex; gap: var(--s-3); align-items:center;">
+      <div class="wordmark" style="grid-row:auto;grid-column:auto;"><span class="dot"></span><span>Inventory<span class="ih-h">Hero</span></span></div>
+      <div class="page-no" style="grid-row:auto;grid-column:auto;">48 / 62</div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================================================================
+     MODULE 5, HOSTED MCP
+     ==================================================================== -->
+
+<!-- 49: SECTION HEADER -->
+<section data-page="49">
+  <div class="hero-frame">
+    <div class="hero-top">Module 5 of 5</div>
+    <div class="hero-body">
+      <div class="kicker" style="margin-bottom: var(--s-3);">Same framework · zero setup · five minutes</div>
+      <h2 class="headline mega">The <span class="accent">easy button.</span></h2>
+    </div>
+    <div style="display:flex; justify-content:space-between; align-items:end;">
+      <div class="wordmark" style="grid-row:auto;grid-column:auto;"><span class="dot"></span><span>Inventory<span class="ih-h">Hero</span></span></div>
+      <div class="page-no" style="grid-row:auto;grid-column:auto;">49 / 62</div>
+    </div>
+  </div>
+</section>
+
+<!-- 50: Architecture, clean diagram, high data-ink -->
+<section data-page="50">
+  <div class="frame">
+    <div class="top">
+      <div class="kicker">The architecture</div>
+      <h2 class="headline small">Two tools. <span class="accent">One librarian.</span> One database.</h2>
+    </div>
+    <div class="body" style="display:flex; justify-content:center; align-items:start;">
+      <div class="arch" style="max-width: 56ch; width: 100%;">
+        <div class="node">Claude · Gemini · Cursor · ChatGPT</div>
+        <div class="edge">↓ MCP read / write</div>
+        <div class="node accent">InventoryHero MCP</div>
+        <div class="branch">
+          <div class="node">read_memories</div>
+          <div class="node">write_memories</div>
+        </div>
+        <div class="edge">↓</div>
+        <div class="node">Sonnet 4.6 librarian</div>
+        <div class="edge">↓</div>
+        <div class="node">Postgres · tenant-isolated · full revision history</div>
+      </div>
+    </div>
+    <div class="wordmark"><span class="dot"></span><span>Inventory<span class="ih-h">Hero</span></span></div>
+    <div class="page-no">50 / 62</div>
+  </div>
+</section>
+
+<!-- 51: Two tools, the whole API -->
+<section data-page="51">
+  <div class="frame">
+    <div class="top">
+      <div class="kicker">The whole MCP API</div>
+      <h2 class="headline small">Two tools. <span class="accent">That's it.</span></h2>
+    </div>
+    <div class="body">
+      <div class="chunks row-2">
+        <div class="card">
+          <div class="ch-label">Tool 01</div>
+          <div class="ch-title" style="font-family: var(--font-mono); font-size: var(--t-300);">read_memories(query)</div>
+          <div class="ch-body" style="margin-top: var(--s-3);">"What do you know about X?"</div>
+        </div>
+        <div class="card accent-card">
+          <div class="ch-label">Tool 02</div>
+          <div class="ch-title" style="font-family: var(--font-mono); font-size: var(--t-300);">write_memories(info)</div>
+          <div class="ch-body" style="margin-top: var(--s-3);">"File this. Figure out where."</div>
+        </div>
+      </div>
+      <p class="lede" style="margin-top: var(--s-6); font-size: var(--t-100); max-width: 60ch;">
+        Atomic, versioned writes. Sonnet 4.6 picks the right doc.
+        No delete tool exists. Tenant isolation enforced at the database.
+      </p>
+    </div>
+    <div class="wordmark"><span class="dot"></span><span>Inventory<span class="ih-h">Hero</span></span></div>
+    <div class="page-no">51 / 62</div>
+  </div>
+</section>
+
+<!-- 52: How your handbook fills up -->
+<section data-page="52">
+  <div class="frame">
+    <div class="top is-centered">
+      <div class="kicker">Onboarding interview</div>
+      <h2 class="headline">You don't fill 71 blank files. <span class="accent">It interviews you.</span></h2>
+    </div>
+    <div class="body-c">
+      <ul class="row-items">
+        <li><span class="num">01</span><span class="label">Your AI runs a Socratic interview about your brand.</span></li>
+        <li><span class="num">02</span><span class="label">You answer in plain English while you work.</span></li>
+        <li><span class="num">03</span><span class="label">The librarian files each answer into the right docs.</span></li>
+        <li><span class="num">04</span><span class="label">Upload PDFs and supplier sheets, it absorbs them.</span></li>
+        <li><span class="num">05</span><span class="label">Watch <code style="font-family: var(--font-mono); color: var(--ih-orange-dark);">/handbook</code> fill up over a few days.</span></li>
+      </ul>
+    </div>
+    <div class="wordmark"><span class="dot"></span><span>Inventory<span class="ih-h">Hero</span></span></div>
+    <div class="page-no">52 / 62</div>
+  </div>
+</section>
+
+<!-- 53: DEMO 1, mobile vignette -->
+<section data-page="53">
+  <div class="frame">
+    <div class="top">
+      <div class="kicker">Live demo · 1 of 2</div>
+      <h2 class="headline">On a run. Headphones in. <span class="accent">Brand voice intact.</span></h2>
+    </div>
+    <div class="body-8">
+      <div class="card" style="background: white; border-left: 3px solid var(--ih-orange);">
+        <div class="ch-label">Me, to Gemini</div>
+        <p style="font-family: var(--font-display); font-weight: 700; font-size: var(--t-300); color: var(--ink-900); line-height: 1.2; margin: var(--s-2) 0 0;">
+          "Draft 3 TikTok Shop hooks for ASIN B0XXX. Use my brand voice."
+        </p>
+      </div>
+      <p class="lede" style="margin-top: var(--s-4); font-size: var(--t-100); max-width: 60ch;">
+        Gemini calls <code style="font-family: var(--font-mono);">read_memories()</code> → pulls brand guidelines + listing context →
+        writes hooks that actually sound like the brand.
+      </p>
+    </div>
+    <div class="wordmark"><span class="dot"></span><span>Inventory<span class="ih-h">Hero</span></span></div>
+    <div class="page-no">53 / 62</div>
+  </div>
+</section>
+
+<!-- 54: DEMO 2, write path + /handbook -->
+<section data-page="54">
+  <div class="frame">
+    <div class="top">
+      <div class="kicker">Live demo · 2 of 2</div>
+      <h2 class="headline small">One sentence in. <span class="accent">Three documents updated.</span></h2>
+    </div>
+    <div class="body-7">
+      <div class="card" style="background: white; border-left: 3px solid var(--ih-orange); margin-bottom: var(--s-4);">
+        <div class="ch-label">Me, to Claude</div>
+        <p style="font-family: var(--font-display); font-weight: 700; font-size: var(--t-200); color: var(--ink-900); line-height: 1.3; margin: var(--s-2) 0 0;">
+          "Drop Supplier X. QC issues two batches in a row. Tighten reorder rules for that category."
+        </p>
+      </div>
+    </div>
+    <div class="side-5">
+      <div class="ch-label" style="margin-bottom: var(--s-3);">Librarian writes to</div>
+      <ul style="list-style:none; padding:0; margin:0; font-family: var(--font-mono); font-size: var(--t-100); line-height: 1.7; color: var(--ink-700);">
+        <li>04-sourcing/supplier-directory.md</li>
+        <li>04-sourcing/qc-philosophy.md</li>
+        <li>01-strategy/decision-log.md</li>
+      </ul>
+    </div>
+    <div class="wordmark"><span class="dot"></span><span>Inventory<span class="ih-h">Hero</span></span></div>
+    <div class="page-no">54 / 62</div>
+  </div>
+</section>
+
+<!-- 55: Sign up + ta-da -->
+<section data-page="55">
+  <div class="frame">
+    <div class="top">
+      <div class="kicker">Audience reveal</div>
+      <h2 class="headline">If you signed up at slide 17, <span class="accent">you're already live.</span></h2>
+    </div>
+    <div class="body-7">
+      <ul class="row-items">
+        <li><span class="num">·</span><span class="label">Signing up now? Set up by slide 60.</span></li>
+        <li><span class="num">·</span><span class="label">Signing up at Q&A? Set up by the time you stand.</span></li>
+        <li><span class="num">·</span><span class="label">8-figure sellers, you'll break us. We'll wear it like a badge.</span></li>
+      </ul>
+    </div>
+    <div class="side-5">
+      <div class="qr-block">
+        <div class="qr"></div>
+        <div class="qr-url">inventoryhero.ai/signup</div>
+      </div>
+    </div>
+    <div class="wordmark"><span class="dot"></span><span>Inventory<span class="ih-h">Hero</span></span></div>
+    <div class="page-no">55 / 62</div>
+  </div>
+</section>
+
+<!-- 56: QUOTE #7, Benioff -->
+<section data-page="56">
+  <div class="quote-frame">
+    <img class="quote-portrait" src="images/quotes/benioff.jpg" alt="Marc Benioff" />
+    <div class="quote-text">
+      Every company will deploy <span class="accent">thousands of agents</span> alongside their employees.
+    </div>
+    <div class="quote-attrib">
+      <strong>Marc Benioff</strong><br/>
+      CEO, Salesforce · paraphrased, Dreamforce 2024
+    </div>
+    <div style="position:absolute; bottom: var(--s-12); right: var(--s-12); display:flex; gap: var(--s-3); align-items:center;">
+      <div class="wordmark" style="grid-row:auto;grid-column:auto;"><span class="dot"></span><span>Inventory<span class="ih-h">Hero</span></span></div>
+      <div class="page-no" style="grid-row:auto;grid-column:auto;">56 / 62</div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================================================================
+     SECTION 8, CLOSE
+     ==================================================================== -->
+
+<!-- 57: Summary -->
+<section data-page="57">
+  <div class="frame">
+    <div class="top">
+      <div class="kicker">What we covered</div>
+      <h2 class="headline small">Four ideas. <span class="accent">One outcome.</span></h2>
+    </div>
+    <div class="body">
+      <div class="chunks row-2">
+        <div class="card">
+          <div class="ch-label">01</div>
+          <div class="ch-title">AI memory ≈ human memory.</div>
+          <div class="ch-body" style="margin-top: var(--s-2);">Working vs. long-term.</div>
+        </div>
+        <div class="card">
+          <div class="ch-label">02</div>
+          <div class="ch-title">Local vaults are the PDFs of AI memory.</div>
+        </div>
+        <div class="card">
+          <div class="ch-label">03</div>
+          <div class="ch-title">The AI Employee Handbook framework.</div>
+          <div class="ch-body" style="margin-top: var(--s-2);">Scaffolded, progressive, ~100 files.</div>
+        </div>
+        <div class="card accent-card">
+          <div class="ch-label">04 · The outcome</div>
+          <div class="ch-title">Every AI in your business reads from the same brain.</div>
+        </div>
+      </div>
+    </div>
+    <div class="wordmark"><span class="dot"></span><span>Inventory<span class="ih-h">Hero</span></span></div>
+    <div class="page-no">57 / 62</div>
+  </div>
+</section>
+
+<!-- 58: One-liner moment -->
+<section data-page="58">
+  <div class="hero-frame">
+    <div class="hero-top">&nbsp;</div>
+    <div class="hero-body">
+      <h2 class="headline hero">The Amazon sellers who win the next 5 years won't have the smartest AIs. They'll have the <span class="accent">best-onboarded</span> ones.</h2>
+    </div>
+    <div style="display:flex; justify-content:space-between; align-items:end;">
+      <div class="wordmark" style="grid-row:auto;grid-column:auto;"><span class="dot"></span><span>Inventory<span class="ih-h">Hero</span></span></div>
+      <div class="page-no" style="grid-row:auto;grid-column:auto;">58 / 62</div>
+    </div>
+  </div>
+</section>
+
+<!-- 59: QUOTE #8, Nadella -->
+<section data-page="59">
+  <div class="quote-frame">
+    <img class="quote-portrait" src="images/quotes/nadella.jpg" alt="Satya Nadella" />
+    <div class="quote-text">
+      It's not man versus machine. It's <span class="accent">augmenting</span> human capabilities through AI.
+    </div>
+    <div class="quote-attrib">
+      <strong>Satya Nadella</strong><br/>
+      Chair and CEO, Microsoft
+    </div>
+    <div style="position:absolute; bottom: var(--s-12); right: var(--s-12); display:flex; gap: var(--s-3); align-items:center;">
+      <div class="wordmark" style="grid-row:auto;grid-column:auto;"><span class="dot"></span><span>Inventory<span class="ih-h">Hero</span></span></div>
+      <div class="page-no" style="grid-row:auto;grid-column:auto;">59 / 62</div>
+    </div>
+  </div>
+</section>
+
+<!-- 60: Free hackathon close -->
+<section data-page="60">
+  <div class="frame">
+    <div class="top">
+      <div class="kicker">Build this with me · 100% free</div>
+      <h2 class="headline">AI Hackathon. <span class="accent">Tuesday, June 2.</span></h2>
+    </div>
+    <div class="body-7">
+      <p class="lede" style="font-size: var(--t-200); max-width: 36ch; margin-bottom: var(--s-4);">
+        9 AM PT · 12 PM ET · 5 PM London
+      </p>
+      <ul class="row-items">
+        <li><span class="num">·</span><span class="label">Spin up your Employee Handbook.</span></li>
+        <li><span class="num">·</span><span class="label">Wire up the GitHub path (Road 1).</span></li>
+        <li><span class="num">·</span><span class="label">Install the InventoryHero MCP (Road 2).</span></li>
+        <li><span class="num">·</span><span class="label">Live Q&A with the dev team.</span></li>
+      </ul>
+    </div>
+    <div class="side-5">
+      <div class="qr-block">
+        <div class="qr"></div>
+        <div class="qr-url">inventoryhero.ai/hackathon</div>
+        <div class="qr-note">Bring a laptop and a coffee.</div>
+      </div>
+    </div>
+    <div class="wordmark"><span class="dot"></span><span>Inventory<span class="ih-h">Hero</span></span></div>
+    <div class="page-no">60 / 62</div>
+  </div>
+</section>
+
+<!-- 61: InventoryHero beta -->
+<section data-page="61">
+  <div class="frame">
+    <div class="top">
+      <div class="kicker">The other thing I'm building</div>
+      <h2 class="headline">InventoryHero.ai. <span class="accent">Beta open.</span></h2>
+    </div>
+    <div class="body-7">
+      <p class="lede" style="font-size: var(--t-200); max-width: 40ch; margin-bottom: var(--s-4);">
+        The agentic inventory OS for Amazon.
+      </p>
+      <ul class="row-items">
+        <li><span class="num">·</span><span class="label">Talks to SP-API in plain English.</span></li>
+        <li><span class="num">·</span><span class="label">Detects stockouts, overstock, reorder risk.</span></li>
+        <li><span class="num">·</span><span class="label">Acts, not just reports.</span></li>
+        <li><span class="num">·</span><span class="label">Amazon → Shopify → TikTok Shop ready.</span></li>
+      </ul>
+    </div>
+    <div class="side-5">
+      <div class="qr-block">
+        <div class="qr"></div>
+        <div class="qr-url">inventoryhero.ai</div>
+        <div class="qr-note">Free to sign up. Limited slots.</div>
+      </div>
+    </div>
+    <div class="wordmark"><span class="dot"></span><span>Inventory<span class="ih-h">Hero</span></span></div>
+    <div class="page-no">61 / 62</div>
+  </div>
+</section>
+
+<!-- 62: Q&A -->
+<section data-page="62">
+  <div class="frame center">
+    <div class="top">
+      <div class="kicker">Over to you</div>
+    </div>
+    <div class="body" style="display:flex; flex-direction:column; justify-content:center;">
+      <h2 class="headline mega">Q <span class="accent">&amp;</span> A.</h2>
+    </div>
+    <div class="wordmark"><span class="dot"></span><span>Inventory<span class="ih-h">Hero</span></span></div>
+    <div class="page-no">62 / 62</div>
+  </div>
+</section>
+
+</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+<script>
+  /* Auto-inject reveal.js fragments so the header appears first, then
+     content fades up on click. Card grids stagger one card at a time;
+     numbered lists stagger one item at a time. */
+  document.querySelectorAll('.reveal .slides > section').forEach(section => {
+    const bodySlots = section.querySelectorAll(
+      ':scope > .frame > .body, ' +
+      ':scope > .frame > .body-8, ' +
+      ':scope > .frame > .body-7, ' +
+      ':scope > .frame > .body-6, ' +
+      ':scope > .frame > .body-c, ' +
+      ':scope > .frame > .side-5, ' +
+      ':scope > .frame > .side-6'
+    );
+
+    bodySlots.forEach(slot => {
+      const cards = slot.querySelectorAll(':scope > .chunks > .card');
+      const items = slot.querySelectorAll(':scope > .row-items > li');
+
+      if (cards.length > 0) {
+        cards.forEach(card => card.classList.add('fragment', 'fade-up'));
+      } else if (items.length > 0) {
+        items.forEach(li => li.classList.add('fragment', 'fade-up'));
+      } else {
+        slot.classList.add('fragment', 'fade-up');
+      }
+    });
+
+    /* Hero slides: lede fades in after headline */
+    section.querySelectorAll(':scope > .hero-frame .hero-body .lede')
+      .forEach(el => el.classList.add('fragment', 'fade-up'));
+
+    /* Quote slides: portrait first (with slide), quote then attribution */
+    section.querySelectorAll(':scope > .quote-frame > .quote-attrib')
+      .forEach(el => el.classList.add('fragment', 'fade-up'));
+  });
+
+  Reveal.initialize({
+    width: 1920,
+    height: 1080,
+    margin: 0,
+    minScale: 0.2,
+    maxScale: 2.0,
+    hash: true,
+    history: false,
+    controls: true,
+    progress: true,
+    transition: 'fade',          /* subtle cross-fade between slides */
+    transitionSpeed: 'fast',
+    backgroundTransition: 'none',
+    overview: true,
+    center: false,               /* we control vertical layout via .frame */
+    fragments: true,
+    fragmentInURL: false
+  });
+</script>
+
+</body>
+</html>
