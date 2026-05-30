@@ -1,28 +1,73 @@
 {
-  "_README": "TEMPLATE / PLACEHOLDER. The real concepts + definitions come from Andrew's Google Doc, which is currently private (403). Replace 'concepts' below with the real content once the doc is shared. 'styles' holds the 3 art directions; 'global_guidance' is appended to every prompt. Output is folder-per-style: images/concepts/<style>/<concept>__<definition>.png",
+  "_README": "Derived from docs/concept-art-brief.md. 'concepts' are the 6 narrative scenes (image stacks). 'styles' are the 3 art directions (one output folder each). 'definitions' are the variation slots per scene (the generator produces one image per style x scene x definition). Adjust the number of definition entries to scale toward the desired total image count. global_guidance is appended to every prompt for series consistency.",
 
-  "global_guidance": "Clean, modern presentation concept art. No text, no words, no logos, no watermarks. Strong central subject with generous negative space so it reads on a projected slide. Cohesive palette.",
+  "global_guidance": "Cohesive series: the same friendly professional executive and the same cozy, modern, sunlit work-from-home office recur across scenes. Strong central subject, clean composition with generous negative space so it reads on a projected 16:9 slide. Warm, aspirational, business-audience-friendly mood. Avoid logos and watermarks; keep any incidental text (such as a book title) minimal and elegant.",
 
   "styles": {
-    "Editorial 3D Render": {
-      "prompt": "A polished editorial 3D render with soft studio lighting, subtle depth of field, tactile materials (matte plastic, brushed metal, frosted glass), and a calm premium tech aesthetic."
+    "Cinematic Photoreal": {
+      "prompt": "Warm editorial photography, shot on a full-frame camera with a fast prime lens: soft natural window light, gentle shallow depth of field, realistic textures and materials, a cozy aspirational lifestyle-brand look."
     },
-    "Minimal Line Art": {
-      "prompt": "Minimalist single-weight line-art illustration on a flat off-white background, limited two-color accent palette, lots of negative space, confident geometric shapes, flat vector feel."
+    "Polished 3D Render": {
+      "prompt": "A premium, friendly 3D-rendered illustration with modern animated-film production quality: soft global illumination, rounded tactile forms, matte materials, gentle ambient occlusion, approachable and clean."
     },
-    "Retro Risograph": {
-      "prompt": "A retro risograph-style print illustration with grainy texture, slight misregistration, a warm two-tone duotone palette, bold simple forms, and a hand-printed indie poster feel."
+    "Modern Flat Vector": {
+      "prompt": "Clean modern corporate flat-vector illustration: bold simple shapes, a confident limited palette with subtle gradients, crisp geometry, lots of negative space, a contemporary tech-brand editorial style."
     }
   },
 
   "concepts": [
     {
-      "name": "PLACEHOLDER CONCEPT",
+      "name": "WFH Executive - The Baseline",
       "definitions": [
-        { "name": "Definition A", "description": "Replace with the real description from the doc." },
-        { "name": "Definition B", "description": "Replace with the real description from the doc." },
-        { "name": "Definition C", "description": "Replace with the real description from the doc." },
-        { "name": "Definition D", "description": "Replace with the real description from the doc." }
+        {
+          "name": "v1",
+          "description": "A brilliant operational consultant sits comfortably at a pristine, minimalist desk in a clean, bright, modern home office, relaxed and smiling, in business-casual attire, ready to work. The desk is almost empty -- calm and uncluttered -- representing fresh, open processing space."
+        }
+      ]
+    },
+    {
+      "name": "Active Working Memory - The Organized Desk",
+      "definitions": [
+        {
+          "name": "v1",
+          "description": "The same executive, focused and content, writing notes with a pen on a document. Two or three small, neat, perfectly orderly stacks of paper are spread across the desk. The environment feels highly organized and efficient -- a healthy, light workload."
+        }
+      ]
+    },
+    {
+      "name": "Context Rot - The Messy Desk",
+      "definitions": [
+        {
+          "name": "v1",
+          "description": "The same executive, now visibly stressed and rubbing their temples. The desk is absolutely buried under messy, disorganized stacks of printed paper, open reports, and post-it notes spilling over the keyboard. Overwhelmed, slow, and drowning in information."
+        }
+      ]
+    },
+    {
+      "name": "Vector Memory and the RAG Assistant",
+      "definitions": [
+        {
+          "name": "v1",
+          "description": "The same home office, zoomed out slightly. Behind the desk is a beautiful floor-to-ceiling wooden bookshelf packed with hundreds of books. A sharp, professional young executive assistant stands by the shelf holding a single photocopied chapter. A magnifying-glass callout over the book spines reveals a detailed table of contents, with a glowing arrow pointing to one specific chapter topic."
+        }
+      ]
+    },
+    {
+      "name": "The LLM Wiki - The 50-Page Digest",
+      "definitions": [
+        {
+          "name": "v1",
+          "description": "The desk is now clean and organized, the messy stacks gone. In the center sits a sleek, premium leather-bound book -- the definitive company handbook. In the background, a focused AI Librarian character at a small side-table reviews incoming mail, emails, and market reports, typing updates into a digital draft of that same handbook, then returning the beautifully bound, updated volume to the shelf."
+        }
+      ]
+    },
+    {
+      "name": "Supercharged Team Vision - Shared Memory",
+      "definitions": [
+        {
+          "name": "v1",
+          "description": "A wide grid of three or four different work-from-home offices (an operations manager, a sales rep, an HR director). On every desk sits a glowing, pulsing holographic version of the exact same employee handbook. Glowing digital data lines stream from a central cloud hub, updating all the handbooks simultaneously in real-time. Perfect alignment -- futuristic but warm."
+        }
       ]
     }
   ]
