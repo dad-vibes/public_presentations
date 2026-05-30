@@ -1,5 +1,7 @@
 {
-  "_README": "Derived from docs/concept-art-brief.md. 'concepts' are the 6 narrative scenes (image stacks). 'styles' are the 3 art directions (one output folder each). 'definitions' are the variation slots per scene (the generator produces one image per style x scene x definition). Adjust the number of definition entries to scale toward the desired total image count. global_guidance is appended to every prompt for series consistency.",
+  "_README": "Derived from docs/concept-art-brief.md. 'concepts' are the 6 narrative scenes (image stacks), each with a single 'description'. 'styles' are the art directions (one output folder each). 'variations' is how many distinct takes to generate per scene per style. Total images = concepts x styles x variations. global_guidance is appended to every prompt for series consistency.",
+
+  "variations": 3,
 
   "global_guidance": "Cohesive series: the same friendly professional executive and the same cozy, modern, sunlit work-from-home office recur across scenes. Strong central subject, clean composition with generous negative space so it reads on a projected 16:9 slide. Warm, aspirational, business-audience-friendly mood. Avoid logos and watermarks; keep any incidental text (such as a book title) minimal and elegant.",
 
@@ -18,57 +20,27 @@
   "concepts": [
     {
       "name": "WFH Executive - The Baseline",
-      "definitions": [
-        {
-          "name": "v1",
-          "description": "A brilliant operational consultant sits comfortably at a pristine, minimalist desk in a clean, bright, modern home office, relaxed and smiling, in business-casual attire, ready to work. The desk is almost empty -- calm and uncluttered -- representing fresh, open processing space."
-        }
-      ]
+      "description": "A brilliant operational consultant sits comfortably at a pristine, minimalist desk in a clean, bright, modern home office, relaxed and smiling, in business-casual attire, ready to work. The desk is almost empty -- calm and uncluttered -- representing fresh, open processing space."
     },
     {
       "name": "Active Working Memory - The Organized Desk",
-      "definitions": [
-        {
-          "name": "v1",
-          "description": "The same executive, focused and content, writing notes with a pen on a document. Two or three small, neat, perfectly orderly stacks of paper are spread across the desk. The environment feels highly organized and efficient -- a healthy, light workload."
-        }
-      ]
+      "description": "The same executive, focused and content, writing notes with a pen on a document. Two or three small, neat, perfectly orderly stacks of paper are spread across the desk. The environment feels highly organized and efficient -- a healthy, light workload."
     },
     {
       "name": "Context Rot - The Messy Desk",
-      "definitions": [
-        {
-          "name": "v1",
-          "description": "The same executive, now visibly stressed and rubbing their temples. The desk is absolutely buried under messy, disorganized stacks of printed paper, open reports, and post-it notes spilling over the keyboard. Overwhelmed, slow, and drowning in information."
-        }
-      ]
+      "description": "The same executive, now visibly stressed and rubbing their temples. The desk is absolutely buried under messy, disorganized stacks of printed paper, open reports, and post-it notes spilling over the keyboard. Overwhelmed, slow, and drowning in information."
     },
     {
       "name": "Vector Memory and the RAG Assistant",
-      "definitions": [
-        {
-          "name": "v1",
-          "description": "The same home office, zoomed out slightly. Behind the desk is a beautiful floor-to-ceiling wooden bookshelf packed with hundreds of books. A sharp, professional young executive assistant stands by the shelf holding a single photocopied chapter. A magnifying-glass callout over the book spines reveals a detailed table of contents, with a glowing arrow pointing to one specific chapter topic."
-        }
-      ]
+      "description": "The same home office, zoomed out slightly. Behind the desk is a beautiful floor-to-ceiling wooden bookshelf packed with hundreds of books. A sharp, professional young executive assistant stands by the shelf holding a single photocopied chapter. A magnifying-glass callout over the book spines reveals a detailed table of contents, with a glowing arrow pointing to one specific chapter topic."
     },
     {
       "name": "The LLM Wiki - The 50-Page Digest",
-      "definitions": [
-        {
-          "name": "v1",
-          "description": "The desk is now clean and organized, the messy stacks gone. In the center sits a sleek, premium leather-bound book -- the definitive company handbook. In the background, a focused AI Librarian character at a small side-table reviews incoming mail, emails, and market reports, typing updates into a digital draft of that same handbook, then returning the beautifully bound, updated volume to the shelf."
-        }
-      ]
+      "description": "The desk is now clean and organized, the messy stacks gone. In the center sits a sleek, premium leather-bound book -- the definitive company handbook. In the background, a focused AI Librarian character at a small side-table reviews incoming mail, emails, and market reports, typing updates into a digital draft of that same handbook, then returning the beautifully bound, updated volume to the shelf."
     },
     {
       "name": "Supercharged Team Vision - Shared Memory",
-      "definitions": [
-        {
-          "name": "v1",
-          "description": "A wide grid of three or four different work-from-home offices (an operations manager, a sales rep, an HR director). On every desk sits a glowing, pulsing holographic version of the exact same employee handbook. Glowing digital data lines stream from a central cloud hub, updating all the handbooks simultaneously in real-time. Perfect alignment -- futuristic but warm."
-        }
-      ]
+      "description": "A wide grid of three or four different work-from-home offices (an operations manager, a sales rep, an HR director). On every desk sits a glowing, pulsing holographic version of the exact same employee handbook. Glowing digital data lines stream from a central cloud hub, updating all the handbooks simultaneously in real-time. Perfect alignment -- futuristic but warm."
     }
   ]
 }

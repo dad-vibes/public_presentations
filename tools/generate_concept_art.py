@@ -6,11 +6,11 @@ Generates concept art with Google's "Nano Banana 2" model
 (Gemini 3.1 Flash Image, model id: gemini-3.1-flash-image) via the
 Gemini REST API.
 
-For every (style x concept x definition) combination it writes one PNG:
+For every (style x scene x variation) combination it writes one PNG:
 
-    images/concepts/<style_slug>/<concept_slug>__<definition_slug>.png   (folder-per-style)
+    images/concepts/<style_slug>/<scene_slug>__v<n>.png   (folder-per-style)
 
-The concepts + definitions + styles all come from a JSON config
+The scenes + variation count + styles all come from a JSON config
 (default: tools/concepts.json) so the prompts live as data, not code.
 
 Quick start
@@ -86,12 +86,12 @@ def load_api_key() -> str:
     )
 
 
-def build_prompt(style: dict, concept: dict, definition: dict, global_guidance: str) -> str:
+def build_prompt(style: dict, concept: dict, global_guidance: str) -> str:
     """Compose the text prompt sent to the model for one image."""
     parts = [
         style["prompt"].strip(),
-        f'Subject: "{concept["name"]}" — {definition["name"]}.',
-        definition.get("description", "").strip(),
+        f'Scene: {concept["name"]}.',
+        concept.get("description", "").strip(),
     ]
     if global_guidance.strip():
         parts.append(global_guidance.strip())
@@ -141,14 +141,15 @@ def iter_jobs(config: dict, args) -> list[dict]:
     """Expand the config into the flat list of images to generate, honoring filters."""
     styles = config["styles"]
     concepts = config["concepts"]
+    variations = max(1, int(config.get("variations", 1)))
 
     wanted_styles = set(s.lower() for s in args.style) if args.style else None
     wanted_concepts = set(c.lower() for c in args.concept) if args.concept else None
 
+    # The validation pass: just the first scene, one take each, across every style.
     if args.first:
         concepts = concepts[:1]
-        if concepts:
-            concepts = [{**concepts[0], "definitions": concepts[0]["definitions"][:1]}]
+        variations = 1
 
     jobs = []
     for style_name, style in styles.items():
@@ -157,13 +158,14 @@ def iter_jobs(config: dict, args) -> list[dict]:
         for concept in concepts:
             if wanted_concepts and concept["name"].lower() not in wanted_concepts:
                 continue
-            for definition in concept["definitions"]:
+            for v in range(1, variations + 1):
                 jobs.append(
                     {
                         "style_name": style_name,
                         "style": style,
                         "concept": concept,
-                        "definition": definition,
+                        "variation": v,
+                        "variations": variations,
                     }
                 )
     return jobs
@@ -203,9 +205,11 @@ def main() -> None:
     for i, job in enumerate(jobs, 1):
         style_slug = slugify(job["style_name"])
         out_dir = args.out / style_slug
-        fname = f'{slugify(job["concept"]["name"])}__{slugify(job["definition"]["name"])}.png'
-        out_path = out_dir / fname
-        prompt = build_prompt(job["style"], job["concept"], job["definition"], global_guidance)
+        concept_slug = slugify(job["concept"]["name"])
+        # Only suffix the variation number when there is more than one take per scene.
+        suffix = f'__v{job["variation"]}' if job["variations"] > 1 else ""
+        out_path = out_dir / f"{concept_slug}{suffix}.png"
+        prompt = build_prompt(job["style"], job["concept"], global_guidance)
 
         rel = out_path.relative_to(REPO_ROOT)
         print(f"[{i}/{len(jobs)}] {rel}")
