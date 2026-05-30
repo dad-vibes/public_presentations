@@ -86,24 +86,51 @@ def load_api_key() -> str:
     )
 
 
-def build_prompt(style: dict, concept: dict, global_guidance: str) -> str:
+def build_prompt(style: dict, concept: dict, global_guidance: str, character: dict, has_ref: bool) -> str:
     """Compose the text prompt sent to the model for one image."""
-    parts = [
-        style["prompt"].strip(),
-        f'Scene: {concept["name"]}.',
-        concept.get("description", "").strip(),
-    ]
+    parts = [style["prompt"].strip(), f'Scene: {concept["name"]}.', concept.get("description", "").strip()]
+
+    char_desc = (character or {}).get("description", "").strip()
+    if char_desc:
+        if has_ref:
+            # A reference photo is attached; tell the model to match that likeness.
+            parts.append(
+                "Render the person to match the likeness of the man in the attached reference photo "
+                f"(stylized to fit this art direction). {char_desc}"
+            )
+        else:
+            parts.append(f"Featuring this recurring character: {char_desc}")
+
     if global_guidance.strip():
         parts.append(global_guidance.strip())
     return " ".join(p for p in parts if p)
 
 
-def generate_image(prompt: str, *, api_key: str, model: str, aspect: str, size: str) -> bytes:
+def load_reference(character: dict):
+    """Return (base64_data, mime_type) for the character reference photo, or None."""
+    if not character:
+        return None
+    rel = character.get("reference_image")
+    if not rel:
+        return None
+    path = (REPO_ROOT / rel) if not Path(rel).is_absolute() else Path(rel)
+    if not path.exists():
+        return None
+    mime = "image/png" if path.suffix.lower() == ".png" else "image/jpeg"
+    return base64.b64encode(path.read_bytes()).decode("ascii"), mime
+
+
+def generate_image(prompt: str, *, api_key: str, model: str, aspect: str, size: str, reference=None) -> bytes:
     """Call the Gemini image API once and return the decoded PNG bytes."""
     url = f"{API_BASE}/{model}:generateContent"
     headers = {"x-goog-api-key": api_key, "Content-Type": "application/json"}
+    parts = [{"text": prompt}]
+    if reference:
+        data, mime = reference
+        # Attach the reference photo so the model can match the character's likeness.
+        parts.append({"inlineData": {"mimeType": mime, "data": data}})
     body = {
-        "contents": [{"parts": [{"text": prompt}]}],
+        "contents": [{"parts": parts}],
         "generationConfig": {
             "responseModalities": ["IMAGE"],
             "imageConfig": {"aspectRatio": aspect, "imageSize": size},
@@ -191,14 +218,18 @@ def main() -> None:
         sys.exit(f"ERROR: config not found: {args.config}")
     config = json.loads(args.config.read_text())
     global_guidance = config.get("global_guidance", "")
+    character = config.get("character", {})
 
     jobs = iter_jobs(config, args)
     if not jobs:
         sys.exit("No jobs to run (check your --style/--concept filters and the config).")
 
     api_key = None if args.dry_run else load_api_key()
+    reference = load_reference(character)
+    ref_note = "attached" if reference else "NOT found (using text description only)"
 
     print(f"Model: {args.model}   Size: {args.size}   Aspect: {args.aspect}")
+    print(f"Character reference photo: {ref_note}")
     print(f"Planned images: {len(jobs)}{'  (DRY RUN)' if args.dry_run else ''}\n")
 
     generated = skipped = failed = 0
@@ -209,7 +240,7 @@ def main() -> None:
         # Only suffix the variation number when there is more than one take per scene.
         suffix = f'__v{job["variation"]}' if job["variations"] > 1 else ""
         out_path = out_dir / f"{concept_slug}{suffix}.png"
-        prompt = build_prompt(job["style"], job["concept"], global_guidance)
+        prompt = build_prompt(job["style"], job["concept"], global_guidance, character, reference is not None)
 
         rel = out_path.relative_to(REPO_ROOT)
         print(f"[{i}/{len(jobs)}] {rel}")
@@ -224,7 +255,8 @@ def main() -> None:
 
         try:
             img = generate_image(
-                prompt, api_key=api_key, model=args.model, aspect=args.aspect, size=args.size
+                prompt, api_key=api_key, model=args.model, aspect=args.aspect, size=args.size,
+                reference=reference,
             )
             out_dir.mkdir(parents=True, exist_ok=True)
             out_path.write_bytes(img)

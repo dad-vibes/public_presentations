@@ -3,7 +3,12 @@
 
   "variations": 3,
 
-  "global_guidance": "Cohesive series: the same friendly professional executive and the same cozy, modern, sunlit work-from-home office recur across scenes. Strong central subject, clean composition with generous negative space so it reads on a projected 16:9 slide. Warm, aspirational, business-audience-friendly mood. Avoid logos and watermarks; keep any incidental text (such as a book title) minimal and elegant.",
+  "character": {
+    "description": "The recurring executive is the SAME man in every scene: a friendly, distinguished man in his early 60s with light/fair skin, a warm approachable expression, and bright blue-green eyes. He is completely bald on top (smooth, clean scalp) and wears modern rectangular dark-rimmed eyeglasses. His signature feature is a very long, full, bushy beard that flows well down past his chest -- salt-and-pepper grey blending to silvery-white, slightly wavy and wispy toward the ends, fullest at the chin. He has a solid, stocky build. Keep his face, bald head, glasses, and long grey-white beard consistent across every image.",
+    "reference_image": "images/reference/character.jpg"
+  },
+
+  "global_guidance": "Cohesive series: the same cozy, modern, sunlit work-from-home office recurs across scenes. Strong central subject, clean composition with generous negative space so it reads on a projected 16:9 slide. Warm, aspirational, business-audience-friendly mood. Avoid logos and watermarks; keep any incidental text (such as a book title) minimal and elegant.",
 
   "styles": {
     "Cinematic Photoreal": {
