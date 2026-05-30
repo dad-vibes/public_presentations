@@ -1,0 +1,29 @@
+{
+  "_README": "TEMPLATE / PLACEHOLDER. The real concepts + definitions come from Andrew's Google Doc, which is currently private (403). Replace 'concepts' below with the real content once the doc is shared. 'styles' holds the 3 art directions; 'global_guidance' is appended to every prompt. Output is folder-per-style: images/concepts/<style>/<concept>__<definition>.png",
+
+  "global_guidance": "Clean, modern presentation concept art. No text, no words, no logos, no watermarks. Strong central subject with generous negative space so it reads on a projected slide. Cohesive palette.",
+
+  "styles": {
+    "Editorial 3D Render": {
+      "prompt": "A polished editorial 3D render with soft studio lighting, subtle depth of field, tactile materials (matte plastic, brushed metal, frosted glass), and a calm premium tech aesthetic."
+    },
+    "Minimal Line Art": {
+      "prompt": "Minimalist single-weight line-art illustration on a flat off-white background, limited two-color accent palette, lots of negative space, confident geometric shapes, flat vector feel."
+    },
+    "Retro Risograph": {
+      "prompt": "A retro risograph-style print illustration with grainy texture, slight misregistration, a warm two-tone duotone palette, bold simple forms, and a hand-printed indie poster feel."
+    }
+  },
+
+  "concepts": [
+    {
+      "name": "PLACEHOLDER CONCEPT",
+      "definitions": [
+        { "name": "Definition A", "description": "Replace with the real description from the doc." },
+        { "name": "Definition B", "description": "Replace with the real description from the doc." },
+        { "name": "Definition C", "description": "Replace with the real description from the doc." },
+        { "name": "Definition D", "description": "Replace with the real description from the doc." }
+      ]
+    }
+  ]
+}
