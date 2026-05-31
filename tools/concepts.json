@@ -4,11 +4,11 @@
   "variations": 3,
 
   "character": {
-    "description": "The recurring executive is the SAME man in every scene: a friendly, distinguished man in his early 60s with light/fair skin, a warm approachable expression, and bright blue-green eyes. He is completely bald on top (smooth, clean scalp) and wears modern rectangular dark-rimmed eyeglasses. His signature feature is a very long, full, bushy beard that flows well down past his chest -- salt-and-pepper grey blending to silvery-white, slightly wavy and wispy toward the ends, fullest at the chin. He has a solid, stocky build. Keep his face, bald head, glasses, and long grey-white beard consistent across every image.",
+    "description": "The recurring PROTAGONIST is the SAME man in every scene where he appears: a friendly, distinguished man in his early 60s with light/fair skin, a warm approachable expression, and bright blue-green eyes. He is completely bald on top (smooth, clean scalp) and wears modern rectangular dark-rimmed eyeglasses. His signature feature is a very long, full, bushy beard that flows well down past his chest -- salt-and-pepper grey blending to silvery-white, slightly wavy and wispy toward the ends, fullest at the chin. He has a solid, stocky build and ALWAYS wears a plain black button-up shirt (his signature look). Keep his face, bald head, glasses, long grey-white beard, and black shirt consistent across images. He is the only person with this exact appearance -- any assistant, librarian, or teammates are clearly DIFFERENT people.",
     "reference_image": "images/reference/character.jpg"
   },
 
-  "global_guidance": "Cohesive series: the same cozy, modern, sunlit work-from-home office recurs across scenes. Strong central subject, clean composition with generous negative space so it reads on a projected 16:9 slide. Warm, aspirational, business-audience-friendly mood. Avoid logos and watermarks; keep any incidental text (such as a book title) minimal and elegant.",
+  "global_guidance": "Cohesive series set in a cozy, modern, sunlit work-from-home office. COMPOSITION (important): the DESK and the items on it are the true subject and focal point of every scene -- frame the shot so the desk surface fills a large portion of the foreground and is clearly visible; people are secondary to the desk. Generous negative space so it reads on a projected 16:9 slide. Warm, aspirational, business-audience-friendly mood. No watermarks; keep any incidental text minimal and elegant.",
 
   "styles": {
     "Cinematic Photoreal": {
@@ -25,27 +25,27 @@
   "concepts": [
     {
       "name": "WFH Executive - The Baseline",
-      "description": "A brilliant operational consultant sits comfortably at a pristine, minimalist desk in a clean, bright, modern home office, relaxed and smiling, in business-casual attire, ready to work. The desk is almost empty -- calm and uncluttered -- representing fresh, open processing space."
+      "description": "The protagonist sits at a pristine, minimalist desk in a clean, bright, modern home office, relaxed and smiling, ready to work. The large desk dominates the foreground and is almost empty -- calm and uncluttered -- representing fresh, open processing space."
     },
     {
       "name": "Active Working Memory - The Organized Desk",
-      "description": "The same executive, focused and content, writing notes with a pen on a document. Two or three small, neat, perfectly orderly stacks of paper are spread across the desk. The environment feels highly organized and efficient -- a healthy, light workload."
+      "description": "The protagonist, focused and content, writing notes with a pen. The desk fills much of the frame and holds two or three small, neat, perfectly orderly stacks of paper. Highly organized and efficient -- a healthy, light workload."
     },
     {
       "name": "Context Rot - The Messy Desk",
-      "description": "The same executive, now visibly stressed and rubbing their temples. The desk is absolutely buried under messy, disorganized stacks of printed paper, open reports, and post-it notes spilling over the keyboard. Overwhelmed, slow, and drowning in information."
+      "description": "The protagonist, now visibly stressed and rubbing his temples. The desk dominates the foreground and is absolutely buried under messy, disorganized stacks of printed paper, open reports, and post-it notes spilling over the keyboard. Overwhelmed, slow, and drowning in information."
     },
     {
       "name": "Vector Memory and the RAG Assistant",
-      "description": "The same home office, zoomed out slightly. Behind the desk is a beautiful floor-to-ceiling wooden bookshelf packed with hundreds of books. A sharp, professional young executive assistant stands by the shelf holding a single photocopied chapter. A magnifying-glass callout over the book spines reveals a detailed table of contents, with a glowing arrow pointing to one specific chapter topic."
+      "description": "The protagonist's desk is prominent in the foreground. Behind it stands a beautiful floor-to-ceiling wooden bookshelf packed with hundreds of books. A SECOND, DISTINCT person -- an attractive, professional secretary-style assistant, clearly NOT the bearded protagonist -- stands at the bookshelf performing retrieval, holding a single photocopied chapter she just pulled. A magnifying-glass callout over the book spines reveals a detailed table of contents, with a glowing arrow pointing to one specific chapter topic."
     },
     {
       "name": "The LLM Wiki - The 50-Page Digest",
-      "description": "The desk is now clean and organized, the messy stacks gone. In the center sits a sleek, premium leather-bound book -- the definitive company handbook. In the background, a focused AI Librarian character at a small side-table reviews incoming mail, emails, and market reports, typing updates into a digital draft of that same handbook, then returning the beautifully bound, updated volume to the shelf."
+      "description": "The protagonist's desk, now clean and organized, fills the foreground with the messy stacks gone. In the center of the desk sits a sleek, premium leather-bound book -- the definitive company handbook. In the background, a DIFFERENT person -- the heroic 'Wiki Librarian', clearly NOT the bearded protagonist: a white Caucasian man in his mid-30s with short, textured dark brown hair with subtle frosted blonde tips on top, clear light blue eyes, light freckles across his nose and cheeks, and a neatly trimmed short beard and mustache, wearing a sleek orange-and-blue superhero costume -- works at a small side-table reviewing incoming mail, emails, and market reports and typing updates into a digital draft of that same handbook."
     },
     {
       "name": "Supercharged Team Vision - Shared Memory",
-      "description": "A wide grid of three or four different work-from-home offices (an operations manager, a sales rep, an HR director). On every desk sits a glowing, pulsing holographic version of the exact same employee handbook. Glowing digital data lines stream from a central cloud hub, updating all the handbooks simultaneously in real-time. Perfect alignment -- futuristic but warm."
+      "description": "A wide grid of three or four different work-from-home offices, each with a DIFFERENT team member -- distinct people of varied age and gender (an operations manager, a sales rep, an HR director), none of them the bearded protagonist. Each desk is clearly visible in its panel, and on every desk sits a glowing, pulsing holographic version of the exact same employee handbook. Glowing digital data lines stream from a central cloud hub, updating all the handbooks simultaneously in real-time. Perfect alignment -- futuristic but warm."
     }
   ]
 }
