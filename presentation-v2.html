@@ -1289,6 +1289,7 @@
             <li class="fragment fade-up"><strong>Blind spots.</strong> Misses info if the search query or algorithm fails.</li>
             <li class="fragment fade-up"><strong>Lag.</strong> Multi-step pipeline adds response latency.</li>
             <li class="fragment fade-up"><strong>Complex.</strong> Requires building and tuning custom data infra.</li>
+            <li class="fragment fade-up"><strong>Hard to gate.</strong> Once a file is indexed, it's hard to limit who can retrieve it.</li>
           </ul>
         </div>
       </div>
@@ -1327,22 +1328,94 @@
       </div>
     </div>
     <div class="body">
-      <p class="body-text fragment fade-up" style="font-size: var(--t-200); max-width: 60ch; line-height: 1.3; font-weight: 700;">
-        A hand-curated folder of <span class="accent">~50 markdown files</span> that the AI reads as canonical truth. No vectors. No embeddings. Just well-written notes.
+      <p class="body-text fragment fade-up" style="font-size: var(--t-300); max-width: 32ch; line-height: 1.2; font-weight: 700;">
+        A folder of <span class="accent">~50 markdown files.</span> The AI reads them as truth.
       </p>
-      <ul class="row-items" style="margin-top: var(--s-5);">
-        <li class="fragment fade-up" style="grid-template-columns: 110px 1fr;"><span class="num" style="font-size: var(--t-200);">Origin</span><span class="label" style="font-size: var(--t-200);">Karpathy pinned his life and work into a personal repo of markdown files. The AI just reads them.</span></li>
-        <li class="fragment fade-up" style="grid-template-columns: 110px 1fr;"><span class="num" style="font-size: var(--t-200);">Why viral</span><span class="label" style="font-size: var(--t-200);">It's stupidly simple. Anyone with a text editor can build one in an afternoon.</span></li>
-        <li class="fragment fade-up" style="grid-template-columns: 110px 1fr;"><span class="num" style="font-size: var(--t-200);">The shift</span><span class="label" style="font-size: var(--t-200);">From "let me build a vector DB" to "let me write a great handbook."</span></li>
-      </ul>
+      <p class="body-text fragment fade-up" style="font-size: var(--t-200); max-width: 50ch; line-height: 1.35; margin-top: var(--s-5); color: var(--ink-700);">
+        No vectors. No embeddings. Just well-written notes anyone can author in an afternoon.
+      </p>
     </div>
     <div class="wordmark"><span class="dot"></span><span>Inventory<span class="ih-h">Hero</span></span></div>
     <div class="page-no">27 / 69</div>
   </div>
 </section>
 
-<!-- LLM Wiki: pros and cons -->
+<!-- LLM Wiki: Karpathy code-structure pattern (moved from later in deck) -->
 <section data-page="28">
+  <div class="frame">
+    <div class="top">
+      <div class="kicker">04 &middot; LLM Wiki</div>
+      <h2 class="headline small">Plain text. Git-tracked. <span class="accent">Free forever.</span></h2>
+    </div>
+    <div class="body-7">
+      <pre class="code">repo/
+├── <span class="c-key">README.md</span>           <span class="c-com"># the map</span>
+├── <span class="c-key">prompts/</span>            <span class="c-com"># reusable templates</span>
+├── <span class="c-acc">context/</span>            <span class="c-com"># the Handbook lives here</span>
+│   ├── brand/
+│   ├── products/
+│   ├── marketing/
+│   └── operations/
+├── <span class="c-key">data/</span>               <span class="c-com"># SP-API, reviews, sales</span>
+└── <span class="c-key">outputs/</span>            <span class="c-com"># AI-written drafts</span></pre>
+    </div>
+    <div class="side-5">
+      <p class="body-text" style="font-size: var(--t-200); max-width: 26ch;">
+        From nanoGPT, llm.c, and the <strong>Software 3.0</strong> talk. Diffable, forkable, yours.
+      </p>
+    </div>
+    <div class="wordmark"><span class="dot"></span><span>Inventory<span class="ih-h">Hero</span></span></div>
+    <div class="page-no">28 / 69</div>
+  </div>
+</section>
+
+<!-- LLM Wiki: the InventoryHero 14-folder handbook (moved from later in deck) -->
+<section data-page="29">
+  <div class="frame">
+    <div class="top">
+      <div class="kicker">The InventoryHero handbook &middot; 14 folders, ~71 files</div>
+      <h2 class="headline small">Every facet of an FBA business. <span class="accent">One shared brain.</span></h2>
+    </div>
+    <div class="body">
+      <div class="chunks row-3">
+        <div class="card">
+          <div class="ch-label">Business core</div>
+          <ul style="list-style:none; padding:0; margin:0; font-family: var(--font-mono); font-size: var(--t-100); line-height:1.7; color: var(--ink-700);">
+            <li>00-business</li>
+            <li>01-strategy</li>
+            <li>02-account-health</li>
+            <li>11-legal-ip</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="ch-label">Supply chain</div>
+          <ul style="list-style:none; padding:0; margin:0; font-family: var(--font-mono); font-size: var(--t-100); line-height:1.7; color: var(--ink-700);">
+            <li>04-sourcing-suppliers</li>
+            <li>05-inventory-planning</li>
+            <li>06-logistics</li>
+            <li>07-finance</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="ch-label">Growth and ops</div>
+          <ul style="list-style:none; padding:0; margin:0; font-family: var(--font-mono); font-size: var(--t-100); line-height:1.7; color: var(--ink-700);">
+            <li>03-catalog-listings</li>
+            <li>08-advertising</li>
+            <li>09-marketing-brand</li>
+            <li>10-customer-service</li>
+            <li>12-team-operations</li>
+            <li>13-reference</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="wordmark"><span class="dot"></span><span>Inventory<span class="ih-h">Hero</span></span></div>
+    <div class="page-no">29 / 69</div>
+  </div>
+</section>
+
+<!-- LLM Wiki: pros and cons -->
+<section data-page="30">
   <div class="frame">
     <div class="top">
       <div class="kicker">04 &middot; LLM Wiki</div>
@@ -1371,12 +1444,12 @@
       </div>
     </div>
     <div class="wordmark"><span class="dot"></span><span>Inventory<span class="ih-h">Hero</span></span></div>
-    <div class="page-no">28 / 69</div>
+    <div class="page-no">30 / 69</div>
   </div>
 </section>
 
 <!-- LLM Wiki: home office analogy, the curated handbook -->
-<section data-page="29">
+<section data-page="31">
   <div class="frame">
     <div class="top">
       <div class="kicker">04 &middot; LLM Wiki</div>
@@ -1396,12 +1469,12 @@
       </div>
     </div>
     <div class="wordmark"><span class="dot"></span><span>Inventory<span class="ih-h">Hero</span></span></div>
-    <div class="page-no">29 / 69</div>
+    <div class="page-no">31 / 69</div>
   </div>
 </section>
 
 <!-- Team Memory: intro / shared wiki concept -->
-<section data-page="30">
+<section data-page="32">
   <div class="frame">
     <div class="top">
       <div class="kicker">05 &middot; Team Memory</div>
@@ -1415,19 +1488,19 @@
         Take the LLM Wiki off your laptop. Put it in the cloud. Now <span class="accent">every human and every AI on your team</span> reads from the same handbook.
       </p>
       <ul class="row-items" style="margin-top: var(--s-5);">
-        <li class="fragment fade-up" style="grid-template-columns: 180px 1fr;"><span class="num" style="font-size: var(--t-200);">Where it lives</span><span class="label" style="font-size: var(--t-200);">In the cloud, not on one laptop.</span></li>
-        <li class="fragment fade-up" style="grid-template-columns: 180px 1fr;"><span class="num" style="font-size: var(--t-200);">Who reads it</span><span class="label" style="font-size: var(--t-200);">Humans and their AIs. ChatGPT, Claude, Gemini, your VAs, your suppliers.</span></li>
-        <li class="fragment fade-up" style="grid-template-columns: 180px 1fr;"><span class="num" style="font-size: var(--t-200);">Who writes it</span><span class="label" style="font-size: var(--t-200);">Humans and AIs. Every interaction can update the handbook.</span></li>
-        <li class="fragment fade-up" style="grid-template-columns: 180px 1fr;"><span class="num" style="font-size: var(--t-200);">Who can see it</span><span class="label" style="font-size: var(--t-200);">The whole team. One source of truth, always in sync.</span></li>
+        <li class="fragment fade-up" style="grid-template-columns: 170px 1fr;"><span class="num" style="font-size: var(--t-200);">Where</span><span class="label" style="font-size: var(--t-200);">In the cloud, not on one laptop.</span></li>
+        <li class="fragment fade-up" style="grid-template-columns: 170px 1fr;"><span class="num" style="font-size: var(--t-200);">Who reads</span><span class="label" style="font-size: var(--t-200);">Humans and their AIs. ChatGPT, Claude, Gemini, your VAs, your suppliers.</span></li>
+        <li class="fragment fade-up" style="grid-template-columns: 170px 1fr;"><span class="num" style="font-size: var(--t-200);">Who writes</span><span class="label" style="font-size: var(--t-200);">Humans and AIs. Every interaction can update the handbook.</span></li>
+        <li class="fragment fade-up" style="grid-template-columns: 170px 1fr;"><span class="num" style="font-size: var(--t-200);">Who sees</span><span class="label" style="font-size: var(--t-200);">The whole team. One source of truth, always in sync.</span></li>
       </ul>
     </div>
     <div class="wordmark"><span class="dot"></span><span>Inventory<span class="ih-h">Hero</span></span></div>
-    <div class="page-no">30 / 69</div>
+    <div class="page-no">32 / 69</div>
   </div>
 </section>
 
 <!-- Team Memory: home office analogy, the shared handbook -->
-<section data-page="31">
+<section data-page="33">
   <div class="frame">
     <div class="top">
       <div class="kicker">05 &middot; Team Memory</div>
@@ -1440,19 +1513,19 @@
           The same handbook on every desk. <span class="accent">Updated by anyone. Read by everyone.</span>
         </p>
         <ul class="row-items" style="margin-top: var(--s-5);">
-          <li class="fragment fade-up" style="grid-template-columns: 130px 1fr;"><span class="num" style="font-size: var(--t-200);">Live</span><span class="label" style="font-size: var(--t-200);">Updates sync to every team member instantly. No stale copies.</span></li>
-          <li class="fragment fade-up" style="grid-template-columns: 130px 1fr;"><span class="num" style="font-size: var(--t-200);">Open</span><span class="label" style="font-size: var(--t-200);">Humans browse the wiki. Their AIs read the same files.</span></li>
-          <li class="fragment fade-up" style="grid-template-columns: 130px 1fr;"><span class="num" style="font-size: var(--t-200);">Compounds</span><span class="label" style="font-size: var(--t-200);">Every chat makes the handbook sharper. The team gets smarter together.</span></li>
+          <li class="fragment fade-up" style="grid-template-columns: 180px 1fr;"><span class="num" style="font-size: var(--t-200);">Live</span><span class="label" style="font-size: var(--t-200);">Updates sync to every team member instantly. No stale copies.</span></li>
+          <li class="fragment fade-up" style="grid-template-columns: 180px 1fr;"><span class="num" style="font-size: var(--t-200);">Open</span><span class="label" style="font-size: var(--t-200);">Humans browse the wiki. Their AIs read the same files.</span></li>
+          <li class="fragment fade-up" style="grid-template-columns: 180px 1fr;"><span class="num" style="font-size: var(--t-200);">Compounds</span><span class="label" style="font-size: var(--t-200);">Every chat makes the handbook sharper. The team gets smarter together.</span></li>
         </ul>
       </div>
     </div>
     <div class="wordmark"><span class="dot"></span><span>Inventory<span class="ih-h">Hero</span></span></div>
-    <div class="page-no">31 / 69</div>
+    <div class="page-no">33 / 69</div>
   </div>
 </section>
 
 <!-- 20: The home office analogy - intro + map. Image slot: WFH executive at desk. -->
-<section data-page="32">
+<section data-page="34">
   <div class="frame">
     <div class="top">
       <div class="kicker">Don't think "vector embeddings"</div>
@@ -1483,12 +1556,12 @@
       </div>
     </div>
     <div class="wordmark"><span class="dot"></span><span>Inventory<span class="ih-h">Hero</span></span></div>
-    <div class="page-no">32 / 69</div>
+    <div class="page-no">34 / 69</div>
   </div>
 </section>
 
 <!-- 21: Working memory -->
-<section data-page="33">
+<section data-page="35">
   <div class="frame">
     <div class="top is-centered">
       <div class="kicker">Working memory</div>
@@ -1502,12 +1575,12 @@
       </p>
     </div>
     <div class="wordmark"><span class="dot"></span><span>Inventory<span class="ih-h">Hero</span></span></div>
-    <div class="page-no">33 / 69</div>
+    <div class="page-no">35 / 69</div>
   </div>
 </section>
 
 <!-- 22: Long-term memory -->
-<section data-page="34">
+<section data-page="36">
   <div class="frame">
     <div class="top is-centered">
       <div class="kicker">Long-term memory</div>
@@ -1521,12 +1594,12 @@
       </p>
     </div>
     <div class="wordmark"><span class="dot"></span><span>Inventory<span class="ih-h">Hero</span></span></div>
-    <div class="page-no">34 / 69</div>
+    <div class="page-no">36 / 69</div>
   </div>
 </section>
 
 <!-- 23: One-liner moment -->
-<section data-page="35">
+<section data-page="37">
   <div class="hero-frame">
     <div class="hero-top">&nbsp;</div>
     <div class="hero-body">
@@ -1534,13 +1607,13 @@
     </div>
     <div style="display:flex; justify-content:space-between; align-items:end;">
       <div class="wordmark" style="grid-row:auto;grid-column:auto;"><span class="dot"></span><span>Inventory<span class="ih-h">Hero</span></span></div>
-      <div class="page-no" style="grid-row:auto;grid-column:auto;">35 / 69</div>
+      <div class="page-no" style="grid-row:auto;grid-column:auto;">37 / 69</div>
     </div>
   </div>
 </section>
 
 <!-- 24: QUOTE #3, Aravind -->
-<section data-page="36">
+<section data-page="38">
   <div class="quote-frame">
     <img class="quote-portrait" src="images/quotes/srinivas.jpg" alt="Aravind Srinivas" />
     <div class="quote-text">
@@ -1552,7 +1625,7 @@
     </div>
     <div style="position:absolute; bottom: var(--s-12); right: var(--s-12); display:flex; gap: var(--s-3); align-items:center;">
       <div class="wordmark" style="grid-row:auto;grid-column:auto;"><span class="dot"></span><span>Inventory<span class="ih-h">Hero</span></span></div>
-      <div class="page-no" style="grid-row:auto;grid-column:auto;">36 / 69</div>
+      <div class="page-no" style="grid-row:auto;grid-column:auto;">38 / 69</div>
     </div>
   </div>
 </section>
@@ -1562,7 +1635,7 @@
      ==================================================================== -->
 
 <!-- 25: SECTION HEADER -->
-<section data-page="37">
+<section data-page="39">
   <div class="hero-frame">
     <div class="hero-top">Module 2 of 5</div>
     <div class="hero-body">
@@ -1571,13 +1644,13 @@
     </div>
     <div style="display:flex; justify-content:space-between; align-items:end;">
       <div class="wordmark" style="grid-row:auto;grid-column:auto;"><span class="dot"></span><span>Inventory<span class="ih-h">Hero</span></span></div>
-      <div class="page-no" style="grid-row:auto;grid-column:auto;">37 / 69</div>
+      <div class="page-no" style="grid-row:auto;grid-column:auto;">39 / 69</div>
     </div>
   </div>
 </section>
 
 <!-- 26: Memory hierarchy - home-office storyboard, 4 frames. Image slots below. -->
-<section data-page="38">
+<section data-page="40">
   <div class="frame">
     <div class="top">
       <div class="kicker">Memory hierarchy</div>
@@ -1621,12 +1694,12 @@
       </div>
     </div>
     <div class="wordmark"><span class="dot"></span><span>Inventory<span class="ih-h">Hero</span></span></div>
-    <div class="page-no">38 / 69</div>
+    <div class="page-no">40 / 69</div>
   </div>
 </section>
 
 <!-- 27: The local silo problem -->
-<section data-page="39">
+<section data-page="41">
   <div class="quote-frame">
     <div class="quote-mark">"</div>
     <div class="quote-text" style="font-size: var(--t-400); max-width: 28ch;">
@@ -1637,13 +1710,13 @@
     </div>
     <div style="position:absolute; bottom: var(--s-12); right: var(--s-12); display:flex; gap: var(--s-3); align-items:center;">
       <div class="wordmark" style="grid-row:auto;grid-column:auto;"><span class="dot"></span><span>Inventory<span class="ih-h">Hero</span></span></div>
-      <div class="page-no" style="grid-row:auto;grid-column:auto;">39 / 69</div>
+      <div class="page-no" style="grid-row:auto;grid-column:auto;">41 / 69</div>
     </div>
   </div>
 </section>
 
 <!-- 28: Real story, $40M seller -->
-<section data-page="40">
+<section data-page="42">
   <div class="quote-frame">
     <div class="quote-mark">"</div>
     <div class="quote-text" style="font-size: var(--t-400); max-width: 26ch;">
@@ -1655,7 +1728,7 @@
     </div>
     <div style="position:absolute; bottom: var(--s-12); right: var(--s-12); display:flex; gap: var(--s-3); align-items:center;">
       <div class="wordmark" style="grid-row:auto;grid-column:auto;"><span class="dot"></span><span>Inventory<span class="ih-h">Hero</span></span></div>
-      <div class="page-no" style="grid-row:auto;grid-column:auto;">40 / 69</div>
+      <div class="page-no" style="grid-row:auto;grid-column:auto;">42 / 69</div>
     </div>
   </div>
 </section>
@@ -1667,7 +1740,7 @@
      ==================================================================== -->
 
 <!-- 33: SECTION HEADER -->
-<section data-page="41">
+<section data-page="43">
   <div class="hero-frame">
     <div class="hero-top">Module 3 of 5</div>
     <div class="hero-body">
@@ -1676,13 +1749,13 @@
     </div>
     <div style="display:flex; justify-content:space-between; align-items:end;">
       <div class="wordmark" style="grid-row:auto;grid-column:auto;"><span class="dot"></span><span>Inventory<span class="ih-h">Hero</span></span></div>
-      <div class="page-no" style="grid-row:auto;grid-column:auto;">41 / 69</div>
+      <div class="page-no" style="grid-row:auto;grid-column:auto;">43 / 69</div>
     </div>
   </div>
 </section>
 
 <!-- 34: The reframe -->
-<section data-page="42">
+<section data-page="44">
   <div class="frame">
     <div class="top is-centered">
       <div class="kicker">The reframe</div>
@@ -1695,12 +1768,12 @@
       </p>
     </div>
     <div class="wordmark"><span class="dot"></span><span>Inventory<span class="ih-h">Hero</span></span></div>
-    <div class="page-no">42 / 69</div>
+    <div class="page-no">44 / 69</div>
   </div>
 </section>
 
 <!-- 35: What goes in it, grouped into 5 super-chunks (was 5 bullets, kept as cards with proximity) -->
-<section data-page="43">
+<section data-page="45">
   <div class="frame">
     <div class="top">
       <div class="kicker">What goes inside · 10,100 markdown files</div>
@@ -1735,57 +1808,12 @@
       </div>
     </div>
     <div class="wordmark"><span class="dot"></span><span>Inventory<span class="ih-h">Hero</span></span></div>
-    <div class="page-no">43 / 69</div>
-  </div>
-</section>
-
-<!-- 36: Directory structure, chunked into 3 super-chunks per Miller's law -->
-<section data-page="44">
-  <div class="frame">
-    <div class="top">
-      <div class="kicker">The InventoryHero handbook · 14 folders, ~71 files</div>
-      <h2 class="headline small">Every facet of an FBA business. <span class="accent">One shared brain.</span></h2>
-    </div>
-    <div class="body">
-      <div class="chunks row-3">
-        <div class="card">
-          <div class="ch-label">Business core</div>
-          <ul style="list-style:none; padding:0; margin:0; font-family: var(--font-mono); font-size: var(--t-100); line-height:1.7; color: var(--ink-700);">
-            <li>00-business</li>
-            <li>01-strategy</li>
-            <li>02-account-health</li>
-            <li>11-legal-ip</li>
-          </ul>
-        </div>
-        <div class="card">
-          <div class="ch-label">Supply chain</div>
-          <ul style="list-style:none; padding:0; margin:0; font-family: var(--font-mono); font-size: var(--t-100); line-height:1.7; color: var(--ink-700);">
-            <li>04-sourcing-suppliers</li>
-            <li>05-inventory-planning</li>
-            <li>06-logistics</li>
-            <li>07-finance</li>
-          </ul>
-        </div>
-        <div class="card">
-          <div class="ch-label">Growth and ops</div>
-          <ul style="list-style:none; padding:0; margin:0; font-family: var(--font-mono); font-size: var(--t-100); line-height:1.7; color: var(--ink-700);">
-            <li>03-catalog-listings</li>
-            <li>08-advertising</li>
-            <li>09-marketing-brand</li>
-            <li>10-customer-service</li>
-            <li>12-team-operations</li>
-            <li>13-reference</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-    <div class="wordmark"><span class="dot"></span><span>Inventory<span class="ih-h">Hero</span></span></div>
-    <div class="page-no">44 / 69</div>
+    <div class="page-no">45 / 69</div>
   </div>
 </section>
 
 <!-- 37: 80/20 scaffolding -->
-<section data-page="45">
+<section data-page="46">
   <div class="frame">
     <div class="top">
       <div class="kicker">Scaffolded, not schematic</div>
@@ -1806,12 +1834,12 @@
       </div>
     </div>
     <div class="wordmark"><span class="dot"></span><span>Inventory<span class="ih-h">Hero</span></span></div>
-    <div class="page-no">45 / 69</div>
+    <div class="page-no">46 / 69</div>
   </div>
 </section>
 
 <!-- 38: Progressive elaboration, code block, high data-ink -->
-<section data-page="46">
+<section data-page="47">
   <div class="frame">
     <div class="top">
       <div class="kicker">Progressive elaboration</div>
@@ -1833,12 +1861,12 @@
       </p>
     </div>
     <div class="wordmark"><span class="dot"></span><span>Inventory<span class="ih-h">Hero</span></span></div>
-    <div class="page-no">46 / 69</div>
+    <div class="page-no">47 / 69</div>
   </div>
 </section>
 
 <!-- 39: One-liner -->
-<section data-page="47">
+<section data-page="48">
   <div class="hero-frame">
     <div class="hero-top">&nbsp;</div>
     <div class="hero-body">
@@ -1846,13 +1874,13 @@
     </div>
     <div style="display:flex; justify-content:space-between; align-items:end;">
       <div class="wordmark" style="grid-row:auto;grid-column:auto;"><span class="dot"></span><span>Inventory<span class="ih-h">Hero</span></span></div>
-      <div class="page-no" style="grid-row:auto;grid-column:auto;">47 / 69</div>
+      <div class="page-no" style="grid-row:auto;grid-column:auto;">48 / 69</div>
     </div>
   </div>
 </section>
 
 <!-- 40: QUOTE #5, Dario -->
-<section data-page="48">
+<section data-page="49">
   <div class="quote-frame">
     <img class="quote-portrait" src="images/quotes/amodei.jpg" alt="Dario Amodei" />
     <div class="quote-text">
@@ -1864,7 +1892,7 @@
     </div>
     <div style="position:absolute; bottom: var(--s-12); right: var(--s-12); display:flex; gap: var(--s-3); align-items:center;">
       <div class="wordmark" style="grid-row:auto;grid-column:auto;"><span class="dot"></span><span>Inventory<span class="ih-h">Hero</span></span></div>
-      <div class="page-no" style="grid-row:auto;grid-column:auto;">48 / 69</div>
+      <div class="page-no" style="grid-row:auto;grid-column:auto;">49 / 69</div>
     </div>
   </div>
 </section>
@@ -1874,7 +1902,7 @@
      ==================================================================== -->
 
 <!-- 41: SECTION HEADER -->
-<section data-page="49">
+<section data-page="50">
   <div class="hero-frame">
     <div class="hero-top">Module 4 of 5</div>
     <div class="hero-body">
@@ -1883,13 +1911,13 @@
     </div>
     <div style="display:flex; justify-content:space-between; align-items:end;">
       <div class="wordmark" style="grid-row:auto;grid-column:auto;"><span class="dot"></span><span>Inventory<span class="ih-h">Hero</span></span></div>
-      <div class="page-no" style="grid-row:auto;grid-column:auto;">49 / 69</div>
+      <div class="page-no" style="grid-row:auto;grid-column:auto;">50 / 69</div>
     </div>
   </div>
 </section>
 
 <!-- 42: Two roads -->
-<section data-page="50">
+<section data-page="51">
   <div class="frame">
     <div class="top">
       <div class="kicker">Two roads</div>
@@ -1908,35 +1936,6 @@
           <div class="ch-body" style="margin-top: var(--s-3);">5-minute setup. Mobile-friendly. Non-technical team.</div>
         </div>
       </div>
-    </div>
-    <div class="wordmark"><span class="dot"></span><span>Inventory<span class="ih-h">Hero</span></span></div>
-    <div class="page-no">50 / 69</div>
-  </div>
-</section>
-
-<!-- 43: Karpathy structure, code, high data-ink -->
-<section data-page="51">
-  <div class="frame">
-    <div class="top">
-      <div class="kicker">The Karpathy pattern</div>
-      <h2 class="headline small">Plain text. Git-tracked. <span class="accent">Free forever.</span></h2>
-    </div>
-    <div class="body-7">
-      <pre class="code">repo/
-├── <span class="c-key">README.md</span>           <span class="c-com"># the map</span>
-├── <span class="c-key">prompts/</span>            <span class="c-com"># reusable templates</span>
-├── <span class="c-acc">context/</span>            <span class="c-com"># the Handbook lives here</span>
-│   ├── brand/
-│   ├── products/
-│   ├── marketing/
-│   └── operations/
-├── <span class="c-key">data/</span>               <span class="c-com"># SP-API, reviews, sales</span>
-└── <span class="c-key">outputs/</span>            <span class="c-com"># AI-written drafts</span></pre>
-    </div>
-    <div class="side-5">
-      <p class="body-text" style="font-size: var(--t-200); max-width: 26ch;">
-        From nanoGPT, llm.c, and the <strong>Software 3.0</strong> talk. Diffable, forkable, yours.
-      </p>
     </div>
     <div class="wordmark"><span class="dot"></span><span>Inventory<span class="ih-h">Hero</span></span></div>
     <div class="page-no">51 / 69</div>
