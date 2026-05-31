@@ -1125,12 +1125,12 @@
     <div class="body" style="display:grid; grid-template-columns: 1fr 1.2fr; gap: var(--s-8); align-items:center;">
       <img src="images/concepts/ghibli-anime/active-working-memory-the-organized-desk__v1.png" alt="The organized desk: your AI's context window" style="width:100%; aspect-ratio: 4/3; object-fit: cover; border-radius: 12px;" />
       <ul class="row-items" style="margin:0;">
-        <li><span class="num" style="color: var(--ih-orange-dark, #c54a17);">&lt;20%</span><span class="label">Sharp focus. Clear answers. Best work happens here.</span></li>
-        <li><span class="num" style="color: var(--ih-orange-dark, #c54a17);">~50%</span><span class="label">AI starts forgetting earlier turns. Quality drops.</span></li>
-        <li><span class="num" style="color: var(--ih-orange-dark, #c54a17);">80%+</span><span class="label">Major degradation. Confusion. Hallucinations.</span></li>
-        <li><span class="num">Tip</span><span class="label">Start fresh chats for new tasks. Don't drag old context in.</span></li>
-        <li><span class="num">Tip</span><span class="label">Be selective. Paste only what's relevant, not "my whole Drive."</span></li>
-        <li><span class="num">Tip</span><span class="label">Long history? Summarize first, then continue.</span></li>
+        <li class="fragment fade-up"><span class="num" style="color: var(--ih-orange-dark, #c54a17);">&lt;20%</span><span class="label">Sharp focus. Clear answers. Best work happens here.</span></li>
+        <li class="fragment fade-up"><span class="num" style="color: var(--ih-orange-dark, #c54a17);">~50%</span><span class="label">AI starts forgetting earlier turns. Quality drops.</span></li>
+        <li class="fragment fade-up"><span class="num" style="color: var(--ih-orange-dark, #c54a17);">80%+</span><span class="label">Major degradation. Confusion. Hallucinations.</span></li>
+        <li class="fragment fade-up"><span class="num">Tip</span><span class="label">Start fresh chats for new tasks. Don't drag old context in.</span></li>
+        <li class="fragment fade-up"><span class="num">Tip</span><span class="label">Be selective. Paste only what's relevant, not "my whole Drive."</span></li>
+        <li class="fragment fade-up"><span class="num">Tip</span><span class="label">Long history? Summarize first, then continue.</span></li>
       </ul>
     </div>
     <div class="wordmark"><span class="dot"></span><span>Inventory<span class="ih-h">Hero</span></span></div>
@@ -1152,9 +1152,9 @@
           When your AI starts forgetting things inside the context window, that's <span class="accent">context rot.</span>
         </p>
         <ul class="row-items" style="margin-top: var(--s-6);">
-          <li><span class="num">Why</span><span class="label">Long inputs cause attention to spread thin across the prompt.</span></li>
-          <li><span class="num">How it shows up</span><span class="label">Earlier instructions ignored. Repeated questions. Bad recall.</span></li>
-          <li><span class="num">The fix</span><span class="label">Clear the desk. Summarize. Start fresh. Move durable knowledge out of chat.</span></li>
+          <li class="fragment fade-up"><span class="num">Why</span><span class="label">Long inputs cause attention to spread thin across the prompt.</span></li>
+          <li class="fragment fade-up"><span class="num">Signs</span><span class="label">Earlier instructions ignored. Repeated questions. Bad recall.</span></li>
+          <li class="fragment fade-up"><span class="num">Fix</span><span class="label">Clear the desk. Summarize. Start fresh. Move durable knowledge out of chat.</span></li>
         </ul>
       </div>
     </div>
@@ -1180,9 +1180,9 @@
           Vector memory is like having a <span class="accent">library of files.</span>
         </p>
         <ul class="row-items" style="margin-top: var(--s-6);">
-          <li><span class="num">The shelf</span><span class="label">Every file your business has produced, indexed and stored.</span></li>
-          <li><span class="num">The vector</span><span class="label">Each file gets a coordinate, like a book's title plus its table of contents.</span></li>
-          <li><span class="num">Why it works</span><span class="label">The AI can find the right chapter without reading every book on the shelf.</span></li>
+          <li class="fragment fade-up"><span class="num">Shelf</span><span class="label">Every file your business has produced, indexed and stored.</span></li>
+          <li class="fragment fade-up"><span class="num">Vector</span><span class="label">Each file gets a coordinate, like a book's title plus its table of contents.</span></li>
+          <li class="fragment fade-up"><span class="num">Result</span><span class="label">The AI can find the right chapter without reading every book on the shelf.</span></li>
         </ul>
       </div>
     </div>
@@ -1206,10 +1206,10 @@
         The plumbing that lets your AI <span class="accent">reach into</span> your library and pull out only what it needs.
       </p>
       <ul class="row-items" style="margin-top: var(--s-6);">
-        <li><span class="num">1</span><span class="label">You ask a question.</span></li>
-        <li><span class="num">2</span><span class="label">The system searches the vector library for matching chunks.</span></li>
-        <li><span class="num">3</span><span class="label">Those chunks get pasted into the context window, just in time.</span></li>
-        <li><span class="num">4</span><span class="label">The AI answers using your data, not its training memory.</span></li>
+        <li class="fragment fade-up"><span class="num">1</span><span class="label">You ask a question.</span></li>
+        <li class="fragment fade-up"><span class="num">2</span><span class="label">The system searches the vector library for matching chunks.</span></li>
+        <li class="fragment fade-up"><span class="num">3</span><span class="label">Those chunks get pasted into the context window, just in time.</span></li>
+        <li class="fragment fade-up"><span class="num">4</span><span class="label">The AI answers using your data, not its training memory.</span></li>
       </ul>
     </div>
     <div class="wordmark"><span class="dot"></span><span>Inventory<span class="ih-h">Hero</span></span></div>
@@ -1231,9 +1231,9 @@
           RAG is the assistant who runs to the library, grabs the <span class="accent">exact right chapter</span>, and walks it back to your desk.
         </p>
         <ul class="row-items" style="margin-top: var(--s-6);">
-          <li><span class="num">No guessing</span><span class="label">The librarian uses the index. Doesn't read every book.</span></li>
-          <li><span class="num">Just in time</span><span class="label">Pages arrive on the desk only when the AI needs them.</span></li>
-          <li><span class="num">Clean exit</span><span class="label">When the task is done, the pages go back. Desk stays clear.</span></li>
+          <li class="fragment fade-up"><span class="num">Smart</span><span class="label">The librarian uses the index. Doesn't read every book.</span></li>
+          <li class="fragment fade-up"><span class="num">Fast</span><span class="label">Pages arrive on the desk only when the AI needs them.</span></li>
+          <li class="fragment fade-up"><span class="num">Clean</span><span class="label">When the task is done, the pages go back. Desk stays clear.</span></li>
         </ul>
       </div>
     </div>
