@@ -173,10 +173,16 @@ def iter_jobs(config: dict, args) -> list[dict]:
     wanted_styles = set(s.lower() for s in args.style) if args.style else None
     wanted_concepts = set(c.lower() for c in args.concept) if args.concept else None
 
-    # The validation pass: just the first scene, one take each, across every style.
+    # How many variations to actually generate this run. --first restricts to the
+    # first scene, one take each; --max-variations caps the count for a preview pass.
+    # Either way the v-numbering is stable, so a later full run reuses these files.
     if args.first:
         concepts = concepts[:1]
-        variations = 1
+        gen_variations = 1
+    elif args.max_variations > 0:
+        gen_variations = min(args.max_variations, variations)
+    else:
+        gen_variations = variations
 
     jobs = []
     for style_name, style in styles.items():
@@ -185,14 +191,13 @@ def iter_jobs(config: dict, args) -> list[dict]:
         for concept in concepts:
             if wanted_concepts and concept["name"].lower() not in wanted_concepts:
                 continue
-            for v in range(1, variations + 1):
+            for v in range(1, gen_variations + 1):
                 jobs.append(
                     {
                         "style_name": style_name,
                         "style": style,
                         "concept": concept,
                         "variation": v,
-                        "variations": variations,
                     }
                 )
     return jobs
@@ -207,7 +212,9 @@ def main() -> None:
     parser.add_argument("--size", default="2K", choices=["1K", "2K", "4K"])
     parser.add_argument("--style", action="append", default=[])
     parser.add_argument("--concept", action="append", default=[])
-    parser.add_argument("--first", action="store_true", help="Only the first concept/definition, all styles")
+    parser.add_argument("--first", action="store_true", help="Only the first scene, one take, across all styles")
+    parser.add_argument("--max-variations", type=int, default=0,
+                        help="Cap variations generated per scene this run (e.g. 1 for a 1-per-scene preview)")
     parser.add_argument("--limit", type=int, default=0)
     parser.add_argument("--force", action="store_true")
     parser.add_argument("--dry-run", action="store_true")
@@ -237,9 +244,7 @@ def main() -> None:
         style_slug = slugify(job["style_name"])
         out_dir = args.out / style_slug
         concept_slug = slugify(job["concept"]["name"])
-        # Only suffix the variation number when there is more than one take per scene.
-        suffix = f'__v{job["variation"]}' if job["variations"] > 1 else ""
-        out_path = out_dir / f"{concept_slug}{suffix}.png"
+        out_path = out_dir / f'{concept_slug}__v{job["variation"]}.png'
         prompt = build_prompt(job["style"], job["concept"], global_guidance, character, reference is not None)
 
         rel = out_path.relative_to(REPO_ROOT)
