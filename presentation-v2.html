@@ -647,43 +647,44 @@
   </div>
 </section>
 
-<!-- 2: ABOUT ME (consolidated): one page, full timeline + headshot -->
+<!-- 2: ABOUT ME - face left (appears first), timeline right (one line at a time) -->
 <section data-page="2">
   <div class="frame">
     <div class="top">
       <div class="kicker">About me</div>
       <h2 class="headline">Andrew Erickson.</h2>
     </div>
-    <div class="body">
-      <div style="display:grid; grid-template-columns: 1.4fr 1fr; gap: var(--s-8); align-items:center;">
-        <ul class="row-items" style="margin-top: var(--s-2);">
-          <li><span class="num">2010</span><span class="label">Graduated with an applied math &amp; engineering degree.</span></li>
-          <li><span class="num">2015</span><span class="label">Started selling on Etsy and Amazon.</span></li>
-          <li><span class="num">2021</span><span class="label">First 7-figure Amazon exit.</span></li>
-          <li><span class="num">2023</span><span class="label">AI Grand Prize winner · 7-Figure Seller Summit.</span></li>
-          <li><span class="num">2026</span><span class="label">AI Grand Prize winner · Kevin King's Billion Dollar Seller Summit.</span></li>
-          <li><span class="num">100+</span><span class="label">Custom-designed products launched.</span></li>
-        </ul>
-        <img src="images/me/andrew-headshot.png" alt="Andrew Erickson" style="width:100%; aspect-ratio: 1/1; object-fit: cover; border-radius: 12px; background: var(--ih-orange-soft, #fde2d3);" />
-      </div>
+    <div class="body" style="display:grid; grid-template-columns: 1fr 1.4fr; gap: var(--s-10); align-items:center;">
+      <img class="fragment fade-up" src="images/me/andrew-headshot.png" alt="Andrew Erickson" style="width:100%; aspect-ratio: 1/1; object-fit: cover; border-radius: 12px; background: var(--ih-orange-soft, #fde2d3);" />
+      <ul class="row-items" style="margin:0;">
+        <li><span class="num">2010</span><span class="label">Graduated with an applied math &amp; engineering degree.</span></li>
+        <li><span class="num">2015</span><span class="label">Started selling on Etsy and Amazon.</span></li>
+        <li><span class="num">2021</span><span class="label">First 7-figure Amazon exit.</span></li>
+        <li><span class="num">2023</span><span class="label">AI Grand Prize winner &middot; 7-Figure Seller Summit.</span></li>
+        <li><span class="num">2026</span><span class="label">AI Grand Prize winner &middot; Kevin King's Billion Dollar Seller Summit.</span></li>
+        <li><span class="num">100+</span><span class="label">Custom-designed products launched.</span></li>
+      </ul>
     </div>
     <div class="wordmark"><span class="dot"></span><span>Inventory<span class="ih-h">Hero</span></span></div>
     <div class="page-no">2 / 60</div>
   </div>
 </section>
 
-<!-- 3: Second successful exit announcement -->
+<!-- 3: Second successful exit - split layout, photo fills entire right half edge-to-edge -->
 <section data-page="3">
-  <div class="frame">
-    <div class="top">
-      <div class="kicker">Big news</div>
-      <h2 class="headline">I'm excited to announce my <span class="accent">second successful exit.</span></h2>
+  <div style="position:absolute; inset:0; display:grid; grid-template-columns: 1fr 1fr;">
+    <!-- LEFT: two-line headline -->
+    <div style="display:flex; flex-direction:column; justify-content:center; padding: 72px var(--s-12);">
+      <div class="kicker" style="margin-bottom: var(--s-4);">Big news</div>
+      <h2 class="headline" style="line-height:1.05;">
+        <span style="display:block;">I'm excited to announce&hellip;</span>
+        <span class="fragment fade-up" style="display:block; margin-top: var(--s-4);">I just had my <span class="accent">second successful exit!</span></span>
+      </h2>
+      <div class="wordmark" style="position:absolute; bottom: var(--s-8); left: var(--s-12);"><span class="dot"></span><span>Inventory<span class="ih-h">Hero</span></span></div>
     </div>
-    <div class="body" style="display:flex; align-items:center; justify-content:center;">
-      <img src="images/me/second-exit.png" alt="Andrew with his two kids in a Montessori classroom" style="max-width: 70%; max-height: 70vh; object-fit: contain; border-radius: 12px;" />
-    </div>
-    <div class="wordmark"><span class="dot"></span><span>Inventory<span class="ih-h">Hero</span></span></div>
-    <div class="page-no">3 / 60</div>
+    <!-- RIGHT: photo fills the entire right half, edge-to-edge -->
+    <img src="images/me/second-exit.png" alt="Andrew with his two kids in a Montessori classroom" style="width:100%; height:100%; object-fit: cover; object-position: center;" />
+    <div class="page-no" style="position:absolute; bottom: var(--s-8); right: var(--s-12); color: var(--paper); mix-blend-mode: difference;">3 / 60</div>
   </div>
 </section>
 
