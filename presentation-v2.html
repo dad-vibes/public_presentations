@@ -690,19 +690,19 @@
   </div>
 </section>
 
-<!-- 4: Launches I'm proudest of (kids) -->
+<!-- 4: Launches I'm proudest of (kids) - centered, photos reveal one at a time -->
 <section data-page="4">
-  <div class="frame">
-    <div class="top">
+  <div class="frame center">
+    <div class="top is-centered">
       <div class="kicker">About me · 3 of 3</div>
       <h2 class="headline small">The launches I'm most <span class="accent">proud of.</span></h2>
     </div>
-    <div class="body">
-      <div class="photo-row" style="max-width: 78%;">
+    <div class="body" style="display:flex; flex-direction:column; align-items:center; justify-content:center;">
+      <div class="photo-row" style="max-width: 62%; margin: 0 auto;">
         <!-- TODO: drop in images/me/aliza.jpg -->
-        <div class="photo photo-launch"><div class="ph-cap">Aliza · April 2020</div></div>
+        <div class="photo photo-launch fragment fade-up"><div class="ph-cap">Aliza · April 2020</div></div>
         <!-- TODO: drop in images/me/arlo.jpg -->
-        <div class="photo photo-launch"><div class="ph-cap">Arlo · September 2022</div></div>
+        <div class="photo photo-launch fragment fade-up"><div class="ph-cap">Arlo · September 2022</div></div>
       </div>
     </div>
     <div class="wordmark"><span class="dot"></span><span>Inventory<span class="ih-h">Hero</span></span></div>
@@ -722,20 +722,18 @@
         <div class="card accent-card">
           <div class="ch-label">Now shipping</div>
           <div class="ch-title">InventoryHero.ai</div>
-          <div class="ch-body" style="margin-bottom: var(--s-2);">Agentic inventory ops for Amazon. Talks to SP-API in plain English.</div>
-          <img src="images/qr/inventoryhero-signup.png" alt="Scan to sign up for InventoryHero and connect your data" style="width:120px; height:120px; display:block; border-radius:6px; background: var(--paper); padding: 4px;" />
-          <div style="font-size: 11px; color: var(--ink-700); margin-top: var(--s-1); letter-spacing:.04em;">Scan to sign up &amp; connect your data</div>
+          <div class="ch-body">Agentic inventory ops for Amazon. Talks to SP-API in plain English.</div>
         </div>
         <div class="card">
           <div class="ch-label">Hosting</div>
           <div class="ch-title">AI Agent Hackathon</div>
           <div class="ch-body">Weekly builder series for AI-native ecommerce teams.</div>
         </div>
-        <div class="card">
-          <div class="ch-label">Running</div>
-          <div class="ch-title">AI for Ecom</div>
-          <div class="ch-body" style="margin-bottom: var(--s-2);">WhatsApp group for sellers building with agents day-to-day.</div>
-          <img src="images/qr/ai-for-ecom-whatsapp.jpg" alt="Scan to join the AI for Ecom WhatsApp group" style="width:120px; height:120px; display:block; border-radius:6px;" />
+        <div class="card" style="display:flex; flex-direction:column; align-items:center; text-align:center;">
+          <img src="images/qr/ai-for-ecom-whatsapp.jpg" alt="Scan to join the free AI for Ecom community on WhatsApp" style="width:200px; height:200px; display:block; border-radius:8px; margin-bottom: var(--s-3);" />
+          <div class="ch-label" style="font-size: var(--t-100); color: var(--ih-orange-dark, #c54a17); font-weight:700; letter-spacing:.06em;">SCAN · FREE AI COMMUNITY</div>
+          <div class="ch-title" style="margin-top: var(--s-1);">AI for Ecom</div>
+          <div class="ch-body">WhatsApp group for sellers building with agents day-to-day.</div>
         </div>
       </div>
     </div>
@@ -744,109 +742,131 @@
   </div>
 </section>
 
-<!-- 6: Stakes (rewritten): 3-10 people, each with 3-10 AIs, with org-chart diagram -->
-<section data-page="6">
+<!-- 5b: AI or die transition - punchy big-title bridge -->
+<section data-page="5b">
+  <div class="hero-frame">
+    <div class="hero-top">AI or die</div>
+    <div class="hero-body">
+      <h2 class="headline mega" style="line-height:.95;">
+        <span class="fragment fade-up" style="display:block;">AI is here.</span>
+        <span class="fragment fade-up" style="display:block; margin-top: var(--s-3);">Every company must <span class="accent">use it.</span></span>
+        <span class="fragment fade-up" style="display:block; margin-top: var(--s-3);">Every employee must <span class="accent">use it.</span></span>
+      </h2>
+    </div>
+    <div style="display:flex; justify-content:space-between; align-items:end;">
+      <div class="wordmark" style="grid-row:auto;grid-column:auto;"><span class="dot"></span><span>Inventory<span class="ih-h">Hero</span></span></div>
+      <div class="page-no" style="grid-row:auto;grid-column:auto;">06 / 62</div>
+    </div>
+  </div>
+</section>
+
+<!-- 7: Stakes - big animated org chart, 3 staged fragments (company / humans / AIs) -->
+<section data-page="7">
   <div class="frame">
     <div class="top">
       <div class="kicker">The next 12 months</div>
-      <h2 class="headline">The best businesses will be <span class="accent">3-10 people</span>, each with <span class="accent">3-10 AIs.</span></h2>
+      <h2 class="headline" style="line-height: 1.08;">
+        <span style="display:block;">The best businesses will be</span>
+        <span class="fragment fade-up" style="display:block;"><span class="accent">3 to 10 people</span>,</span>
+        <span class="fragment fade-up" style="display:block;">each with <span class="accent">3 to 10 AIs.</span></span>
+      </h2>
     </div>
-    <div class="body">
-      <svg class="org-chart" viewBox="0 0 1200 460" style="width:100%; max-height: 60vh; display:block; margin-top: var(--s-3);" xmlns="http://www.w3.org/2000/svg" aria-label="Org chart: CEO with three direct reports, each surrounded by AI agents.">
+    <div class="body" style="display:flex; align-items:center; justify-content:center;">
+      <svg class="org-chart" viewBox="0 0 1200 620" style="width:100%; max-height: 70vh; display:block;" xmlns="http://www.w3.org/2000/svg" aria-label="Org chart: company at center surrounded by humans and AI bots.">
         <defs>
           <style>
-            .human { fill: var(--ink-900); }
-            .human-label { fill: var(--paper); font-family: var(--font-display); font-weight: 700; font-size: 18px; text-anchor: middle; dominant-baseline: middle; }
-            .role-label { fill: var(--ink-700); font-family: var(--font-display); font-weight: 600; font-size: 14px; text-anchor: middle; }
-            .ai-dot { fill: var(--ih-orange, #f06a2a); }
-            .conn { stroke: var(--ink-300); stroke-width: 2; fill: none; }
+            .company-circle { fill: var(--ink-900); }
+            .company-label { fill: var(--paper); font-family: var(--font-display); font-weight: 800; font-size: 30px; text-anchor: middle; dominant-baseline: middle; }
+            .human-face { fill: var(--ink-800); }
+            .human-label { fill: var(--paper); font-family: var(--font-display); font-weight: 700; font-size: 20px; text-anchor: middle; dominant-baseline: middle; }
+            .ai-bot { fill: var(--ih-orange, #f06a2a); }
+            .ai-label { fill: var(--paper); font-family: var(--font-display); font-weight: 800; font-size: 13px; text-anchor: middle; dominant-baseline: middle; }
+            .conn { stroke: var(--ink-300); stroke-width: 2.5; fill: none; }
             .ai-conn { stroke: var(--ih-orange-soft, #fde2d3); stroke-width: 1.5; fill: none; }
           </style>
         </defs>
 
-        <!-- CEO -->
-        <circle class="human" cx="600" cy="80" r="36"/>
-        <text class="human-label" x="600" y="80">CEO</text>
-        <text class="role-label" x="600" y="138">Founder</text>
-
-        <!-- CEO's AI cluster -->
-        <g>
-          <circle class="ai-dot" cx="540" cy="40" r="6"/>
-          <circle class="ai-dot" cx="660" cy="40" r="6"/>
-          <circle class="ai-dot" cx="520" cy="80" r="6"/>
-          <circle class="ai-dot" cx="680" cy="80" r="6"/>
-          <circle class="ai-dot" cx="555" cy="125" r="6"/>
-          <circle class="ai-dot" cx="645" cy="125" r="6"/>
+        <!-- Reveal 1: Company in center -->
+        <g class="fragment fade-up">
+          <circle class="company-circle" cx="600" cy="310" r="105"/>
+          <text class="company-label" x="600" y="305">YOUR</text>
+          <text class="company-label" x="600" y="335">COMPANY</text>
         </g>
 
-        <!-- Connectors CEO -> reports -->
-        <path class="conn" d="M600 116 L600 200 L220 200 L220 280"/>
-        <path class="conn" d="M600 116 L600 280"/>
-        <path class="conn" d="M600 116 L600 200 L980 200 L980 280"/>
-
-        <!-- Report 1: Marketing -->
-        <circle class="human" cx="220" cy="320" r="32"/>
-        <text class="human-label" x="220" y="320" style="font-size:15px;">Marketing</text>
-        <g>
-          <circle class="ai-dot" cx="170" cy="285" r="5"/>
-          <circle class="ai-dot" cx="270" cy="285" r="5"/>
-          <circle class="ai-dot" cx="155" cy="320" r="5"/>
-          <circle class="ai-dot" cx="285" cy="320" r="5"/>
-          <circle class="ai-dot" cx="180" cy="365" r="5"/>
-          <circle class="ai-dot" cx="260" cy="365" r="5"/>
-          <circle class="ai-dot" cx="215" cy="380" r="5"/>
-          <circle class="ai-dot" cx="225" cy="270" r="5"/>
+        <!-- Reveal 2: 5 humans orbiting the company -->
+        <g class="fragment fade-up">
+          <!-- connector lines -->
+          <line class="conn" x1="600" y1="205" x2="600" y2="120"/>
+          <line class="conn" x1="510" y1="255" x2="320" y2="180"/>
+          <line class="conn" x1="510" y1="365" x2="320" y2="440"/>
+          <line class="conn" x1="690" y1="365" x2="880" y2="440"/>
+          <line class="conn" x1="690" y1="255" x2="880" y2="180"/>
+          <!-- humans -->
+          <g><circle class="human-face" cx="600" cy="90" r="42"/><text class="human-label" x="600" y="90">CEO</text></g>
+          <g><circle class="human-face" cx="290" cy="160" r="38"/><text class="human-label" x="290" y="160" style="font-size:16px;">Marketing</text></g>
+          <g><circle class="human-face" cx="290" cy="460" r="38"/><text class="human-label" x="290" y="460">Ops</text></g>
+          <g><circle class="human-face" cx="910" cy="460" r="38"/><text class="human-label" x="910" y="460">Finance</text></g>
+          <g><circle class="human-face" cx="910" cy="160" r="38"/><text class="human-label" x="910" y="160" style="font-size:16px;">Product</text></g>
         </g>
-        <text class="role-label" x="220" y="420">Listings · Ads · TikTok</text>
 
-        <!-- Report 2: Ops -->
-        <circle class="human" cx="600" cy="320" r="32"/>
-        <text class="human-label" x="600" y="320">Ops</text>
-        <g>
-          <circle class="ai-dot" cx="550" cy="285" r="5"/>
-          <circle class="ai-dot" cx="650" cy="285" r="5"/>
-          <circle class="ai-dot" cx="535" cy="320" r="5"/>
-          <circle class="ai-dot" cx="665" cy="320" r="5"/>
-          <circle class="ai-dot" cx="560" cy="365" r="5"/>
-          <circle class="ai-dot" cx="640" cy="365" r="5"/>
-          <circle class="ai-dot" cx="595" cy="380" r="5"/>
-        </g>
-        <text class="role-label" x="600" y="420">Inventory · Suppliers · CS</text>
+        <!-- Reveal 3: AI bots clustered around each human + the company -->
+        <g class="fragment fade-up">
+          <!-- CEO's bots -->
+          <g><circle class="ai-bot" cx="540" cy="40" r="13"/><text class="ai-label" x="540" y="41">GPT</text></g>
+          <g><circle class="ai-bot" cx="660" cy="40" r="13"/><text class="ai-label" x="660" y="41">Cld</text></g>
+          <g><circle class="ai-bot" cx="510" cy="100" r="11"/><text class="ai-label" x="510" y="101" style="font-size:10px;">Gem</text></g>
+          <g><circle class="ai-bot" cx="690" cy="100" r="11"/><text class="ai-label" x="690" y="101" style="font-size:10px;">Per</text></g>
 
-        <!-- Report 3: Finance -->
-        <circle class="human" cx="980" cy="320" r="32"/>
-        <text class="human-label" x="980" y="320">Finance</text>
-        <g>
-          <circle class="ai-dot" cx="930" cy="285" r="5"/>
-          <circle class="ai-dot" cx="1030" cy="285" r="5"/>
-          <circle class="ai-dot" cx="915" cy="320" r="5"/>
-          <circle class="ai-dot" cx="1045" cy="320" r="5"/>
-          <circle class="ai-dot" cx="940" cy="365" r="5"/>
-          <circle class="ai-dot" cx="1020" cy="365" r="5"/>
-          <circle class="ai-dot" cx="975" cy="380" r="5"/>
-          <circle class="ai-dot" cx="985" cy="270" r="5"/>
+          <!-- Marketing's bots -->
+          <g><circle class="ai-bot" cx="225" cy="115" r="11"/><text class="ai-label" x="225" y="116" style="font-size:10px;">GPT</text></g>
+          <g><circle class="ai-bot" cx="355" cy="115" r="11"/><text class="ai-label" x="355" y="116" style="font-size:10px;">Cld</text></g>
+          <g><circle class="ai-bot" cx="215" cy="190" r="11"/><text class="ai-label" x="215" y="191" style="font-size:10px;">TT</text></g>
+          <g><circle class="ai-bot" cx="365" cy="190" r="11"/><text class="ai-label" x="365" y="191" style="font-size:10px;">Mid</text></g>
+
+          <!-- Ops's bots -->
+          <g><circle class="ai-bot" cx="225" cy="430" r="11"/><text class="ai-label" x="225" y="431" style="font-size:10px;">IH</text></g>
+          <g><circle class="ai-bot" cx="355" cy="430" r="11"/><text class="ai-label" x="355" y="431" style="font-size:10px;">SP</text></g>
+          <g><circle class="ai-bot" cx="215" cy="495" r="11"/><text class="ai-label" x="215" y="496" style="font-size:10px;">Cld</text></g>
+          <g><circle class="ai-bot" cx="365" cy="495" r="11"/><text class="ai-label" x="365" y="496" style="font-size:10px;">GPT</text></g>
+
+          <!-- Finance's bots -->
+          <g><circle class="ai-bot" cx="845" cy="430" r="11"/><text class="ai-label" x="845" y="431" style="font-size:10px;">GPT</text></g>
+          <g><circle class="ai-bot" cx="975" cy="430" r="11"/><text class="ai-label" x="975" y="431" style="font-size:10px;">Cld</text></g>
+          <g><circle class="ai-bot" cx="835" cy="495" r="11"/><text class="ai-label" x="835" y="496" style="font-size:10px;">Ex</text></g>
+          <g><circle class="ai-bot" cx="985" cy="495" r="11"/><text class="ai-label" x="985" y="496" style="font-size:10px;">QB</text></g>
+
+          <!-- Product's bots -->
+          <g><circle class="ai-bot" cx="845" cy="115" r="11"/><text class="ai-label" x="845" y="116" style="font-size:10px;">GPT</text></g>
+          <g><circle class="ai-bot" cx="975" cy="115" r="11"/><text class="ai-label" x="975" y="116" style="font-size:10px;">Mid</text></g>
+          <g><circle class="ai-bot" cx="835" cy="190" r="11"/><text class="ai-label" x="835" y="191" style="font-size:10px;">Cld</text></g>
+          <g><circle class="ai-bot" cx="985" cy="190" r="11"/><text class="ai-label" x="985" y="191" style="font-size:10px;">Fig</text></g>
+
+          <!-- Company's own bots -->
+          <g><circle class="ai-bot" cx="495" cy="260" r="11"/><text class="ai-label" x="495" y="261" style="font-size:10px;">IH</text></g>
+          <g><circle class="ai-bot" cx="705" cy="260" r="11"/><text class="ai-label" x="705" y="261" style="font-size:10px;">MCP</text></g>
+          <g><circle class="ai-bot" cx="495" cy="360" r="11"/><text class="ai-label" x="495" y="361" style="font-size:10px;">Cld</text></g>
+          <g><circle class="ai-bot" cx="705" cy="360" r="11"/><text class="ai-label" x="705" y="361" style="font-size:10px;">GPT</text></g>
         </g>
-        <text class="role-label" x="980" y="420">Cashflow · Pricing · P&amp;L</text>
       </svg>
     </div>
     <div class="wordmark"><span class="dot"></span><span>Inventory<span class="ih-h">Hero</span></span></div>
-    <div class="page-no">06 / 62</div>
+    <div class="page-no">07 / 62</div>
   </div>
 </section>
 
-<!-- 7: Bridge slide - "so how do we build this system?" -->
-<section data-page="7">
+<!-- 8: Bridge slide - "so how do we build that?" -->
+<section data-page="8">
   <div class="hero-frame">
     <div class="hero-top">The question</div>
     <div class="hero-body">
       <h2 class="headline hero">So how do we <span class="accent">build that?</span></h2>
-      <p class="lede" style="margin-top: var(--s-6); max-width: 36ch;">
-        10 humans, 50 agents, one company. How do they all share what they know?
+      <p class="lede fragment fade-up" style="margin-top: var(--s-6); max-width: 44ch; font-size: var(--t-300); line-height:1.25;">
+        One company. 10 humans. 50 agents. How do they all share a common <span class="accent">knowledge base?</span>
       </p>
     </div>
     <div style="display:flex; justify-content:space-between; align-items:end;">
       <div class="wordmark" style="grid-row:auto;grid-column:auto;"><span class="dot"></span><span>Inventory<span class="ih-h">Hero</span></span></div>
-      <div class="page-no" style="grid-row:auto;grid-column:auto;">07 / 62</div>
+      <div class="page-no" style="grid-row:auto;grid-column:auto;">08 / 62</div>
     </div>
   </div>
 </section>
@@ -878,7 +898,7 @@
     <div class="quote-text">
       Culture change means making explicit the things that are <span class="accent">implicit.</span>
     </div>
-    <div class="quote-attrib">
+    <div class="quote-attrib" style="font-size: var(--t-200); line-height: 1.4;">
       <strong>Satya Nadella</strong><br/>
       CEO, Microsoft
     </div>
@@ -913,13 +933,15 @@
      SECTION 1, THE PROBLEM
      ==================================================================== -->
 
-<!-- 11: SECTION HEADER -->
+<!-- 11: SECTION HEADER - "The Problem" appears first (large), headline reveals on click -->
 <section data-page="11">
   <div class="hero-frame">
     <div class="hero-top">Part 1 of 5</div>
     <div class="hero-body">
-      <div class="kicker" style="margin-bottom: var(--s-3);">The Problem</div>
-      <h2 class="headline mega">Your AIs have <span class="accent">amnesia.</span></h2>
+      <div style="font-family: var(--font-display); font-weight: 900; font-size: var(--t-700); line-height:.95; letter-spacing:-.02em; color: var(--ink-900); text-transform: none;">
+        The Problem.
+      </div>
+      <h2 class="headline mega fragment fade-up" style="margin-top: var(--s-6);">Your AIs have <span class="accent">amnesia.</span></h2>
     </div>
     <div style="display:flex; justify-content:space-between; align-items:end;">
       <div class="wordmark" style="grid-row:auto;grid-column:auto;"><span class="dot"></span><span>Inventory<span class="ih-h">Hero</span></span></div>
@@ -987,36 +1009,33 @@
   <div class="frame">
     <div class="top">
       <div class="kicker">The team problem</div>
-      <h2 class="headline">You built the perfect vault. <span class="accent">Nobody else can see it.</span></h2>
+      <h2 class="headline">You may have built the perfect vault.<br/><span class="accent fragment fade-up">However, nobody else can see it.</span></h2>
     </div>
     <div class="body">
-      <p class="lede" style="font-size: var(--t-200); max-width: 60ch; margin-bottom: var(--s-4);">
-        Maybe you've set up an Obsidian vault locally. Beautiful brand context, all in one place. Your Claude Code can read it. But...
-      </p>
       <div class="map-grid" style="max-width: 86%;">
-        <div class="from">ChatGPT</div>
-        <div class="arrow">·</div>
-        <div class="to" style="color: var(--ink-300);">Can't see it</div>
+        <div class="from fragment fade-up" data-fragment-index="1">ChatGPT</div>
+        <div class="arrow fragment fade-up" data-fragment-index="1">·</div>
+        <div class="to fragment fade-up" data-fragment-index="1" style="color: var(--ink-300);">Can't see it</div>
 
-        <div class="from">Your ops manager</div>
-        <div class="arrow">·</div>
-        <div class="to" style="color: var(--ink-300);">Can't see it</div>
+        <div class="from fragment fade-up" data-fragment-index="2">Your ops manager</div>
+        <div class="arrow fragment fade-up" data-fragment-index="2">·</div>
+        <div class="to fragment fade-up" data-fragment-index="2" style="color: var(--ink-300);">Can't see it</div>
 
-        <div class="from">Your suppliers</div>
-        <div class="arrow">·</div>
-        <div class="to" style="color: var(--ink-300);">Can't see it</div>
+        <div class="from fragment fade-up" data-fragment-index="3">Your suppliers</div>
+        <div class="arrow fragment fade-up" data-fragment-index="3">·</div>
+        <div class="to fragment fade-up" data-fragment-index="3" style="color: var(--ink-300);">Can't see it</div>
 
-        <div class="from">Your TikTok Shop VA</div>
-        <div class="arrow">·</div>
-        <div class="to" style="color: var(--ink-300);">Can't see it</div>
+        <div class="from fragment fade-up" data-fragment-index="4">Your TikTok Shop VA</div>
+        <div class="arrow fragment fade-up" data-fragment-index="4">·</div>
+        <div class="to fragment fade-up" data-fragment-index="4" style="color: var(--ink-300);">Can't see it</div>
 
-        <div class="from">Social, PPC, inventory managers</div>
-        <div class="arrow">·</div>
-        <div class="to" style="color: var(--ink-300);">Can't see it</div>
+        <div class="from fragment fade-up" data-fragment-index="5">Social, PPC, inventory managers</div>
+        <div class="arrow fragment fade-up" data-fragment-index="5">·</div>
+        <div class="to fragment fade-up" data-fragment-index="5" style="color: var(--ink-300);">Can't see it</div>
 
-        <div class="from">And every one of their AIs</div>
-        <div class="arrow">·</div>
-        <div class="to" style="color: var(--ink-300);">Can't see it</div>
+        <div class="from fragment fade-up" data-fragment-index="6">And every one of their AIs</div>
+        <div class="arrow fragment fade-up" data-fragment-index="6">·</div>
+        <div class="to fragment fade-up" data-fragment-index="6" style="color: var(--ink-300);">Can't see it</div>
       </div>
     </div>
     <div class="wordmark"><span class="dot"></span><span>Inventory<span class="ih-h">Hero</span></span></div>
@@ -1024,15 +1043,22 @@
   </div>
 </section>
 
-<!-- 15: One-liner moment - force exactly two lines, no wrapping -->
+<!-- 15: One-liner moment + InventoryHero signup QR -->
 <section data-page="15">
   <div class="hero-frame">
     <div class="hero-top">&nbsp;</div>
     <div class="hero-body">
-      <h2 class="headline hero" style="line-height: 1.05;">
-        <span style="display:block; white-space:nowrap;">You don't need a smarter AI.</span>
-        <span style="display:block; white-space:nowrap;">You need a <span class="accent">shared brain.</span></span>
-      </h2>
+      <div style="display:grid; grid-template-columns: 1fr auto; gap: var(--s-10); align-items:center;">
+        <h2 class="headline hero" style="line-height: 1.05; margin:0;">
+          <span style="display:block;">You don't need a smarter AI.</span>
+          <span style="display:block;">You need a <span class="accent">shared knowledge base.</span></span>
+        </h2>
+        <div class="fragment fade-up" style="display:flex; flex-direction:column; align-items:center; text-align:center;">
+          <img src="images/qr/inventoryhero-signup.png" alt="Scan to sign up for InventoryHero and start a shared knowledge base" style="width:220px; height:220px; display:block; border-radius:10px; background: var(--paper); padding: 8px;" />
+          <div style="font-family: var(--font-display); font-weight:800; font-size: var(--t-100); color: var(--ih-orange-dark, #c54a17); letter-spacing:.08em; margin-top: var(--s-2);">SCAN TO START YOURS</div>
+          <div style="font-size: var(--t-100); color: var(--ink-700); margin-top: 4px;">inventoryhero.ai</div>
+        </div>
+      </div>
     </div>
     <div style="display:flex; justify-content:space-between; align-items:end;">
       <div class="wordmark" style="grid-row:auto;grid-column:auto;"><span class="dot"></span><span>Inventory<span class="ih-h">Hero</span></span></div>
@@ -1063,27 +1089,25 @@
      SECTION 2, SOFT SIGN-UP
      ==================================================================== -->
 
-<!-- 17: The pitch -->
+<!-- 17: The pitch - free sign-up helps with shared memory base -->
 <section data-page="17">
   <div class="frame">
     <div class="top">
       <div class="kicker">Before we go further</div>
-      <h2 class="headline">Sign up now. Your MCP installs while we talk.</h2>
+      <h2 class="headline">A free sign-up at <span class="accent">InventoryHero</span> kickstarts your shared memory base.</h2>
     </div>
     <div class="body-7">
-      <p class="body-text" style="max-width: 42ch;">
+      <p class="body-text" style="max-width: 44ch; font-size: var(--t-200);">
         By the time we hit the live demo, you'll be writing
         <strong>your</strong> brand's handbook, not just watching me write mine.
       </p>
-      <p class="lede" style="margin-top: var(--s-4); font-size: var(--t-100);">
+      <p class="lede" style="margin-top: var(--s-4); font-size: var(--t-200);">
         No credit card. Beta access. ~3 minutes to authorize SP-API.
       </p>
     </div>
     <div class="side-5">
-      <div class="qr-block">
-        <div class="qr"></div>
-        <div class="qr-url">inventoryhero.ai/signup</div>
-      </div>
+      <img src="images/qr/inventoryhero-signup.png" alt="Scan to sign up for InventoryHero" style="width:240px; height:240px; display:block; border-radius:10px; background: var(--paper); padding: 8px;" />
+      <div class="qr-url" style="margin-top: var(--s-2);">inventoryhero.ai/signup</div>
     </div>
     <div class="wordmark"><span class="dot"></span><span>Inventory<span class="ih-h">Hero</span></span></div>
     <div class="page-no">17 / 62</div>
@@ -1109,12 +1133,39 @@
         </div>
         <div class="card accent-card">
           <div class="ch-label">03 · By minute 50</div>
-          <div class="ch-title">A working memory layer for Monday.</div>
+          <div class="ch-title">A working memory layer in 15 minutes.</div>
         </div>
       </div>
     </div>
     <div class="wordmark"><span class="dot"></span><span>Inventory<span class="ih-h">Hero</span></span></div>
     <div class="page-no">18 / 62</div>
+  </div>
+</section>
+
+<!-- 18b: SIGN-UP CTA - free trial, working shared memory by end of call -->
+<section data-page="18b">
+  <div class="frame">
+    <div class="top is-centered">
+      <div class="kicker">Sign up now</div>
+      <h2 class="headline">By the end of this call you'll have a <span class="accent">working shared memory.</span></h2>
+    </div>
+    <div class="body" style="display:grid; grid-template-columns: 1fr auto; gap: var(--s-10); align-items:center;">
+      <div>
+        <p class="body-text" style="font-size: var(--t-300); max-width: 32ch; line-height:1.2;">
+          Sign up for the free trial <strong>right now</strong>, and you'll have a working shared memory by the end of this call.
+        </p>
+        <p class="lede" style="margin-top: var(--s-4); font-size: var(--t-200); color: var(--ih-orange-dark, #c54a17); font-weight: 700;">
+          No credit card required.
+        </p>
+      </div>
+      <div style="display:flex; flex-direction:column; align-items:center; text-align:center;">
+        <img src="images/qr/inventoryhero-signup.png" alt="Scan to sign up for InventoryHero free trial" style="width:280px; height:280px; display:block; border-radius:12px; background: var(--paper); padding: 10px;" />
+        <div style="font-family: var(--font-display); font-weight:800; font-size: var(--t-200); color: var(--ih-orange-dark, #c54a17); letter-spacing:.06em; margin-top: var(--s-2);">SCAN TO START</div>
+        <div style="font-size: var(--t-100); color: var(--ink-700); margin-top: 4px;">inventoryhero.ai/signup</div>
+      </div>
+    </div>
+    <div class="wordmark"><span class="dot"></span><span>Inventory<span class="ih-h">Hero</span></span></div>
+    <div class="page-no">19 / 62</div>
   </div>
 </section>
 
@@ -1137,34 +1188,42 @@
   </div>
 </section>
 
-<!-- 20: Mapping brain to AI -->
+<!-- 20: The home office analogy - intro + map. Image slot: WFH executive at desk. -->
 <section data-page="20">
   <div class="frame">
     <div class="top">
       <div class="kicker">Don't think "vector embeddings"</div>
-      <h2 class="headline">Think about how <span class="accent">you</span> remember.</h2>
+      <h2 class="headline">Think of your AI as a <span class="accent">consultant in a home office.</span></h2>
     </div>
-    <div class="body">
-      <div class="map-grid" style="max-width: 80%;">
-        <div class="from">Working memory</div>
+    <div class="body" style="display:grid; grid-template-columns: 1fr 1fr; gap: var(--s-8); align-items:start;">
+      <!-- TODO: drop conceptual art at images/concept/wfh-executive-baseline.jpg
+           Scene: clean, bright, modern home office. Executive in business-casual
+           at a pristine minimalist desk, smiling, ready to work. -->
+      <div class="photo photo-launch" style="aspect-ratio: 4/3; width:100%;"><div class="ph-cap">WFH consultant · ready for work</div></div>
+      <div class="map-grid" style="max-width: 100%;">
+        <div class="from">The desk</div>
         <div class="arrow">→</div>
-        <div class="to">Context window</div>
+        <div class="to">Working memory · context window</div>
 
-        <div class="from">Long-term memory</div>
+        <div class="from">The bookshelf</div>
         <div class="arrow">→</div>
-        <div class="to">Vector DB / RAG</div>
+        <div class="to">Vector DB · long-term memory</div>
 
-        <div class="from">Notebook on desk</div>
+        <div class="from">The librarian</div>
+        <div class="arrow">→</div>
+        <div class="to">RAG · fetches the right chapter</div>
+
+        <div class="from">One-pagers on the desk</div>
         <div class="arrow">→</div>
         <div class="to">Markdown files</div>
 
-        <div class="from">Calling a friend</div>
+        <div class="from">The company handbook</div>
         <div class="arrow">→</div>
-        <div class="to">MCP tool call</div>
+        <div class="to">LLM wiki · the digest</div>
       </div>
     </div>
     <div class="wordmark"><span class="dot"></span><span>Inventory<span class="ih-h">Hero</span></span></div>
-    <div class="page-no">20 / 62</div>
+    <div class="page-no">21 / 62</div>
   </div>
 </section>
 
@@ -1257,7 +1316,7 @@
   </div>
 </section>
 
-<!-- 26: The hierarchy table, high data-ink ratio -->
+<!-- 26: Memory hierarchy - home-office storyboard, 4 frames. Image slots below. -->
 <section data-page="26">
   <div class="frame">
     <div class="top">
@@ -1265,45 +1324,58 @@
       <h2 class="headline small">Four tiers. <span class="accent">Only one works for a team.</span></h2>
     </div>
     <div class="body">
-      <table class="data-table">
-        <thead>
-          <tr>
-            <th style="width: 22%;">Tier</th>
-            <th style="width: 28%;">Implementation</th>
-            <th style="width: 22%;">Good for</th>
-            <th style="width: 28%;">Where it breaks</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Ephemeral</td>
-            <td>Copy-paste, system prompts</td>
-            <td>One-off chats</td>
-            <td>Manual every time</td>
-          </tr>
-          <tr>
-            <td>Siloed Static</td>
-            <td>Obsidian, LogSeq on laptop</td>
-            <td>Solo founders</td>
-            <td>Invisible to the team</td>
-          </tr>
-          <tr>
-            <td>Vector Space</td>
-            <td>Pinecone, Chroma RAG</td>
-            <td>Engineers</td>
-            <td>Humans can't read it</td>
-          </tr>
-          <tr class="row-accent">
-            <td>Dynamic Shared</td>
-            <td>Team MCP + cloud markdown</td>
-            <td>Real businesses</td>
-            <td>Needs scaffolding</td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="chunks row-4" style="margin-top: var(--s-3);">
+
+        <!-- Tier 1: Context rot -->
+        <div class="card" style="display:flex; flex-direction:column; padding-bottom: var(--s-4);">
+          <!-- TODO: images/concept/home-office-1-context-rot.jpg
+               Frustrated executive at desk buried in messy paper stacks, post-its
+               spilling over keyboard. Label: "Context Limit & Context Rot." -->
+          <div class="photo photo-launch" style="aspect-ratio: 4/3; width:100%; margin-bottom: var(--s-3);"><div class="ph-cap">Context rot</div></div>
+          <div class="ch-label">Tier 1 · Ephemeral</div>
+          <div class="ch-title" style="font-size: var(--t-300);">A messy desk.</div>
+          <div class="ch-body" style="margin-top: var(--s-2);">Cram everything in, and the AI starts missing details right in front of its face.</div>
+        </div>
+
+        <!-- Tier 2: Vector + RAG -->
+        <div class="card" style="display:flex; flex-direction:column; padding-bottom: var(--s-4);">
+          <!-- TODO: images/concept/home-office-2-vector-rag.jpg
+               Same office, zoomed out. Floor-to-ceiling bookshelf behind executive.
+               A sharp assistant (RAG) pulls a single chapter. Magnifying glass
+               callout on a glowing Table of Contents pointing to a chapter. -->
+          <div class="photo photo-launch" style="aspect-ratio: 4/3; width:100%; margin-bottom: var(--s-3);"><div class="ph-cap">Vector + RAG</div></div>
+          <div class="ch-label">Tier 2 · Vector + RAG</div>
+          <div class="ch-title" style="font-size: var(--t-300);">A library + librarian.</div>
+          <div class="ch-body" style="margin-top: var(--s-2);">A smart index finds the exact chapter, hands it over, and discards it when done.</div>
+        </div>
+
+        <!-- Tier 3: Local vault -->
+        <div class="card" style="display:flex; flex-direction:column; padding-bottom: var(--s-4);">
+          <!-- TODO: images/concept/home-office-3-local-vault.jpg
+               One executive with a brilliant private leather-bound notebook,
+               but the rest of the team's desks are empty / disconnected. -->
+          <div class="photo photo-launch" style="aspect-ratio: 4/3; width:100%; margin-bottom: var(--s-3);"><div class="ph-cap">Local vault</div></div>
+          <div class="ch-label">Tier 3 · Local vault</div>
+          <div class="ch-title" style="font-size: var(--t-300);">A great private notebook.</div>
+          <div class="ch-body" style="margin-top: var(--s-2);">Beautiful for you. Invisible to your team and every AI not sitting at your desk.</div>
+        </div>
+
+        <!-- Tier 4: LLM wiki / shared handbook -->
+        <div class="card accent-card" style="display:flex; flex-direction:column; padding-bottom: var(--s-4);">
+          <!-- TODO: images/concept/home-office-4-shared-handbook.jpg
+               Split-screen of 3-4 home offices. Each desk holds the SAME glowing,
+               pulsing holographic Employee Handbook. Data lines from a central
+               cloud hub update them simultaneously. -->
+          <div class="photo photo-launch" style="aspect-ratio: 4/3; width:100%; margin-bottom: var(--s-3);"><div class="ph-cap">Shared handbook</div></div>
+          <div class="ch-label">Tier 4 · LLM wiki</div>
+          <div class="ch-title" style="font-size: var(--t-300);">One living handbook.</div>
+          <div class="ch-body" style="margin-top: var(--s-2);">An AI librarian updates one 50-page digest. Every human and every AI reads it.</div>
+        </div>
+
+      </div>
     </div>
     <div class="wordmark"><span class="dot"></span><span>Inventory<span class="ih-h">Hero</span></span></div>
-    <div class="page-no">26 / 62</div>
+    <div class="page-no">27 / 62</div>
   </div>
 </section>
 
@@ -1374,44 +1446,7 @@
   </div>
 </section>
 
-<!-- 30: One-liner -->
-<section data-page="30">
-  <div class="hero-frame">
-    <div class="hero-top">&nbsp;</div>
-    <div class="hero-body">
-      <h2 class="headline hero">Local vaults are the <span class="accent">PDFs</span> of AI memory.<br/>It's time to kill them.</h2>
-    </div>
-    <div style="display:flex; justify-content:space-between; align-items:end;">
-      <div class="wordmark" style="grid-row:auto;grid-column:auto;"><span class="dot"></span><span>Inventory<span class="ih-h">Hero</span></span></div>
-      <div class="page-no" style="grid-row:auto;grid-column:auto;">30 / 62</div>
-    </div>
-  </div>
-</section>
-
-<!-- 31: 5 humans, 50 AIs, 1 shared brain -->
-<section data-page="31">
-  <div class="frame center">
-    <div class="top">
-      <div class="kicker">The org chart · 18 months from now</div>
-    </div>
-    <div class="body" style="display:flex; flex-direction:column; justify-content:center; align-items:start; gap: var(--s-6);">
-      <div style="display:flex; align-items:baseline; gap: var(--s-3);">
-        <span style="font-family:var(--font-display); font-weight:900; font-size: var(--t-700); color: var(--ink-900); line-height:1;">5</span>
-        <span style="font-family:var(--font-display); font-weight:700; font-size: var(--t-400); color: var(--ink-500);">humans</span>
-      </div>
-      <div style="display:flex; align-items:baseline; gap: var(--s-3);">
-        <span style="font-family:var(--font-display); font-weight:900; font-size: var(--t-700); color: var(--ink-900); line-height:1;">50</span>
-        <span style="font-family:var(--font-display); font-weight:700; font-size: var(--t-400); color: var(--ink-500);">AIs</span>
-      </div>
-      <div style="display:flex; align-items:baseline; gap: var(--s-3);">
-        <span style="font-family:var(--font-display); font-weight:900; font-size: var(--t-700); color: var(--ih-orange-dark); line-height:1;">1</span>
-        <span style="font-family:var(--font-display); font-weight:700; font-size: var(--t-400); color: var(--ih-orange-dark);">shared brain</span>
-      </div>
-    </div>
-    <div class="wordmark"><span class="dot"></span><span>Inventory<span class="ih-h">Hero</span></span></div>
-    <div class="page-no">31 / 62</div>
-  </div>
-</section>
+<!-- 30 + 31 removed per voice note: "PDFs of AI memory" + "5 humans / 50 AIs / 1 shared brain" -->
 
 <!-- 32: QUOTE #4, Jensen Huang -->
 <section data-page="32">
