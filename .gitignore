@@ -1,0 +1,7 @@
+# Secrets — never commit the Gemini API key
+.env
+*.env
+
+# Python
+__pycache__/
+*.pyc
